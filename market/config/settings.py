@@ -60,6 +60,25 @@ ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
+        "BACKEND": "django_jinja.backend.Jinja2",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            # django-jinja defaults
+            "match_extension": ".jinja2",
+            "match_regex": None,
+            "app_dirname": "templates",
+            "constants": {},
+            "globals": {},
+            "context_processors": [
+                # "context_processors.categories_context.categories",
+                # "context_processors.cart_context.cart",
+                # "context_processors.shop_views_context.load_settings",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+    {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
