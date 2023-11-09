@@ -159,4 +159,3 @@ cython_debug/
 # directory with media files
 
 media/
-static/
