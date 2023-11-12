@@ -1,0 +1,387 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "iPhone",
+      "description": "",
+      "number_of_purchases": 100,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 10
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Samsung",
+      "description": "",
+      "number_of_purchases": 0,
+      "date_of_publication": "2023-11-12T17:56:06Z",
+      "category_id": 10
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Xiaomi",
+      "description": "",
+      "number_of_purchases": 50,
+      "date_of_publication": "2023-11-12T12:00:00Z",
+      "category_id": 10
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Canon",
+      "description": "",
+      "number_of_purchases": 30,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 5
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Nixon",
+      "description": "",
+      "number_of_purchases": 25,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 5
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "LG",
+      "description": "",
+      "number_of_purchases": 24,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 3
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+      "name": "Gorenje",
+      "description": "",
+      "number_of_purchases": 27,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+      "name": "Bosch",
+      "description": "",
+      "number_of_purchases": 33,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+      "name": "Hansa",
+      "description": "",
+      "number_of_purchases": 15,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+      "name": "De'Longhi",
+      "description": "",
+      "number_of_purchases": 11,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 9
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 11,
+    "fields": {
+      "name": "Kitfort",
+      "description": "",
+      "number_of_purchases": 15,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 9
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 12,
+    "fields": {
+      "name": "HP",
+      "description": "",
+      "number_of_purchases": 17,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 12
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 13,
+    "fields": {
+      "name": "Dell",
+      "description": "",
+      "number_of_purchases": 19,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 12
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 14,
+    "fields": {
+      "name": "Acer",
+      "description": "",
+      "number_of_purchases": 34,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 15,
+    "fields": {
+      "name": "Apple MacBook",
+      "description": "",
+      "number_of_purchases": 28,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 16,
+    "fields": {
+      "name": "ASUS",
+      "description": "",
+      "number_of_purchases": 24,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 17,
+    "fields": {
+      "name": "Olympus",
+      "description": "",
+      "number_of_purchases": 5,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 18,
+    "fields": {
+      "name": "Sony",
+      "description": "",
+      "number_of_purchases": 7,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 19,
+    "fields": {
+      "name": "Fujifilm",
+      "description": "",
+      "number_of_purchases": 4,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 20,
+    "fields": {
+      "name": "Pentak",
+      "description": "",
+      "number_of_purchases": 3,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 7
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 21,
+    "fields": {
+      "name": "Electrolux",
+      "description": "",
+      "number_of_purchases": 56,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 22,
+    "fields": {
+      "name": "Hotpoint-Ariston",
+      "description": "",
+      "number_of_purchases": 55,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 23,
+    "fields": {
+      "name": "Redmond",
+      "description": "",
+      "number_of_purchases": 77,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 24,
+    "fields": {
+      "name": "Polaris",
+      "description": "",
+      "number_of_purchases": 66,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 25,
+    "fields": {
+      "name": "Panasonic",
+      "description": "",
+      "number_of_purchases": 12,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 8
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 26,
+    "fields": {
+      "name": "GoPro",
+      "description": "",
+      "number_of_purchases": 45,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 8
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 27,
+    "fields": {
+      "name": "Dyson",
+      "description": "",
+      "number_of_purchases": 56,
+      "date_of_publication": "2023-11-12T22:54:52Z",
+      "category_id": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 28,
+    "fields": {
+      "name": "DEXP",
+      "description": "",
+      "number_of_purchases": 3,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 29,
+    "fields": {
+      "name": "Haier",
+      "description": "",
+      "number_of_purchases": 7,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 30,
+    "fields": {
+      "name": "Indesit",
+      "description": "",
+      "number_of_purchases": 2,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 31,
+    "fields": {
+      "name": "Toshiba",
+      "description": "",
+      "number_of_purchases": 1,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 32,
+    "fields": {
+      "name": "Ballu",
+      "description": "",
+      "number_of_purchases": 25,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 33,
+    "fields": {
+      "name": "Philips",
+      "description": "",
+      "number_of_purchases": 20,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 34,
+    "fields": {
+      "name": "Moulinex",
+      "description": "",
+      "number_of_purchases": 22,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 35,
+    "fields": {
+      "name": "Smeg",
+      "description": "",
+      "number_of_purchases": 17,
+      "date_of_publication": "2023-11-12T23:05:19Z",
+      "category_id": 3
+    }
+  }
+]

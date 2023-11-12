@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from datetime import datetime
+
 
 class Category(models.Model):
     """Категория"""
@@ -15,7 +17,7 @@ class Category(models.Model):
     def description_short(self) -> str:
         if len(self.description) < 50:
             return self.description
-        return self.description[:48] + "..."
+        return self.description[:50] + "..."
 
     def __str__(self) -> str:
         return f"{self.name}"
@@ -27,15 +29,15 @@ class Product(models.Model):
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
     description = models.TextField(verbose_name=_("описание"), blank=True)
     number_of_purchases = models.IntegerField(default=0)
-    date_of_publication = models.DateField()
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    date_of_publication = models.DateTimeField(default=datetime.now())
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     details = models.ManyToManyField("Detail", through="ProductDetail", verbose_name=_("характеристики"))
 
     @property
     def description_short(self) -> str:
         if len(self.description) < 50:
             return self.description
-        return self.description[:48] + "..."
+        return self.description[:50] + "..."
 
     def __str__(self) -> str:
         return f"{self.name}"
@@ -51,16 +53,16 @@ class ProductDetail(models.Model):
     """Значение свойства продукта"""
 
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    detail = models.ForeignKey(Detail, on_delete=models.CASCADE, verbose_name=_("характеристика"))
+    detail_id = models.ForeignKey(Detail, on_delete=models.CASCADE, verbose_name=_("характеристика"), default=0)
     value = models.CharField(max_length=128, verbose_name=_("значение"))
 
     class Meta:
-        constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
+        constraints = [models.UniqueConstraint("product_id", "detail_id", name="unique_detail_for_product")]
 
 
 class ProductImage(models.Model):
     """Фотографии продукта"""
 
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(verbose_name=_("изображение"), blank=True)
+    # image = models.ImageField(verbose_name=_("изображение"), blank=True)
     parent_id = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
