@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "django_jinja",
     "products",
     "shops",
-    "categories.apps.CategoriesConfig",
 ]
 
 MIDDLEWARE = [

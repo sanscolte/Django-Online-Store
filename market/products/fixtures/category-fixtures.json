@@ -1,40 +1,7 @@
 [
   {
-    "model": "categories.category",
+    "model": "products.category",
     "pk": 1,
-    "fields": {
-      "name": "Смартфоны",
-      "description": "",
-      "parent_id": null,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 2,
-    "fields": {
-      "name": "Ноутбуки",
-      "description": "",
-      "parent_id": null,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 3,
-    "fields": {
-      "name": "Компьютеры",
-      "description": "",
-      "parent_id": null,
-      "is_active": false,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 4,
     "fields": {
       "name": "Крупная бытовая техника",
       "description": "",
@@ -44,74 +11,8 @@
     }
   },
   {
-    "model": "categories.category",
-    "pk": 5,
-    "fields": {
-      "name": "Холодильники",
-      "description": "",
-      "parent_id": 4,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 6,
-    "fields": {
-      "name": "Кухонные плиты",
-      "description": "",
-      "parent_id": 4,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 7,
-    "fields": {
-      "name": "Фотоаппараты",
-      "description": "",
-      "parent_id": null,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 8,
-    "fields": {
-      "name": "Цифровые фотоаппараты",
-      "description": "",
-      "parent_id": 7,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 9,
-    "fields": {
-      "name": "Зеркальные фотоаппараты",
-      "description": "",
-      "parent_id": 7,
-      "is_active": true,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 10,
-    "fields": {
-      "name": "Видеотехника",
-      "description": "",
-      "parent_id": null,
-      "is_active": false,
-      "sort_index": ""
-    }
-  },
-  {
-    "model": "categories.category",
-    "pk": 11,
+    "model": "products.category",
+    "pk": 2,
     "fields": {
       "name": "Мелкая бытовая техника",
       "description": "",
@@ -121,13 +22,112 @@
     }
   },
   {
-    "model": "categories.category",
-    "pk": 12,
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+      "name": "Холодильники",
+      "description": "",
+      "parent_id": 1,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 4,
+    "fields": {
+      "name": "Кухонные плиты",
+      "description": "",
+      "parent_id": 1,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 5,
+    "fields": {
+      "name": "Фотоаппараты",
+      "description": "",
+      "parent_id": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 6,
+    "fields": {
+      "name": "Цифровые фотоаппараты",
+      "description": "",
+      "parent_id": 5,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 7,
+    "fields": {
+      "name": "Зеркальные фотоаппараты",
+      "description": "",
+      "parent_id": 5,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 8,
+    "fields": {
+      "name": "Видеотехника",
+      "description": "",
+      "parent_id": null,
+      "is_active": false,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 9,
     "fields": {
       "name": "Кофеварки",
       "description": "",
-      "parent_id": 11,
+      "parent_id": 2,
       "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 10,
+    "fields": {
+      "name": "Смартфоны",
+      "description": "",
+      "parent_id": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 11,
+    "fields": {
+      "name": "Ноутбуки",
+      "description": "",
+      "parent_id": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 12,
+    "fields": {
+      "name": "Компьютеры",
+      "description": "",
+      "parent_id": null,
+      "is_active": false,
       "sort_index": ""
     }
   }
