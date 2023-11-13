@@ -14,9 +14,9 @@ class Shop(models.Model):
         related_name="shops",
         verbose_name=_("товары в магазине"),
     )
-    description = models.CharField(max_length=1000, verbose_name="описание")
+    description = models.CharField(max_length=1000, verbose_name=_("описание"))
     image = models.ImageField(
-        upload_to=shop_preivew_directory_path, blank=True, null=True, verbose_name="изображение товара"
+        upload_to=shop_preivew_directory_path, blank=True, null=True, verbose_name=_("изображение товара")
     )
     phone = models.CharField(max_length=128, verbose_name=_("телефон"))
     address = models.CharField(max_length=512, verbose_name=_("адрес"))
