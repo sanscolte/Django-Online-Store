@@ -6,6 +6,8 @@ from products.models import Product, Detail
 class ShopModelTest(TestCase):
     """Класс тестов модели Магазин"""
 
+    fixtures = ["fixtures/04-shops.json"]
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -39,6 +41,10 @@ class ShopModelTest(TestCase):
         shop = ShopModelTest.shop
         max_length = shop._meta.get_field("name").max_length
         self.assertEqual(max_length, 512)
+
+    def test_fixtures_len(self):
+        fix_len = len(Shop.objects.all())
+        self.assertEqual(fix_len, 11)
 
 
 class OfferModelTest(TestCase):
