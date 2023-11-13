@@ -14,13 +14,13 @@ class Shop(models.Model):
         related_name="shops",
         verbose_name=_("товары в магазине"),
     )
-    description = models.CharField(max_length=1000, verbose_name="описание", default="SOME DESCRIPTION")
+    description = models.CharField(max_length=1000, verbose_name="описание")
     image = models.ImageField(
         upload_to=shop_preivew_directory_path, blank=True, null=True, verbose_name="изображение товара"
     )
-    phone = models.CharField(max_length=128, verbose_name=_("телефон"), default="SOME PHONE")
-    address = models.CharField(max_length=512, verbose_name=_("адрес"), default="SOME ADDRES")
-    email = models.EmailField(verbose_name=_("email"), default="SOME EMAIL")
+    phone = models.CharField(max_length=128, verbose_name=_("телефон"))
+    address = models.CharField(max_length=512, verbose_name=_("адрес"))
+    email = models.EmailField(verbose_name=_("email"))
 
 
 class Offer(models.Model):
