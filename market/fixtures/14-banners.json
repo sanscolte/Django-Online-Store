@@ -1,0 +1,11 @@
+[
+  {
+    "model": "products.banner",
+    "pk": 10,
+    "fields": {
+      "product": 12,
+      "image": "banners/None/preview/slider.png",
+      "is_active": true
+    }
+  }
+]
