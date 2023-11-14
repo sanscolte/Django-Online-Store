@@ -9,7 +9,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"), unique=True)
     description = models.TextField(verbose_name=_("описание"), blank=True)
-    parent_id = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     sort_index = models.CharField(verbose_name=_("индекс сортировки"), blank=True)
 
@@ -28,10 +28,13 @@ class Product(models.Model):
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
     description = models.TextField(verbose_name=_("описание"), blank=True)
-    number_of_purchases = models.IntegerField(default=0)
     date_of_publication = models.DateTimeField(default=datetime.now())
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     details = models.ManyToManyField("Detail", through="ProductDetail", verbose_name=_("характеристики"))
+
+    @property
+    def num_of_purchases(self):
+        return 0
 
     @property
     def description_short(self) -> str:
@@ -52,17 +55,17 @@ class Detail(models.Model):
 class ProductDetail(models.Model):
     """Значение свойства продукта"""
 
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    detail_id = models.ForeignKey(Detail, on_delete=models.CASCADE, verbose_name=_("характеристика"), default=0)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    detail = models.ForeignKey(Detail, on_delete=models.CASCADE, verbose_name=_("характеристика"), default=0)
     value = models.CharField(max_length=128, verbose_name=_("значение"))
 
     class Meta:
-        constraints = [models.UniqueConstraint("product_id", "detail_id", name="unique_detail_for_product")]
+        constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
 
 
 class ProductImage(models.Model):
     """Фотографии продукта"""
 
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     # image = models.ImageField(verbose_name=_("изображение"), blank=True)
-    parent_id = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)

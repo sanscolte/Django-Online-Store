@@ -1,0 +1,352 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "iPhone",
+      "description": "Ut cursus velit vitae massa fringilla feugiat. Pellentesque ut placerat magna, non malesuada lacus. Cras rutrum neque mi, vel rhoncus erat sodales nec. Quisque sit amet erat ac erat ornare consequat nec nec sem. Nulla facilisi. Quisque neque leo, sodales ac condimentum non, venenatis ac metus. Morbi venenatis accumsan finibus. Nam fermentum leo a finibus consectetur. Aliquam lacinia placerat enim et feugiat. Proin porta sollicitudin purus, quis vulputate leo aliquet sodales. Fusce ac risus mi.",
+      "date_of_publication": "2023-08-14T06:00:00Z",
+      "category": 10
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Samsung",
+      "description": "Nullam sit amet ipsum iaculis ipsum convallis malesuada. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "date_of_publication": "2023-04-04T18:00:00Z",
+      "category": 10
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Xiaomi",
+      "description": "Maecenas bibendum, metus quis condimentum efficitur, felis nisi auctor sem, non tristique nunc felis at enim. Maecenas est erat, congue eu imperdiet sed, tincidunt vel tellus. Curabitur egestas mauris et justo vehicula, vel tristique lorem tempus. Nulla facilisi. Nulla facilisi. Nulla aliquet pretium pulvinar. Nam et massa sed massa posuere viverra. Cras pellentesque, dui porttitor tempus gravida, diam ante luctus tellus, eget aliquam turpis mi sed dui. Vestibulum non bibendum ante. In eu cursus libero, cursus ornare massa.",
+      "date_of_publication": "2023-06-21T13:04:24Z",
+      "category": 10
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Canon",
+      "description": "Integer tortor arcu, tempus vel justo eu, commodo mollis quam. Sed eu eros elit. Aenean cursus, odio sit amet malesuada tempus, ante metus eleifend erat, vitae aliquet ipsum elit lobortis massa. Donec id nunc suscipit, rhoncus justo sit amet, scelerisque nisl. Sed vel consequat massa. Quisque a libero eu tortor suscipit facilisis. Pellentesque vel mollis libero, ut lacinia risus.",
+      "date_of_publication": "2023-03-08T14:33:50Z",
+      "category": 5
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Nixon",
+      "description": "Phasellus finibus enim sapien, mattis pellentesque lectus pulvinar a. Mauris tincidunt, neque ac tempor pellentesque, tellus ligula dapibus nisl, sodales pellentesque diam ante tristique massa. Integer sagittis enim eget lacus sagittis finibus. Aenean gravida leo eget dolor efficitur ullamcorper eu nec odio. In quis efficitur nisl. Fusce scelerisque euismod odio in ullamcorper. Fusce volutpat sit amet diam sit amet rutrum. Maecenas in ante at ligula fringilla tincidunt eu id nibh. Quisque at justo vitae dui convallis volutpat at vitae diam. Curabitur ut nisi posuere ligula pellentesque aliquam gravida non elit. Proin vulputate eget eros et dignissim. Vivamus lorem lectus, faucibus in ultricies et, convallis sed orci. Sed in sem non enim vulputate semper. Sed magna nibh, fringilla eu fermentum id, ornare id turpis. Donec libero risus, luctus eget leo ut, vehicula euismod massa.",
+      "date_of_publication": "2023-01-24T11:33:50Z",
+      "category": 5
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "LG",
+      "description": "Praesent nec ex leo. Praesent commodo odio turpis.",
+      "date_of_publication": "2023-10-16T12:33:50Z",
+      "category": 3
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+      "name": "Gorenje",
+      "description": "In fringilla porta lectus at vehicula.",
+      "date_of_publication": "2023-09-08T04:20:10Z",
+      "category": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+      "name": "Bosch",
+      "description": "Nunc tincidunt malesuada ornare. In rhoncus, ante sit amet maximus condimentum, sem erat tempor magna, at porttitor nisl leo nec metus. Donec eleifend pretium turpis non sollicitudin. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris porttitor sem turpis, vitae finibus nunc accumsan ut. In sed urna ut enim fermentum viverra vitae sed odio. Phasellus id ante nisl. Curabitur vel massa massa. Fusce condimentum urna sed accumsan auctor.",
+      "date_of_publication": "2023-11-05T11:33:50Z",
+      "category": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+      "name": "Hansa",
+      "description": "Curabitur vehicula ornare orci ut molestie. Proin ac enim blandit, vehicula nisl nec, euismod tellus. Phasellus quis ligula enim. Aenean laoreet erat tortor. Integer risus purus, fringilla accumsan felis nec, ultricies accumsan eros. Duis aliquam blandit orci, id fermentum ligula dictum a. Suspendisse vehicula tellus in lectus convallis tempor. Proin vel dictum justo, eget efficitur risus. Quisque efficitur augue quis nunc pharetra, et ultricies orci molestie. Sed viverra dolor ante, ut porta turpis eleifend ut. Donec rhoncus sem et urna vestibulum, a ullamcorper tortor porttitor. Aenean et risus ex. Proin sollicitudin scelerisque erat. Etiam vel arcu justo.",
+      "date_of_publication": "2023-11-12T14:33:50Z",
+      "category": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+      "name": "De'Longhi",
+      "description": "Ut pellentesque lacinia ligula, in condimentum arcu tincidunt sit amet. Proin ullamcorper vehicula urna non placerat. Maecenas a feugiat est. Proin in purus in lacus porttitor rhoncus ac nec lorem. Nullam malesuada luctus odio vehicula ultricies. Donec pellentesque dui purus, et venenatis neque finibus quis. Vivamus elit velit, imperdiet et lacinia sed, lacinia sed metus. Vestibulum et justo et ex tincidunt elementum.",
+      "date_of_publication": "2023-08-07T23:33:50Z",
+      "category": 9
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 11,
+    "fields": {
+      "name": "Kitfort",
+      "description": "Phasellus fringilla quam sit amet mauris gravida porttitor.",
+      "date_of_publication": "2023-06-06T21:33:50Z",
+      "category": 9
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 12,
+    "fields": {
+      "name": "HP",
+      "description": "Maecenas euismod ex quis erat suscipit commodo. Pellentesque aliquam metus diam, a imperdiet leo finibus non. Sed at nisl hendrerit, imperdiet sem in, aliquam est. Donec lobortis porttitor vehicula. Nam posuere nec urna ac sagittis. Aenean tempor molestie interdum. Vestibulum turpis urna, fermentum at nulla et, egestas sollicitudin leo. Fusce consectetur eget lectus sit amet volutpat. Nullam gravida enim in leo venenatis hendrerit. Suspendisse facilisis lacus ex, vitae egestas erat cursus vel. Mauris ac tortor eu odio fringilla auctor. Cras in libero ut tortor mollis rhoncus ac eu lectus. Ut eu lacus consectetur, maximus purus nec, vestibulum odio. Integer id hendrerit ipsum, id porttitor magna.",
+      "date_of_publication": "2022-10-04T14:33:50Z",
+      "category": 12
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 13,
+    "fields": {
+      "name": "Dell",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque placerat eros, et pellentesque elit gravida vel. Duis malesuada facilisis ante, vitae ullamcorper sem hendrerit vel. Praesent sed magna tortor.",
+      "date_of_publication": "2023-11-05T01:33:50Z",
+      "category": 12
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 14,
+    "fields": {
+      "name": "Acer",
+      "description": "Phasellus non hendrerit velit.",
+      "date_of_publication": "2023-11-05T22:33:50Z",
+      "category": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 15,
+    "fields": {
+      "name": "Apple MacBook",
+      "description": "",
+      "date_of_publication": "2022-06-08T14:33:50Z",
+      "category": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 16,
+    "fields": {
+      "name": "ASUS",
+      "description": "Donec facilisis, quam sit amet convallis pulvinar, enim massa luctus mi, non suscipit elit tortor vel sapien. Mauris suscipit velit id vehicula sagittis. Nulla aliquam risus mauris, a finibus neque blandit nec. Suspendisse eleifend neque lorem, ac dignissim leo interdum sed. Praesent quis sem sed nunc porta imperdiet. Aenean malesuada vestibulum tincidunt. In sodales augue tellus, eget suscipit sapien eleifend placerat. Donec sit amet laoreet lacus. Phasellus ultrices magna eget orci consectetur iaculis. Nullam venenatis, erat maximus mattis volutpat, leo orci vehicula nisl, interdum faucibus sem turpis eu purus. Integer mollis metus sit amet placerat sollicitudin. Maecenas mattis massa orci, in blandit lacus faucibus quis. Nullam nec hendrerit leo. Fusce ut varius neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
+      "date_of_publication": "2023-08-10T12:33:50Z",
+      "category": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 17,
+    "fields": {
+      "name": "Olympus",
+      "description": "Nulla facilisi.",
+      "date_of_publication": "2023-07-07T14:33:50Z",
+      "category": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 18,
+    "fields": {
+      "name": "Sony",
+      "description": "Nullam tortor mi, volutpat nec tortor vel, fermentum dictum dolor. Curabitur non lacus aliquam, pulvinar elit eget, commodo eros. Nunc eget erat ut massa bibendum volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sodales porta lectus id consectetur. Donec porta mattis molestie. Sed ut massa quis nisl vestibulum viverra. Vestibulum congue elit fringilla cursus placerat. Aliquam viverra efficitur leo, sed sagittis leo elementum quis.",
+      "date_of_publication": "2022-06-08T07:33:50Z",
+      "category": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 19,
+    "fields": {
+      "name": "Fujifilm",
+      "description": "In hac habitasse platea dictumst. Maecenas cursus pellentesque nisi, id viverra libero malesuada sed. Nulla porttitor metus non eros hendrerit congue. Mauris lacinia vulputate lacus, quis consequat elit ornare eu. Fusce sit amet libero porta, scelerisque libero vitae, volutpat leo. Phasellus vitae purus sollicitudin, tristique ligula quis, condimentum eros. Mauris sed urna non ex auctor blandit. Donec sed iaculis urna. Donec risus tellus, finibus eget arcu sit amet, varius sagittis est.",
+      "date_of_publication": "2023-11-14T14:33:50Z",
+      "category": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 20,
+    "fields": {
+      "name": "Pentak",
+      "description": "Etiam ullamcorper tellus nisi, ut rutrum eros iaculis non. Nulla vitae bibendum tortor, eget dapibus nisi. Aenean pharetra urna ut ex porttitor, non pretium orci pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at ante vestibulum, gravida felis et, congue felis. Proin lacinia rutrum urna sed tempus. Quisque non tortor quam. Nam faucibus tortor dolor. Duis molestie et mi vel congue. Aliquam varius neque non tellus dignissim pretium. Fusce a efficitur elit. Vestibulum consequat eleifend interdum. Morbi sit amet odio odio. Nulla mollis euismod erat, in gravida sem condimentum vitae. In vehicula nisi id neque tincidunt, id faucibus felis lacinia. Quisque et euismod nisl.",
+      "date_of_publication": "2023-11-14T14:33:50Z",
+      "category": 7
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 21,
+    "fields": {
+      "name": "Electrolux",
+      "description": "",
+      "date_of_publication": "2023-08-07T00:33:50Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 22,
+    "fields": {
+      "name": "Hotpoint-Ariston",
+      "description": "",
+      "date_of_publication": "2022-03-08T22:33:50Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 23,
+    "fields": {
+      "name": "Redmond",
+      "description": "Nulla auctor eu ante eget mattis. Quisque nec pharetra magna. Donec fringilla, nisi sit amet fermentum malesuada, nibh metus volutpat orci, quis condimentum mi augue ut felis. Curabitur iaculis ultrices metus eu eleifend. Curabitur id commodo tellus. Suspendisse enim urna, pellentesque ut metus ut, varius rutrum mi. Integer malesuada tristique vestibulum.",
+      "date_of_publication": "2023-10-11T14:33:50Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 24,
+    "fields": {
+      "name": "Polaris",
+      "description": "",
+      "date_of_publication": "2023-11-04T19:33:50Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 25,
+    "fields": {
+      "name": "Panasonic",
+      "description": "Quisque sed orci euismod, interdum tortor eget, ultricies dolor. Quisque felis turpis, ultrices eget diam id, ullamcorper laoreet tortor. Vestibulum condimentum a sem nec auctor. Integer sit amet gravida dui. Morbi molestie eros felis, molestie facilisis nibh finibus eget. Praesent in libero lorem. Nulla id augue in sapien sagittis elementum feugiat a purus. Nullam eu magna quis urna commodo vestibulum. In augue mauris, consequat in dapibus eget, placerat quis ligula. Duis sed maximus sem. Maecenas bibendum tempor augue at maximus. Maecenas felis ligula, efficitur ac egestas et, lacinia non elit. Morbi consectetur hendrerit condimentum. Nam ut cursus odio, tincidunt mollis nibh. Mauris pharetra rhoncus ornare.",
+      "date_of_publication": "2023-11-14T14:33:50Z",
+      "category": 8
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 26,
+    "fields": {
+      "name": "GoPro",
+      "description": "Proin ac orci est. Ut scelerisque justo at malesuada tempor.",
+      "date_of_publication": "2023-08-09T14:33:50Z",
+      "category": 8
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 27,
+    "fields": {
+      "name": "Dyson",
+      "description": "",
+      "date_of_publication": "2023-01-10T12:33:50Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 28,
+    "fields": {
+      "name": "DEXP",
+      "description": "Mauris blandit maximus erat at placerat. Maecenas gravida dui justo, vitae aliquam neque ultricies pellentesque. Etiam egestas leo at orci scelerisque scelerisque. Cras id risus eget erat laoreet laoreet at eu augue. Pellentesque consectetur sagittis risus. Pellentesque at rutrum lorem, id pulvinar nulla. Nulla facilisi.",
+      "date_of_publication": "2023-04-04T17:33:50Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 29,
+    "fields": {
+      "name": "Haier",
+      "description": "Integer aliquam tristique nisi et commodo. Vivamus volutpat ac lacus a suscipit. In et condimentum mauris. Sed ultricies lacus tristique arcu sodales luctus. Pellentesque justo erat, molestie ac enim quis, pretium scelerisque nulla. Curabitur pharetra elementum nisi a blandit. Integer maximus tempus accumsan.",
+      "date_of_publication": "2023-11-14T13:33:50Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 30,
+    "fields": {
+      "name": "Indesit",
+      "description": "Phasellus nec tortor diam.",
+      "date_of_publication": "2023-10-09T20:33:50Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 31,
+    "fields": {
+      "name": "Toshiba",
+      "description": "Vestibulum tincidunt vehicula enim sit amet ultrices. Sed ullamcorper egestas condimentum. Duis vestibulum quis tellus sit amet auctor. Donec arcu urna, lacinia et varius sit amet, semper id neque. Vivamus velit tortor, pellentesque at ullamcorper nec, tincidunt eget libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi scelerisque turpis quis congue volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam tempus mauris dolor, consequat fermentum purus ultrices ut. Sed viverra nibh velit, malesuada molestie dolor pellentesque eu. Nulla cursus pulvinar consectetur. In quis velit justo. Donec ut velit sit amet velit ornare tincidunt. Nullam sapien risus, efficitur sit amet hendrerit eu, tincidunt id nisi.",
+      "date_of_publication": "2023-07-08T10:33:50Z",
+      "category": 11
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 32,
+    "fields": {
+      "name": "Ballu",
+      "description": "Etiam elementum viverra felis et condimentum. Nullam sodales rhoncus vestibulum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent sit amet pharetra urna, vitae aliquet justo. Morbi malesuada lectus libero, quis rhoncus sapien pretium nec. Suspendisse non orci et purus tincidunt mollis non at lorem. Cras tincidunt tincidunt eleifend. Donec molestie, massa vitae aliquam venenatis, tortor ligula viverra risus, ac semper ligula nunc quis leo. Duis erat sem, tincidunt sit amet lobortis a, finibus vitae tortor. Vestibulum id venenatis libero, eu porta neque. Mauris sed purus sit amet ligula pretium facilisis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In vestibulum sodales orci, eget auctor nisl porttitor ac.",
+      "date_of_publication": "2023-11-12T08:33:50Z",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 33,
+    "fields": {
+      "name": "Philips",
+      "description": "Aenean sodales, mauris in egestas suscipit, lacus erat posuere elit, at tempus lacus justo et tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque varius, nisl eu lobortis fringilla, leo leo molestie tellus, nec bibendum eros libero eu sem. Nunc venenatis lacus id eros venenatis, et sodales diam cursus. Morbi pellentesque felis ligula, nec egestas ante ultrices nec. Suspendisse vulputate scelerisque tortor non tincidunt. Donec eleifend dui augue, at lobortis augue suscipit et. Curabitur tincidunt mi congue, dignissim nulla a, venenatis orci. Nam tincidunt tellus vulputate cursus commodo.",
+      "date_of_publication": "2023-11-11T05:33:50Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 34,
+    "fields": {
+      "name": "Moulinex",
+      "description": "Praesent augue eros, gravida eget malesuada vel, hendrerit in est. Fusce eu ornare tellus. Fusce in nisi vitae elit imperdiet vestibulum. Nulla mattis nisi augue, eget tincidunt leo elementum vitae. Ut quis ex sagittis, facilisis turpis sed, viverra tellus. Sed eu neque id magna sodales scelerisque. Fusce eget dolor quis justo blandit maximus. Donec vulputate nibh in elementum convallis. Praesent pellentesque purus eget sollicitudin imperdiet. Etiam nec pretium risus. Aliquam dictum dignissim justo, nec tempus tortor lacinia sed. Aenean nec consequat justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer ornare, augue non viverra tincidunt, magna leo aliquet mi, vel dignissim sapien turpis id mi. Nulla ex elit, suscipit at cursus sed, egestas at mi. Nullam nec erat neque.",
+      "date_of_publication": "2023-11-11T17:33:50Z",
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 35,
+    "fields": {
+      "name": "Smeg",
+      "description": "Suspendisse enim tortor, dignissim eget fermentum non, ultricies sollicitudin nisi. Nam eros ligula, pharetra at tellus sed, mollis tincidunt nisi. Quisque non enim et erat porta varius id eu neque. Vivamus mauris eros, consectetur in pulvinar quis, dictum quis libero. Duis id velit sed risus aliquet dictum. Nullam feugiat quam nec libero gravida varius ac at ante. Sed pretium semper elementum. Vivamus a lacus interdum, commodo sem eget, faucibus dui. Maecenas pulvinar molestie libero eu lobortis. Pellentesque condimentum orci et fringilla dignissim. Vivamus at lectus sit amet magna rutrum accumsan. Nullam fermentum metus dignissim interdum fringilla. Ut auctor, dui ut lacinia aliquam, justo nunc eleifend justo, ac aliquam arcu nisl eget mauris. Mauris blandit nunc sem, in varius lectus porta quis. Aenean ornare ipsum massa, nec ornare ligula bibendum aliquet.",
+      "date_of_publication": "2023-11-12T23:33:50Z",
+      "category": 3
+    }
+  }
+]
