@@ -1,5 +1,5 @@
 from django.test import TestCase
-from products.models import Product, Detail, ProductDetail
+from products.models import Product, Detail, ProductDetail, Category
 
 
 class ProductModelTest(TestCase):
@@ -94,3 +94,14 @@ class ProductDetailModelTest(TestCase):
         product_detail = ProductDetailModelTest.product_detail
         max_length = product_detail._meta.get_field("value").max_length
         self.assertEqual(max_length, 128)
+
+
+class CategoryTest(TestCase):
+    """
+    Класс тестов модели Категория
+    """
+
+    fixtures = ["05-categories.json"]
+
+    def test_assert_expected_num_of_categories(self):
+        self.assertEqual(Category.objects.count(), 12)
