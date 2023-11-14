@@ -3,10 +3,17 @@ from shops.models import Shop, Offer
 from products.models import Product, Detail
 
 
-class ShopModelTest(TestCase):
-    """Класс тестов модели Магазин"""
+class ShopFixturesTest(TestCase):
+    """Класс тестов фикстур модели Магазин"""
 
     fixtures = ["fixtures/04-shops.json"]
+
+    def test_fixtures_len(self):
+        self.assertEqual(Shop.objects.count(), 10)
+
+
+class ShopModelTest(TestCase):
+    """Класс тестов модели Магазин"""
 
     @classmethod
     def setUpClass(cls):
@@ -41,10 +48,6 @@ class ShopModelTest(TestCase):
         shop = ShopModelTest.shop
         max_length = shop._meta.get_field("name").max_length
         self.assertEqual(max_length, 512)
-
-    def test_fixtures_len(self):
-        fix_len = len(Shop.objects.all())
-        self.assertEqual(fix_len, 11)
 
 
 class OfferModelTest(TestCase):
