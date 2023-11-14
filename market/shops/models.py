@@ -22,6 +22,4 @@ class Offer(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("цена"))
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint("shop", "product", name="unique_product_in_shop")
-        ]
+        constraints = [models.UniqueConstraint("shop", "product", name="unique_product_in_shop")]
