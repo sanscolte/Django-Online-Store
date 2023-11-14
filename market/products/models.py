@@ -67,5 +67,5 @@ class ProductImage(models.Model):
     """Фотографии продукта"""
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    # image = models.ImageField(verbose_name=_("изображение"), blank=True)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(verbose_name=_("изображение"), default=1)
+    sort_image = models.IntegerField()
