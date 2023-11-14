@@ -2,13 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
-    return "banners/{pk}/preview/{filename}".format(
-        pk=instance.pk,
-        filename=filename,
-    )
-
-
 class Product(models.Model):
     """Продукт"""
 
@@ -30,10 +23,6 @@ class ProductDetail(models.Model):
     value = models.CharField(max_length=128, verbose_name=_("значение"))
 
     class Meta:
-        constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
-
-
-class Banner(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
-    image = models.ImageField(upload_to=banner_preview_directory_path)
-    is_active = models.BooleanField(default=True)
+        constraints = [
+            models.UniqueConstraint("product", "detail", name="unique_detail_for_product")
+        ]

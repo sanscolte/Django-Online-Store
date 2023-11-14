@@ -1,9 +1,0 @@
-[
-  {
-    "model": "products.product",
-    "pk": 12,
-    "fields": {
-      "name": "Drone"
-    }
-  }
-]
