@@ -8,7 +8,7 @@ class ShopPageView(TemplateView):
     template_name = "shops/index.jinja2"
 
 
-class CatalogPageView(ListView):
+class ProductListView(ListView):
     template_name = "shops/catalog.jinja2"
     model = Product
     context_object_name = "products"
