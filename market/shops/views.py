@@ -1,6 +1,15 @@
 from django.shortcuts import render  # noqa F401
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+
+from products.models import Product
 
 
 class ShopPageView(TemplateView):
     template_name = "shops/index.jinja2"
+
+
+class CatalogPageView(ListView):
+    template_name = "shops/catalog.jinja2"
+    model = Product
+    context_object_name = "products"
+    paginate_by = 6
