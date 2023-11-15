@@ -27,7 +27,7 @@ class Product(models.Model):
     """Продукт"""
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
+    # price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
     description = models.TextField(verbose_name=_("описание"), blank=True)
     date_of_publication = models.DateTimeField(default=datetime.now())
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
