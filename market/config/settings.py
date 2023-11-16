@@ -155,4 +155,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 FIXTURE_DIRS = ["fixtures"]
 
-Paginate = 6
+PAGINATE_PRODUCTS_BY = 6
