@@ -22,6 +22,9 @@ class Shop(models.Model):
     address = models.CharField(max_length=512, verbose_name=_("адрес"))
     email = models.EmailField(verbose_name=_("email"))
 
+    def __str__(self):
+        return f"Shop(pk={self.pk}, name={self.name})"
+
 
 class Offer(models.Model):
     """Предложение магазина"""
@@ -33,3 +36,6 @@ class Offer(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint("shop", "product", name="unique_product_in_shop")]
+
+    def __str__(self):
+        return f"Offer(pk={self.pk}, shop={self.shop.name})"
