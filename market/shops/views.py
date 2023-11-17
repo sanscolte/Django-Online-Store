@@ -9,6 +9,8 @@ class ShopPageView(TemplateView):
 
 
 class ShopDetailView(View):
+    """Отображает детальную страницу магазина"""
+
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         shop = Shop.objects.get(pk=pk)
         offers = shop.offers.all()
