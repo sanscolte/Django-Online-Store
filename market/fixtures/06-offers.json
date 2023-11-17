@@ -1,0 +1,20 @@
+[
+  {
+    "model": "shops.offer",
+    "pk": 1,
+    "fields": {
+      "shop": 35,
+      "product": 2,
+      "price": "125.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 2,
+    "fields": {
+      "shop": 35,
+      "product": 21,
+      "price": "456.00"
+    }
+  }
+]
