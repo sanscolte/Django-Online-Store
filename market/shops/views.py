@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, View
 from .models import Shop
 
 
-class ShopPageView(TemplateView):
+class IndexPageView(TemplateView):
     template_name = "shops/index.jinja2"
 
 
