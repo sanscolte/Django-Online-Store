@@ -1,13 +1,12 @@
 from django.urls import path
-from .views import (
-    ShopPageView,
-    ShopDetailView,
-)
+
+from .views import ShopPageView, ShopDetailView
+
 
 app_name = "shops"
 
 
 urlpatterns = [
-    path("", ShopPageView.as_view(), name="shops"),
+    path("", ShopPageView.as_view(), name="home"),
     path("shops/<int:pk>/", ShopDetailView.as_view(), name="shops_detail"),
 ]

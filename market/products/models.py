@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -41,6 +42,15 @@ class Product(models.Model):
         if len(self.description) < 50:
             return self.description
         return self.description[:50] + "..."
+
+    @property
+    def min_price(self) -> Decimal:
+        """Вычисляет минимальную цену на товар среди магазинов, в которых он продается."""
+
+        prices = self.offers.values_list("price")
+        assert len(prices) > 0, "Товар не продается ни в одном из магазинов. Невозможно вычислить минимальную цену."
+
+        return min(prices)
 
     def __str__(self) -> str:
         return f"{self.name}"

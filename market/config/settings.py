@@ -141,9 +141,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "/static")
 
 STATIC_URL = "/static/"
-MEDIA_DIR = os.path.join(BASE_DIR, "uploads")
-MEDIA_URL = "/uploads/"
-MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "/uploads")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -155,3 +154,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 FIXTURE_DIRS = ["fixtures"]
+
+PAGINATE_PRODUCTS_BY = 6
