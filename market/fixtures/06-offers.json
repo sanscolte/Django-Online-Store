@@ -1,0 +1,74 @@
+[
+  {
+    "model": "shops.offer",
+    "pk": 1,
+    "fields": {
+      "shop": 35,
+      "product": 2,
+      "price": "125.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 2,
+    "fields": {
+      "shop": 35,
+      "product": 21,
+      "price": "456.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 3,
+    "fields": {
+      "shop": 34,
+      "product": 1,
+      "price": "29999.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 4,
+    "fields": {
+      "shop": 34,
+      "product": 2,
+      "price": "19999.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 5,
+    "fields": {
+      "shop": 34,
+      "product": 3,
+      "price": "3999.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 6,
+    "fields": {
+      "shop": 34,
+      "product": 4,
+      "price": "12399.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 7,
+    "fields": {
+      "shop": 34,
+      "product": 5,
+      "price": "5999.00"
+    }
+  },
+  {
+    "model": "shops.offer",
+    "pk": 8,
+    "fields": {
+      "shop": 34,
+      "product": 6,
+      "price": "29999.00"
+    }
+  }
+]

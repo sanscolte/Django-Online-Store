@@ -22,13 +22,19 @@ class Shop(models.Model):
     address = models.CharField(max_length=512, verbose_name=_("адрес"))
     email = models.EmailField(verbose_name=_("email"))
 
+    def __str__(self):
+        return f"Shop(pk={self.pk}, name={self.name})"
+
 
 class Offer(models.Model):
     """Предложение магазина"""
 
-    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name="offers")
+    product = models.ForeignKey("products.Product", on_delete=models.CASCADE, related_name="offers")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("цена"))
 
     class Meta:
         constraints = [models.UniqueConstraint("shop", "product", name="unique_product_in_shop")]
+
+    def __str__(self):
+        return f"Offer(pk={self.pk}, shop={self.shop.name})"
