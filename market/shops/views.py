@@ -6,11 +6,13 @@ from django.views.generic import TemplateView, View
 from .models import Shop
 
 
-class ShopPageView(TemplateView):
+class IndexPageView(TemplateView):
     template_name = "shops/index.jinja2"
 
 
 class ShopDetailView(View):
+    """Отображает детальную страницу магазина"""
+
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         shop = Shop.objects.get(pk=pk)
         offers = shop.offers.all()
