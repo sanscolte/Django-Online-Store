@@ -1,0 +1,47 @@
+[
+  {
+    "model": "products.banner",
+    "pk": 1,
+    "fields": {
+      "product": 12,
+      "image": "banners/None/preview/bigGoods.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 2,
+    "fields": {
+      "product": 31,
+      "image": "banners/None/preview/slider.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 3,
+    "fields": {
+      "product": 16,
+      "image": "banners/None/preview/videoca.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 4,
+    "fields": {
+      "product": 14,
+      "image": "banners/None/preview/bigGoods2.jpg",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 5,
+    "fields": {
+      "product": 18,
+      "image": "banners/None/preview/card.jpg",
+      "is_active": true
+    }
+  }
+]

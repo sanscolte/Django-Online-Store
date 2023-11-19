@@ -156,3 +156,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 FIXTURE_DIRS = ["fixtures"]
 
 PAGINATE_PRODUCTS_BY = 6
+
+CACHE_TIME = 60 * 10
