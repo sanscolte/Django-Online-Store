@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from shops.models import Shop
-from products.models import Banner, Product
+from products.models import Banner
 
 
 class ShopDetailViewTest(TestCase):
