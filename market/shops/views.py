@@ -6,7 +6,6 @@ from django.views.generic import TemplateView, View
 from .models import Shop
 
 import random
-from django.conf import settings
 from config.settings import CACHE_TIME
 from products.models import Banner
 
@@ -15,10 +14,11 @@ class IndexPageView(TemplateView):
     template_name = "shops/index.jinja2"
 
     def get_context_data(self, **kwargs):
+        """ Добавление баннеров и времени кэша в контекст шаблона """
+
         context = super().get_context_data(**kwargs)
         context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=3)
-        if settings.DEBUG:
-            context['cache_time'] = CACHE_TIME
+        context['cache_time'] = CACHE_TIME
         return context
 
 
