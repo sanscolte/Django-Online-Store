@@ -78,3 +78,19 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(verbose_name=_("изображение"), default=1)
     sort_image = models.IntegerField()
+
+
+def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
+    """Функция создания уникального пути к баннеру"""
+    return "banners/{product}/{filename}".format(
+        product=instance.product.name,
+        filename=filename,
+    )
+
+
+class Banner(models.Model):
+    """Модель баннера"""
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
+    image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name="изображение")
+    is_active = models.BooleanField(default=True)
