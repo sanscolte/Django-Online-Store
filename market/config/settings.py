@@ -164,3 +164,11 @@ FIXTURE_DIRS = ["fixtures"]
 PAGINATE_PRODUCTS_BY = 6
 
 CACHE_TIME = 60 * 10
+
+# django-extensions shell_plus settings
+
+SHELL_PLUS = "ipython"
+
+# print SQL queries in shell_plus
+SHELL_PLUS_PRINT_SQL = True
+SHELL_PLUS_PRINT_SQL_TRUNCATE = None
