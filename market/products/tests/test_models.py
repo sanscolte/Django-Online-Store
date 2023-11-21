@@ -112,25 +112,22 @@ class BannerModelTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """ Создание продукта и баннера с ним """
+        """Создание продукта и баннера с ним"""
 
         cls.product = Product.objects.create(
             name="Тестовый продукт",
         )
-        cls.banner = Banner.objects.create(
-            product=cls.product,
-            image='...static/img/content/home/slider.png'
-        )
+        cls.banner = Banner.objects.create(product=cls.product, image="...static/img/content/home/slider.png")
 
     @classmethod
     def tearDownClass(cls):
-        """ Удаление сущности продукта и баннера """
+        """Удаление сущности продукта и баннера"""
 
         cls.product.delete()
         cls.banner.delete()
 
     def test_verbose_name(self):
-        """ Тестирование валидности имени поля модели """
+        """Тестирование валидности имени поля модели"""
 
         banner = self.banner
         field_verboses = {

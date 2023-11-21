@@ -82,7 +82,7 @@ class ProductImage(models.Model):
 
 
 def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
-    """ Функция создания уникального пути к баннеру """
+    """Функция создания уникального пути к баннеру"""
     return "banners/{product}/{filename}".format(
         product=instance.product.name,
         filename=filename,
@@ -90,8 +90,8 @@ def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
 
 
 class Banner(models.Model):
-    """ Модель баннера """
+    """Модель баннера"""
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
-    image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name='изображение')
+    image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name="изображение")
     is_active = models.BooleanField(default=True)

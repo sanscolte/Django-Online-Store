@@ -23,7 +23,7 @@ class ShopDetailViewTest(TestCase):
 
 
 class BannerInIndexPageViewTest(TestCase):
-    """ Класс тестов представления домашней страницы """
+    """Класс тестов представления домашней страницы"""
 
     fixtures = [
         "fixtures/08-products.json",
@@ -33,15 +33,15 @@ class BannerInIndexPageViewTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """ Получение имен всех доступных url изображений баннеров """
+        """Получение имен всех доступных url изображений баннеров"""
 
         super(BannerInIndexPageViewTest, cls).setUpClass()
         cls.images: list[str] = list(banner.image.url for banner in Banner.objects.all())
 
     def test_banners_in_page(self):
-        """ Проверка на наличие трех шаблонов в представлении, проверка статус-кода ответа """
+        """Проверка на наличие трех шаблонов в представлении, проверка статус-кода ответа"""
 
-        response = self.client.get(reverse('shops:home'))
+        response = self.client.get(reverse("shops:home"))
         self.assertEqual(response.status_code, 200)
 
         for image in self.images:
@@ -49,4 +49,4 @@ class BannerInIndexPageViewTest(TestCase):
                 return True
 
         for _ in range(3):
-            self.assertContains(response, 'Slider-item')
+            self.assertContains(response, "Slider-item")
