@@ -9,9 +9,9 @@ class ShopDetailViewTest(TestCase):
 
     fixtures = [
         "fixtures/04-shops.json",
-        "fixtures/08-products.json",
         "fixtures/05-categories.json",
-        "fixtures/06-offers.json",
+        "fixtures/06-products.json",
+        "fixtures/08-offers.json",
     ]
 
     def test_shop_detail(self):
