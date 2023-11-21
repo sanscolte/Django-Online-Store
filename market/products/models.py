@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -27,7 +28,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
     description = models.TextField(verbose_name=_("описание"), blank=True)
-    date_of_publication = models.DateTimeField()
+    date_of_publication = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     details = models.ManyToManyField("Detail", through="ProductDetail", verbose_name=_("характеристики"))
 
