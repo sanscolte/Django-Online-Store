@@ -1,5 +1,5 @@
 from django.test import TestCase
-from products.models import Product, Detail, ProductDetail, Category
+from products.models import Product, Detail, ProductDetail, Category, Banner
 
 
 class ProductModelTest(TestCase):
@@ -105,3 +105,35 @@ class CategoryTest(TestCase):
 
     def test_assert_expected_num_of_categories(self):
         self.assertEqual(Category.objects.count(), 12)
+
+
+class BannerModelTest(TestCase):
+    """Класс тестов модели Banner"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Создание продукта и баннера с ним"""
+
+        cls.product = Product.objects.create(
+            name="Тестовый продукт",
+        )
+        cls.banner = Banner.objects.create(product=cls.product, image="...static/img/content/home/slider.png")
+
+    @classmethod
+    def tearDownClass(cls):
+        """Удаление сущности продукта и баннера"""
+
+        cls.product.delete()
+        cls.banner.delete()
+
+    def test_verbose_name(self):
+        """Тестирование валидности имени поля модели"""
+
+        banner = self.banner
+        field_verboses = {
+            "image": "изображение",
+        }
+
+        for field, expected_value in field_verboses.items():
+            with self.subTest(field=field):
+                self.assertEqual(banner._meta.get_field(field).verbose_name, expected_value)

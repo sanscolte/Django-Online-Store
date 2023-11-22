@@ -31,6 +31,9 @@ SECRET_KEY = "django-insecure-=e-i4dlx_qq&ra7un4)u8bdr#08q)gc_*yyy4@7--kt(0(p#!(
 DEBUG = True
 
 ALLOWED_HOSTS = []
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -45,6 +48,8 @@ INSTALLED_APPS = [
     "django_jinja",
     "products",
     "shops",
+    "django_extensions",
+    "debug_toolbar",
     "users",
 ]
 
@@ -56,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -142,8 +148,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "/static")
 
 STATIC_URL = "/static/"
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "/uploads")
+MEDIA_URL = "uploads/"
+MEDIA_ROOT = BASE_DIR / "uploads"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -159,3 +165,12 @@ AUTH_USER_MODEL = "users.User"
 FIXTURE_DIRS = ["fixtures"]
 
 PAGINATE_PRODUCTS_BY = 6
+
+CACHE_TIME = 60 * 10
+
+# django-extensions shell_plus settings
+SHELL_PLUS = "ipython"
+
+# print SQL queries in shell_plus
+SHELL_PLUS_PRINT_SQL = True
+SHELL_PLUS_PRINT_SQL_TRUNCATE = None

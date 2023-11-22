@@ -1,0 +1,83 @@
+[
+  {
+    "model": "products.banner",
+    "pk": 6,
+    "fields": {
+      "product": 16,
+      "image": "banners/ASUS/videoca.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 7,
+    "fields": {
+      "product": 31,
+      "image": "banners/Toshiba/slider.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 8,
+    "fields": {
+      "product": 2,
+      "image": "banners/Samsung/bigGoods2.jpg",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 9,
+    "fields": {
+      "product": 3,
+      "image": "banners/Xiaomi/bigGoods.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 10,
+    "fields": {
+      "product": 12,
+      "image": "banners/HP/card.jpg",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 11,
+    "fields": {
+      "product": 15,
+      "image": "banners/Apple MacBook/card.jpg",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 12,
+    "fields": {
+      "product": 14,
+      "image": "banners/Acer/card.jpg",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 13,
+    "fields": {
+      "product": 18,
+      "image": "banners/Sony/bigGoods.png",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.banner",
+    "pk": 18,
+    "fields": {
+      "product": 13,
+      "image": "banners/Dell/card.jpg",
+      "is_active": true
+    }
+  }
+]
