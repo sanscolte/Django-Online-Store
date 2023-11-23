@@ -66,8 +66,8 @@ class Product(models.Model):
         return f"{self.name}"
 
 
-signals.post_save.connect(save_product, sender=Product)
-signals.post_delete.connect(delete_product, sender=Product)
+signals.post_save.connect(receiver=save_product, sender=Product)
+signals.post_delete.connect(receiver=delete_product, sender=Product)
 
 
 class Detail(models.Model):
