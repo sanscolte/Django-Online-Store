@@ -1,4 +1,6 @@
 from decimal import Decimal
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -94,3 +96,10 @@ class Banner(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
     image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name="изображение")
     is_active = models.BooleanField(default=True)
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews")
+    user = models.CharField(verbose_name="пользователь")
+    text = models.TextField(verbose_name="отзыв", blank=True)
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
