@@ -343,15 +343,6 @@
   },
   {
     "model": "products.productimage",
-    "pk": 44,
-    "fields": {
-      "product": 15,
-      "image": "products/Apple MacBook/macbook3.jpg",
-      "sort_image": 3
-    }
-  },
-  {
-    "model": "products.productimage",
     "pk": 45,
     "fields": {
       "product": 16,
@@ -375,15 +366,6 @@
       "product": 16,
       "image": "products/ASUS/asus3.jpg",
       "sort_image": 3
-    }
-  },
-  {
-    "model": "products.productimage",
-    "pk": 48,
-    "fields": {
-      "product": 17,
-      "image": "products/Olympus/olympus1.png",
-      "sort_image": 1
     }
   },
   {
@@ -424,20 +406,11 @@
   },
   {
     "model": "products.productimage",
-    "pk": 53,
-    "fields": {
-      "product": 20,
-      "image": "products/Pentak/pentax1.jpg",
-      "sort_image": 1
-    }
-  },
-  {
-    "model": "products.productimage",
     "pk": 54,
     "fields": {
       "product": 20,
       "image": "products/Pentak/pentax2.jpg",
-      "sort_image": 2
+      "sort_image": 1
     }
   },
   {
@@ -559,15 +532,6 @@
   },
   {
     "model": "products.productimage",
-    "pk": 68,
-    "fields": {
-      "product": 26,
-      "image": "products/GoPro/gopro3.jpeg",
-      "sort_image": 3
-    }
-  },
-  {
-    "model": "products.productimage",
     "pk": 69,
     "fields": {
       "product": 27,
@@ -649,29 +613,11 @@
   },
   {
     "model": "products.productimage",
-    "pk": 78,
-    "fields": {
-      "product": 30,
-      "image": "products/Indesit/indesit3.jpg",
-      "sort_image": 3
-    }
-  },
-  {
-    "model": "products.productimage",
     "pk": 79,
     "fields": {
       "product": 30,
       "image": "products/Indesit/indesit4.jpg",
       "sort_image": 4
-    }
-  },
-  {
-    "model": "products.productimage",
-    "pk": 80,
-    "fields": {
-      "product": 30,
-      "image": "products/Indesit/indesit5.jpg",
-      "sort_image": 5
     }
   },
   {
@@ -780,6 +726,15 @@
       "product": 35,
       "image": "products/Smeg/smeg5.webp",
       "sort_image": 5
+    }
+  },
+  {
+    "model": "products.productimage",
+    "pk": 93,
+    "fields": {
+      "product": 17,
+      "image": "products/Olympus/olympus1.jpg",
+      "sort_image": 1
     }
   }
 ]
