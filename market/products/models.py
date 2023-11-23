@@ -2,11 +2,17 @@ from decimal import Decimal
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from .constants import KEY_FOR_CACHE_PRODUCTS
-from django.dispatch import receiver
-from django.db.models.signals import post_save, post_delete
 from django.core.cache import cache
+from django.db.models import signals
+
+
+def save_product(**kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCTS)
+
+
+def delete_product(**kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 class Category(models.Model):
@@ -60,14 +66,8 @@ class Product(models.Model):
         return f"{self.name}"
 
 
-@receiver(post_save, sender=Product)
-def post_save_product(sender, instance, *args, **kwargs):
-    cache.delete(KEY_FOR_CACHE_PRODUCTS)
-
-
-@receiver(post_delete, sender=Product)
-def post_delete_product(sender, instance, *args, **kwargs):
-    cache.delete(KEY_FOR_CACHE_PRODUCTS)
+signals.post_save.connect(save_product, sender=Product)
+signals.post_delete.connect(delete_product, sender=Product)
 
 
 class Detail(models.Model):
