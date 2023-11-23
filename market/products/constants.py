@@ -1,0 +1,1 @@
+KEY_FOR_CACHE_PRODUCTS = "products"

@@ -3,6 +3,11 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from .constants import KEY_FOR_CACHE_PRODUCTS
+from django.dispatch import receiver
+from django.db.models.signals import post_save, post_delete
+from django.core.cache import cache
+
 
 class Category(models.Model):
     """Категория"""
@@ -53,6 +58,16 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name}"
+
+
+@receiver(post_save, sender=Product)
+def post_save_product(sender, instance, *args, **kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCTS)
+
+
+@receiver(post_delete, sender=Product)
+def post_delete_product(sender, instance, *args, **kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 class Detail(models.Model):
