@@ -1,6 +1,6 @@
 from django.contrib import admin  # noqa F401
 
-from .models import Category, Product, Banner
+from .models import Category, Product, Banner, ProductImage
 
 
 @admin.register(Category)
@@ -19,3 +19,8 @@ class ProductAdmin(admin.ModelAdmin):
 class BannerAdmin(admin.ModelAdmin):
     list_display = "product", "image", "is_active"
     list_display_links = ("product",)
+
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display = "product", "image", "sort_image"

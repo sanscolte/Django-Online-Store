@@ -72,11 +72,19 @@ class ProductDetail(models.Model):
         constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
 
 
+def product_image_directory_path(instance: "ProductImage", filename: str) -> str:
+    """Функция создания уникального пути к изображениям продукта"""
+    return "products/{product}/{filename}".format(
+        product=instance.product.name,
+        filename=filename,
+    )
+
+
 class ProductImage(models.Model):
     """Фотографии продукта"""
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(verbose_name=_("изображение"), default=1)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_images")
+    image = models.ImageField(upload_to=product_image_directory_path, verbose_name=_("изображение"), default=1)
     sort_image = models.IntegerField()
 
 
