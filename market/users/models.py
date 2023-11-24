@@ -10,7 +10,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name="Email адрес")
     full_name = models.CharField(max_length=254, verbose_name="Полное имя")
     avatar = models.ImageField(upload_to=user_preview_directory_path, blank=True, verbose_name="Аватар")
-    phoneNumber = models.CharField(max_length=12, unique=True, verbose_name="Телефон")
+    phone_number = models.CharField(max_length=12, unique=True, verbose_name="Телефон")
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
