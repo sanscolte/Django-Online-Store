@@ -2,6 +2,15 @@ from django.test import TestCase
 from accounts.models import User
 
 
+class UserFixturesTest(TestCase):
+    """Класс тестов фикстур модели Пользователя"""
+
+    fixtures = ["fixtures/01-users.json"]
+
+    def test_fixtures_len(self):
+        self.assertEqual(User.objects.count(), 6)
+
+
 class UserModelTest(TestCase):
     """Класс тестов для модели пользователя"""
 

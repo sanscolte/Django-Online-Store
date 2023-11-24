@@ -1,2 +1,2 @@
 def user_preview_directory_path(instance, filename: str) -> str:
-    return "accounts/user_{pk}/{filename}".format(pk=instance.pk, filename=filename)
+    return "accounts/user_{pk}/{filename}".format(pk=instance, filename=filename)
