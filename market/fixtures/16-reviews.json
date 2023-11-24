@@ -48,5 +48,45 @@
       "text": "very boring phone",
       "rating": 2
     }
+  },
+  {
+    "model": "products.review",
+    "pk": 21,
+    "fields": {
+      "product": 1,
+      "user": 1,
+      "text": "nice apple phone",
+      "rating": 4
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 22,
+    "fields": {
+      "product": 1,
+      "user": 1,
+      "text": "best product",
+      "rating": 4
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 23,
+    "fields": {
+      "product": 3,
+      "user": 1,
+      "text": "cringe",
+      "rating": 1
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 24,
+    "fields": {
+      "product": 3,
+      "user": 1,
+      "text": "so cringe",
+      "rating": 1
+    }
   }
 ]
