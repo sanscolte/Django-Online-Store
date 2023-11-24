@@ -27,7 +27,7 @@ class ProductDetailView(DetailView):
         return context
 
     def post(self, request: HttpRequest, **kwargs):
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST)  # FIXME переменную form переименовать в review_form по той же причине
         if form.is_valid():
             form.instance.user = self.request.user
             form.instance.product = self.get_object()
