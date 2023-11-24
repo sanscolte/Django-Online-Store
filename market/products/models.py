@@ -5,6 +5,17 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from .constants import KEY_FOR_CACHE_PRODUCTS
+from django.core.cache import cache
+from django.db.models import signals
+
+
+def save_product(**kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCTS)
+
+
+def delete_product(**kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 class Category(models.Model):
@@ -61,6 +72,10 @@ class Product(models.Model):
         from django.urls import reverse
 
         return reverse("products:product-detail", kwargs={"pk": self.pk})
+
+
+signals.post_save.connect(receiver=save_product, sender=Product)
+signals.post_delete.connect(receiver=delete_product, sender=Product)
 
 
 class Detail(models.Model):
