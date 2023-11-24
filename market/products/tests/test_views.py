@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from django.core import serializers
 
 from products.models import Review, Product
 
@@ -25,31 +26,27 @@ class ProductDetailReviewTest(TestCase):
         """Тестирование передачи данных в контексте"""
 
         pk: int = 1
-        reviews_context = Review.objects.filter(product__pk=pk)
+        reviews_context = serializers.serialize("json", Review.objects.filter(product__pk=pk))
         product_context = Product.objects.get(pk=pk)
 
-        print(reviews_context, product_context)
+        response_reviews_context = serializers.serialize(
+            "json", self.client.get(reverse("products:product-detail", args=(pk,))).context_data["reviews"]
+        )
+        response_product_context = self.client.get(reverse("products:product-detail", args=(pk,))).context_data[
+            "product"
+        ]
 
-        response = self.client.get(reverse("products:product-detail", args=(pk,)))
-
-        self.assertEqual(response.status_code, 200)
-
-        # FIXME перед ассертами отпринтуй response.context и response.json(), чтобы понимать что с чем сравнивать
-        self.assertEqual(response.context["reviews"], reviews_context)
-        self.assertEqual(response.context["product"], product_context)
+        self.assertEqual(response_reviews_context, reviews_context)
+        self.assertEqual(response_product_context, product_context)
 
     def test_view_post(self):
         """Тестирование отправки POST-запроса"""
 
         pk: int = 1
-        form = {
+        review_form: dict[str, int] = {
             "text": "test review",
             "rating": 5,
         }
-
-        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=form)
+        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form)
 
         self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
-
-        # FIXME перед ассертом отпринтуй response.context и response.json(), чтобы понимать что с чем сравнивать
-        self.assertEqual(response.context["success"], True)

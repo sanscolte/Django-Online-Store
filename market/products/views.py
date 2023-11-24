@@ -23,14 +23,14 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["reviews"] = Review.objects.filter(product=self.object)
-        context["form"] = ReviewForm()  # FIXME переименовать ключ в review_form, т.к. на странице будут и другие формы
+        context["review_form"] = ReviewForm()
         return context
 
     def post(self, request: HttpRequest, **kwargs):
-        form = ReviewForm(request.POST)  # FIXME переменную form переименовать в review_form по той же причине
-        if form.is_valid():
-            form.instance.user = self.request.user
-            form.instance.product = self.get_object()
-            form.save()
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review_form.instance.user = self.request.user
+            review_form.instance.product = self.get_object()
+            review_form.save()
 
         return redirect(self.get_object())
