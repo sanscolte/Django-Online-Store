@@ -15,3 +15,14 @@ class ProductListView(ListView):
     context_object_name = "products"
     model = Product
     paginate_by = settings.PAGINATE_PRODUCTS_BY
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        sort_by = self.request.GET.get("sort_by")
+
+        if sort_by == "date_of_publication":
+            queryset = queryset.order_by("-date_of_publication")
+        if sort_by == "price":
+            queryset = queryset.order_by("offers.products")
+
+        return queryset

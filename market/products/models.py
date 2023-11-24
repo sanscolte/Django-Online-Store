@@ -43,6 +43,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     details = models.ManyToManyField("Detail", through="ProductDetail", verbose_name=_("характеристики"))
 
+    class Meta:
+        ordering = []
+
     @property
     def num_of_purchases(self):
         return 0
