@@ -21,24 +21,16 @@ class ProductDetailView(DetailView):
     context_object_name = "product"
 
     def get_context_data(self, **kwargs):
-        context = super(ProductDetailView, self).get_context_data(**kwargs)
-        context["reviews"] = Review.objects.filter(product__pk=self.kwargs.get("pk"))
-        context["form"] = ReviewForm()
+        context = super().get_context_data(**kwargs)
+        context["reviews"] = Review.objects.filter(product=self.object)
+        context["form"] = ReviewForm()  # FIXME переименовать ключ в review_form, т.к. на странице будут и другие формы
         return context
 
     def post(self, request: HttpRequest, **kwargs):
-        form = ReviewForm(request.POST)
-        form.instance.user = self.request.user
-        form.instance.product = Product.objects.get(pk=self.kwargs.get("pk"))
-
+        form = ReviewForm(request.POST)  # FIXME переменную form переименовать в review_form по той же причине
         if form.is_valid():
+            form.instance.user = self.request.user
+            form.instance.product = self.get_object()
             form.save()
-        else:
-            form = ReviewForm()
 
-        context = {
-            "form": form,
-            "reviews": Review.objects.filter(product__pk=self.kwargs.get("pk")),
-            "product": Product.objects.get(pk=self.kwargs.get("pk")),
-        }
-        return render(request, "products/product_detail.jinja2", context)
+        return redirect(self.get_object())

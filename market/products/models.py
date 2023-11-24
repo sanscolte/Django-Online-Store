@@ -57,6 +57,11 @@ class Product(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+
+        return reverse("products:product-detail", kwargs={"pk": self.pk})
+
 
 class Detail(models.Model):
     """Свойство продукта"""
