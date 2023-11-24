@@ -1,7 +1,6 @@
-from django.http import HttpRequest
 from django.shortcuts import render, redirect  # noqa F401
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, FormView
 from django.conf import settings
 
 from products.models import Product, Review
@@ -15,27 +14,19 @@ class ProductListView(ListView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(FormView):
     template_name = "products/product_detail.jinja2"
-    model = Product
-    context_object_name = "product"
+    form_class = ReviewForm
+    success_url = "#"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.product = Product.objects.get(pk=self.kwargs.get("pk"))
+        form.save()
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context["reviews"] = Review.objects.filter(product__pk=self.kwargs.get("pk"))
-        context["form"] = ReviewForm()
+        context["product"] = Product.objects.get(pk=self.kwargs.get("pk"))
         return context
-
-    def post(self, request: HttpRequest, **kwargs):
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            form = ReviewForm()
-
-        context = {
-            "form": form,
-            "reviews": Review.objects.filter(product__pk=self.kwargs.get("pk")),
-            "product": Product.objects.get(pk=self.kwargs.get("pk")),
-        }
-        return render(request, "products/product_detail.jinja2", context)

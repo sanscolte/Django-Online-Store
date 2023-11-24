@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.test import TestCase
-from products.models import Product, Detail, ProductDetail, Category, Banner
+from products.models import Product, Detail, ProductDetail, Category, Banner, Review
 
 
 class ProductModelTest(TestCase):
@@ -137,3 +139,60 @@ class BannerModelTest(TestCase):
         for field, expected_value in field_verboses.items():
             with self.subTest(field=field):
                 self.assertEqual(banner._meta.get_field(field).verbose_name, expected_value)
+
+
+class ReviewModelTest(TestCase):
+    """Класс тестов модели Review"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Создание пользователя, продукта и отзыва к нему"""
+
+        cls.user = User.objects.create_user(username="user", password="qwerty")
+        cls.product = Product.objects.create(
+            name="Тестовый продукт",
+        )
+        cls.review = Review.objects.create(
+            product=cls.product,
+            user=cls.user,
+            text="Тестовый отзыв",
+            rating=5,
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        """Удаление сущности пользователя, продукта и отзыва"""
+
+        cls.user.delete()
+        cls.product.delete()
+        cls.review.delete()
+
+    def setUp(self):
+        self.client.force_login(self.user)
+
+    def test_verbose_name(self):
+        """Тестирование валидности имени поля модели"""
+
+        field_verboses = {
+            "product": "Продукт",
+            "user": "Пользователь",
+            "text": "Отзыв",
+            "rating": "Рейтинг",
+        }
+
+        for field, expected_value in field_verboses.items():
+            with self.subTest(field=field):
+                self.assertEqual(self.review._meta.get_field(field).verbose_name, expected_value)
+
+    def test_text_max_length(self):
+        max_length = Review._meta.get_field("text").max_length
+        self.assertEqual(max_length, 3000)
+
+    def test_rating_max_length(self):
+        validators = [validator for validator in self.review._meta.get_field("rating").validators]
+
+        for validator in validators:
+            if isinstance(validator, MinValueValidator):
+                self.assertGreaterEqual(self.review.rating, validator.limit_value)
+            elif isinstance(validator, MaxValueValidator):
+                self.assertLessEqual(self.review.rating, validator.limit_value)
