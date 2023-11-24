@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "debug_toolbar",
     "django_filters",
-    "users",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -168,7 +168,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "accounts.User"
 
 FIXTURE_DIRS = ["fixtures"]
 
