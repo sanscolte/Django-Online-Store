@@ -1,4 +1,7 @@
 from decimal import Decimal
+
+from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -65,6 +68,11 @@ class Product(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+
+        return reverse("products:product-detail", kwargs={"pk": self.pk})
+
 
 signals.post_save.connect(receiver=save_product, sender=Product)
 signals.post_delete.connect(receiver=delete_product, sender=Product)
@@ -109,3 +117,10 @@ class Banner(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
     image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name="изображение")
     is_active = models.BooleanField(default=True)
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт")
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Пользователь")
+    text = models.TextField(blank=True, max_length=3000, verbose_name="Отзыв")
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Рейтинг")
