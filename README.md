@@ -61,6 +61,11 @@ black market
 python manage.py runserver 0.0.0.0:8000
 ```
 
+
+## Логин и пароль для суперпользователя
+login : demon_at@mail.ru
+password : 61903991shalaikodima
+
 # Цели проекта
 
 Код написан в учебных целях — это курс по Джанго на сайте [Skillbox](https://go.skillbox.ru/education/course/django-framework).
