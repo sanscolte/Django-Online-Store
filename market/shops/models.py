@@ -35,6 +35,7 @@ class Offer(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name="offers")
     product = models.ForeignKey("products.Product", on_delete=models.CASCADE, related_name="offers")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("цена"))
+    remains = models.IntegerField(default=0, verbose_name=_("остатки"))
 
     class Meta:
         constraints = [models.UniqueConstraint("shop", "product", name="unique_product_in_shop")]

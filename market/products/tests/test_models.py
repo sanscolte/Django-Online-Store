@@ -1,5 +1,5 @@
 from django.test import TestCase
-from products.models import Product, Detail, ProductDetail, Category, Banner
+from products.models import Product, Detail, ProductDetail, Category, Banner, ProductImage
 
 
 class ProductModelTest(TestCase):
@@ -137,3 +137,14 @@ class BannerModelTest(TestCase):
         for field, expected_value in field_verboses.items():
             with self.subTest(field=field):
                 self.assertEqual(banner._meta.get_field(field).verbose_name, expected_value)
+
+
+class ProductImageTest(TestCase):
+    """
+    Класс тестов модели Изображения продуктов
+    """
+
+    fixtures = ["05-categories.json", "06-products.json", "11-product-images.json"]
+
+    def test_assert_expected_num_of_categories(self):
+        self.assertEqual(ProductImage.objects.count(), 82)
