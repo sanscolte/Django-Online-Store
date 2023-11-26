@@ -1,5 +1,4 @@
 [
-<<<<<<< market/fixtures/01-users.json
   {
     "model": "accounts.user",
     "pk": 1,
