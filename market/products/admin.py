@@ -1,6 +1,6 @@
 from django.contrib import admin  # noqa F401
 
-from .models import Category, Product, Banner, ProductImage
+from .models import Category, Product, Banner, Review
 
 
 @admin.register(Category)
@@ -21,6 +21,7 @@ class BannerAdmin(admin.ModelAdmin):
     list_display_links = ("product",)
 
 
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    list_display = "product", "image", "sort_image"
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = "product", "text", "rating", "user"
+    list_display_links = "product", "text", "rating", "user"

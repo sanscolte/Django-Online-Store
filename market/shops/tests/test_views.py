@@ -10,8 +10,8 @@ class ShopDetailViewTest(TestCase):
 
     fixtures = [
         "fixtures/04-shops.json",
-        "fixtures/05-categories.json",
         "fixtures/06-products.json",
+        "fixtures/05-categories.json",
         "fixtures/08-offers.json",
     ]
 
