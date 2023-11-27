@@ -1,7 +1,15 @@
 from accounts.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.test import TestCase
-from products.models import Product, Detail, ProductDetail, Category, Banner, Review
+from products.models import (
+    Product,
+    Detail,
+    ProductDetail,
+    Category,
+    Banner,
+    Review,
+    ProductImage,
+)
 
 
 class ProductModelTest(TestCase):
@@ -196,3 +204,14 @@ class ReviewModelTest(TestCase):
                 self.assertGreaterEqual(self.review.rating, validator.limit_value)
             elif isinstance(validator, MaxValueValidator):
                 self.assertLessEqual(self.review.rating, validator.limit_value)
+
+
+class ProductImageTest(TestCase):
+    """
+    Класс тестов модели Изображения продуктов
+    """
+
+    fixtures = ["05-categories.json", "06-products.json", "11-product-images.json"]
+
+    def test_assert_expected_num_of_categories(self):
+        self.assertEqual(ProductImage.objects.count(), 82)
