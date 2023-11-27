@@ -50,7 +50,7 @@
                     <div class="dropdown">
                         <button class="dropbtn"><img class="CartBlock-img" src="{{ static('img/icons/loon-icon.svg') }}" alt="loon-icon.svg" /></button>
                         <div class="dropdown-content">
-                            <a class="dropdown-content-a" href="#">Личный кабинет</a>
+                            <a class="dropdown-content-a" href="{{ url('accounts:my-account') }}">Личный кабинет</a>
                             <a class="dropdown-content-a" href="#">Административный раздел</a>
                             <a class="dropdown-content-a" href="{{ url('accounts:logout') }}">Выход</a>
                         </div>

@@ -2,10 +2,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
 from .forms import UserLoginForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class MyAccountView(TemplateView):
-    pass
+class MyAccountView(LoginRequiredMixin, TemplateView):
+    template_name = "accounts/my-account.jinja2"
+    login_url = "/login/"
 
 
 class MyLoginView(LoginView):
