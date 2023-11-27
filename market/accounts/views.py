@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class MyAccountView(LoginRequiredMixin, TemplateView):
+    """Личный кабинет пользователя"""
+
     template_name = "accounts/my-account.jinja2"
     login_url = "/login/"
 
