@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.test import TestCase
 from products.models import Product, Detail, ProductDetail, Category, Banner, Review
@@ -148,7 +148,7 @@ class ReviewModelTest(TestCase):
     def setUpClass(cls):
         """Создание пользователя, продукта и отзыва к нему"""
 
-        cls.user = User.objects.create_user(username="user", password="qwerty")
+        cls.user = User.objects.create_user(email="user@email.ru", password="qwerty")
         cls.product = Product.objects.create(
             name="Тестовый продукт",
         )
