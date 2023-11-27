@@ -1,6 +1,14 @@
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.test import TestCase
-from products.models import Product, Detail, ProductDetail, Category, Banner, Review
+from products.models import (
+    Product,
+    Detail,
+    ProductDetail,
+    Category,
+    Banner,
+    Review,
+    ProductImage,
+)
 
 
 class ProductModelTest(TestCase):
@@ -147,7 +155,7 @@ class ReviewModelTest(TestCase):
     def setUpClass(cls):
         """Создание пользователя, продукта и отзыва к нему"""
 
-        cls.user = User.objects.create_user(username="user", password="qwerty")
+        cls.user = User.objects.create_user(email="user@email.ru", password="qwerty")
         cls.product = Product.objects.create(
             name="Тестовый продукт",
         )
@@ -188,3 +196,14 @@ class ReviewModelTest(TestCase):
 
         max_length = Review._meta.get_field("text").max_length
         self.assertEqual(max_length, 3000)
+
+
+class ProductImageTest(TestCase):
+    """
+    Класс тестов модели Изображения продуктов
+    """
+
+    fixtures = ["05-categories.json", "06-products.json", "11-product-images.json"]
+
+    def test_assert_expected_num_of_categories(self):
+        self.assertEqual(ProductImage.objects.count(), 82)
