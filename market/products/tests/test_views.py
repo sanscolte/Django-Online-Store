@@ -24,6 +24,7 @@ class TestProductListView(TestCase):
 
     def test_price(self):
         """Проверка цены на понижение"""
+
         url = reverse("products:product-list")
         response = self.client.get(url)
         products = response.context_data["object_list"]
