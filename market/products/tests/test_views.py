@@ -20,6 +20,13 @@ class TestProductListView(TestCase):
         self.assertEqual(product_count, 1)
 
     def test_price(self):
+        """Проверка цены на понижение"""
         url = reverse("products:product-list")
         response = self.client.get(url)
-        print(response.content)
+        products = response.context_data["object_list"]
+        price = 0
+        for product in products:
+            if price >= product.min_price[0]:
+                raise ValueError
+            else:
+                price = product.min_price[0]
