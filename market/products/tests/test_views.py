@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-
+from django.core.cache import cache
 from products.models import Product
 
 
@@ -8,6 +8,9 @@ class TestProductListView(TestCase):
     """Класс тестов представлений продуктов"""
 
     fixtures = ["04-shops.json", "05-categories.json", "06-products.json", "08-offers.json"]
+
+    def setUp(self) -> None:
+        cache.clear()
 
     def test_filter(self):
         """Проверка наличия продукта на странице"""
