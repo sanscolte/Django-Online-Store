@@ -6,17 +6,12 @@ class ProductModelTest(TestCase):
     """Класс тестов модели Продукт"""
 
     @classmethod
-    def setUpClass(cls):
+    def setUpTestData(cls):
         cls.detail = Detail.objects.create(name="тестовая характеристика")
         cls.product = Product.objects.create(
             name="Тестовый продукт",
         )
         cls.product.details.set([cls.detail])
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.detail.delete()
-        cls.product.delete()
 
     def test_verbose_name(self):
         product = ProductModelTest.product

@@ -1,9 +1,8 @@
-# import django_filters
-#
-# from .models import Product
-#
-#
-# class ProductFilter(django_filters.FilterSet):
-#     class Meta:
-#         model = Product
-#         fields = ['name', 'date_of_publication']
+from django_filters import FilterSet
+from .models import Product
+
+
+class F(FilterSet):
+    class Meta:
+        model = Product
+        fields = ["name", "offers"]
