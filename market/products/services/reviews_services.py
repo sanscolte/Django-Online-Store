@@ -11,23 +11,22 @@ User = get_user_model()
 class ReviewsService:
     """Сервис для работы с отзывами"""
 
-    def __init__(self, request: HttpRequest, user: User, product: Product):
+    def __init__(self, request: HttpRequest, product: Product):
         self.request = request
-        self.user = user
         self.product = product
 
-    def add(self, review_text: str) -> None:
-        """
-        Добавляет отзыв к товару
-        :param review_text: текст отзыва о товаре
-        :return: None
-        """
-
-        Review.objects.create(
-            product=self.product,
-            user=self.user,
-            text=review_text,
-        )
+    # def add(self, review_text: str) -> None:
+    #     """
+    #     Добавляет отзыв к товару
+    #     :param review_text: текст отзыва о товаре
+    #     :return: None
+    #     """
+    #
+    #     Review.objects.create(
+    #         product=self.product,
+    #         user=self.user,
+    #         text=review_text,
+    #     )
 
     def get_reviews_for_product(self) -> QuerySet[Review]:
         """
