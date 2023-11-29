@@ -42,9 +42,9 @@
                                 </div>
                             {% endfor %}
 
-                            {% if reviews.has_next %}
+                            {% if has_next %}
                                 <div class="pagination">
-                                    <a href="?page={{ reviews.next_page_number }}">Показать еще</a>
+                                    <a href="?page={{ next_page }}">Показать еще</a>
                                 </div>
                             {% endif %}
 

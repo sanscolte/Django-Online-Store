@@ -28,7 +28,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         review_service = ReviewsService(self.request, self.get_object())
-        context["reviews"] = review_service.get_reviews_for_product()
+        context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
         context["reviews_count"] = review_service.get_reviews_count()
         return context
