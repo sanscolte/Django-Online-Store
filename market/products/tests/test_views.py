@@ -29,7 +29,5 @@ class TestProductListView(TestCase):
         products = response.context_data["object_list"]
         price = 0
         for product in products:
-            if price >= product.min_price[0]:
-                raise ValueError
-            else:
-                price = product.min_price[0]
+            self.assertTrue(product.min_price[0] >= price)
+            price = product.min_price[0]
