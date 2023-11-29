@@ -6,9 +6,10 @@ from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
-from products.models import Product, Review
+from products.models import Product
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .forms import ReviewForm
+from .services.reviews_services import ReviewsService
 
 
 @method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
@@ -26,8 +27,10 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["reviews"] = Review.objects.filter(product=self.object)
+        review_service = ReviewsService(self.request, self.request.user, self.get_object())
+        context["reviews"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
+        context["reviews_count"] = review_service.get_reviews_count()
         return context
 
     def post(self, request: HttpRequest, **kwargs):

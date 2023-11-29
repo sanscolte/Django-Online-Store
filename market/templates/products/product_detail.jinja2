@@ -11,7 +11,7 @@
                     <div class="Tabs Tabs_default">
                         <div class="Tabs-links">
                             <a class="Tabs-link" href="#reviews">
-                                <span>Отзывы ({{ reviews|length }})</span>
+                                <span>Отзывы ({{ reviews_count }})</span>
                             </a>
                         </div>
                         {% if reviews %}
@@ -41,6 +41,15 @@
                                     </div>
                                 </div>
                             {% endfor %}
+
+                            {% if reviews.has_next %}
+                                <div class="pagination">
+                                    <a href="?page={{ reviews.next_page_number }}">Показать еще</a>
+                                </div>
+                            {% endif %}
+
+
+
                         {% endif %}
                         <header class="Section-header Section-header_product">
                             <h3 class="Section-title">Добавить отзыв
