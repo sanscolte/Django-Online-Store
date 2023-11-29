@@ -1,8 +1,15 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView
 from .forms import UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class MyRegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = ""
+    success_url = reverse_lazy("account:my-account")
 
 
 class MyAccountView(LoginRequiredMixin, TemplateView):
@@ -20,10 +27,8 @@ class MyLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        if self.request.POST.get("next"):
-            next_page = self.request.POST.get("next")
-        else:
-            next_page = reverse("shops:home")
+        previous_page = self.request.GET.get("next") if self.request.GET.get("next") is not None else "/"
+        next_page = previous_page
         return next_page
 
 
