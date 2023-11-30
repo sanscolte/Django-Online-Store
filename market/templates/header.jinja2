@@ -26,7 +26,7 @@
                             {% else %}
                                 <a class="ControlPanel-title" href="{{ url('accounts:login') }}?next={{ request.path }}">Вход</a>
                             {% endif %}
-                            <a class="ControlPanel-title" href="#">Регистрация</a>
+                            <a class="ControlPanel-title" href="{{ url('accounts:registration') }}">Регистрация</a>
                         </div>
                     </div>
                 </nav>
