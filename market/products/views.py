@@ -18,11 +18,7 @@ class ProductListView(ListView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
     def get_queryset(self):
-        queryset = (
-            Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
-            .filter(avg_price__range=(1_000, 1_000_000))
-            .order_by("-avg_price")
-        )
+        queryset = Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2)).order_by("-avg_price")
         sort_by = self.request.GET.get("sort_by")
 
         if sort_by == "date_of_publication":
