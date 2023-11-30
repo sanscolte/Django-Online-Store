@@ -30,5 +30,7 @@ class TestProductListView(TestCase):
         products = response.context_data["object_list"]
         price = 0
         for product in products:
-            self.assertTrue(product.min_price[0] >= price)
-            price = product.min_price[0]
+            if price == 0:
+                price = product.avg_price
+            self.assertTrue(price >= product.avg_price)
+            price = product.avg_price

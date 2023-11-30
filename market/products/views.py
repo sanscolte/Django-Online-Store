@@ -1,4 +1,5 @@
 from django.db.models import Avg
+from django.db.models.functions import Round
 from django.shortcuts import render  # noqa F401
 
 from django.views.generic import ListView
@@ -18,7 +19,7 @@ class ProductListView(ListView):
 
     def get_queryset(self):
         queryset = (
-            Product.objects.annotate(avg_price=Avg("offers__price"))
+            Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
             .filter(avg_price__range=(1_000, 1_000_000))
             .order_by("-avg_price")
         )
