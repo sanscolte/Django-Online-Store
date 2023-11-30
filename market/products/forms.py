@@ -6,7 +6,18 @@ from .models import Review, ProductDetail, ProductImage
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = "text", "rating"
+        fields = ("text",)
+
+        widgets = {
+            "text": forms.Textarea(
+                attrs={
+                    "class": "form-textarea",
+                    "name": "review",
+                    "id": "review",
+                    "placeholder": "Отзыв",
+                },
+            ),
+        }
 
 
 class ProductDetailForm(forms.ModelForm):
