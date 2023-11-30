@@ -8,6 +8,44 @@
                 <div class="Product">
                     <h1>{{ product.name }}</h1>
 
+                    <div class="product-images">
+                        {% if images %}
+                            <div class="Header-slider">
+                                <div class="Slider Slider_main">
+                                    <div class="Slider-box">
+                                        {% for image in images %}
+                                            <div class="Slider-item">
+                                                <div class="Slider-content">
+                                                    <div class="row">
+                                                        <div class="row-block">
+                                                            <img src={{ image.image.url }}>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="Slider-navigateWrap">
+                                        <div class="Slider-navigate"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <h3>У товара пока нет фотографий!</h3>
+                        {% endif %}
+                    </div>
+
+                    <div class="product-details">
+                        {% if product_details %}
+                            {% for detail in product_details %}
+                                <h4>{{ detail.detail }}:</h4>
+                                <p>{{ detail.value }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <h3>У товара пока не занесены характеристики!</h3>
+                        {% endif %}
+                    </div>
+
                     <div class="Tabs Tabs_default">
                         <div class="Tabs-links">
                             <a class="Tabs-link" href="#reviews">

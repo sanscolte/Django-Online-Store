@@ -83,6 +83,9 @@ class Detail(models.Model):
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
 
+    def __str__(self) -> str:
+        return f"{self.name}"
+
 
 class ProductDetail(models.Model):
     """Значение свойства продукта"""
