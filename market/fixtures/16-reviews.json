@@ -5,88 +5,43 @@
     "fields": {
       "product": 1,
       "user": 1,
-      "text": "best product",
-      "rating": 5
+      "text": "nice phone"
     }
   },
   {
     "model": "products.review",
-    "pk": 6,
+    "pk": 2,
     "fields": {
       "product": 1,
       "user": 1,
-      "text": "good product",
-      "rating": 4
+      "text": "good phone"
     }
   },
   {
     "model": "products.review",
-    "pk": 18,
+    "pk": 3,
     "fields": {
       "product": 1,
       "user": 1,
-      "text": "good product",
-      "rating": 4
+      "text": "best product"
     }
   },
   {
     "model": "products.review",
-    "pk": 19,
+    "pk": 4,
     "fields": {
       "product": 2,
       "user": 1,
-      "text": "bad phone",
-      "rating": 4
+      "text": "the worst phone"
     }
   },
   {
     "model": "products.review",
-    "pk": 20,
+    "pk": 5,
     "fields": {
       "product": 2,
       "user": 1,
-      "text": "very boring phone",
-      "rating": 2
-    }
-  },
-  {
-    "model": "products.review",
-    "pk": 21,
-    "fields": {
-      "product": 1,
-      "user": 1,
-      "text": "nice apple phone",
-      "rating": 4
-    }
-  },
-  {
-    "model": "products.review",
-    "pk": 22,
-    "fields": {
-      "product": 1,
-      "user": 1,
-      "text": "best product",
-      "rating": 4
-    }
-  },
-  {
-    "model": "products.review",
-    "pk": 23,
-    "fields": {
-      "product": 3,
-      "user": 1,
-      "text": "cringe",
-      "rating": 1
-    }
-  },
-  {
-    "model": "products.review",
-    "pk": 24,
-    "fields": {
-      "product": 3,
-      "user": 1,
-      "text": "so cringe",
-      "rating": 1
+      "text": "cringe"
     }
   }
 ]
