@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpRequest
@@ -21,7 +22,7 @@ class ReviewsService:
         """
 
         reviews = Review.objects.filter(product=self.product).order_by("product_id")
-        paginator = Paginator(reviews, 3)
+        paginator = Paginator(reviews, settings.PAGINATE_REVIEWS_BY)
         page = self.request.GET.get("page")
 
         try:
