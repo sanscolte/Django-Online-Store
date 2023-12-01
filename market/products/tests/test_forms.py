@@ -20,13 +20,3 @@ class ReviewFormTest(TestCase):
         data: dict[str, int] = {"text": text, "rating": 5}
         form = ReviewForm(data=data)
         self.assertFalse(form.is_valid())
-
-    def test_invalid_rating_form(self):
-        """Тестирование формы с некорректными значениями рейтинга"""
-
-        incorrect_values: list[int] = [-1, 6]
-
-        for value in incorrect_values:
-            data: dict[str, int] = {"text": "test review", "rating": value}
-            form = ReviewForm(data=data)
-            self.assertFalse(form.is_valid())

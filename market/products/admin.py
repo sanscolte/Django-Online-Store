@@ -23,8 +23,8 @@ class BannerAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = "product", "text", "rating", "user"
-    list_display_links = "product", "text", "rating", "user"
+    list_display = "product", "text", "user"
+    list_display_links = "product", "text", "user"
 
 
 @admin.register(ProductImage)

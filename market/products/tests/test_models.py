@@ -1,5 +1,4 @@
 from accounts.models import User
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.test import TestCase
 from products.models import (
     Product,
@@ -164,7 +163,6 @@ class ReviewModelTest(TestCase):
             product=cls.product,
             user=cls.user,
             text="Тестовый отзыв",
-            rating=5,
         )
 
     @classmethod
@@ -176,6 +174,8 @@ class ReviewModelTest(TestCase):
         cls.review.delete()
 
     def setUp(self):
+        """Логин пользователя"""
+
         self.client.force_login(self.user)
 
     def test_verbose_name(self):
@@ -185,7 +185,6 @@ class ReviewModelTest(TestCase):
             "product": "Продукт",
             "user": "Пользователь",
             "text": "Отзыв",
-            "rating": "Рейтинг",
         }
 
         for field, expected_value in field_verboses.items():
@@ -193,17 +192,10 @@ class ReviewModelTest(TestCase):
                 self.assertEqual(self.review._meta.get_field(field).verbose_name, expected_value)
 
     def test_text_max_length(self):
+        """Тестирование максимально доступной длины поля text"""
+
         max_length = Review._meta.get_field("text").max_length
         self.assertEqual(max_length, 3000)
-
-    def test_rating_max_length(self):
-        validators = [validator for validator in self.review._meta.get_field("rating").validators]
-
-        for validator in validators:
-            if isinstance(validator, MinValueValidator):
-                self.assertGreaterEqual(self.review.rating, validator.limit_value)
-            elif isinstance(validator, MaxValueValidator):
-                self.assertLessEqual(self.review.rating, validator.limit_value)
 
 
 class ProductImageTest(TestCase):
