@@ -64,7 +64,7 @@
                     </div>
                     <div class="Cards">
                         {% for product in products %}
-                            <div class="Card"><a class="Card-picture" href="#"><img src="{{ product.image }}" alt="card.jpg" /></a>
+                            <div class="Card"><a class="Card-picture"><img src="{{ product.product_images.url }}" alt="" /></a>
                                 <div class="Card-content">
                                     <strong class="Card-title"><a href="#">{{ product.name }}</a>
                                     </strong>
