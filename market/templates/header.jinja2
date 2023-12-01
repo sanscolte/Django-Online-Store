@@ -20,7 +20,7 @@
                 </div>
                 <nav class="row-block">
                     <div class="row ControlPanel-rowSplit">
-                        <div class="row-block"><a class="ControlPanel-title" href="#">Вход</a>
+                        <div class="row-block"><a class="ControlPanel-title" href="{{ url('accounts:login') }}">Вход</a>
                             <a class="ControlPanel-title" href="#">Регистрация</a>
                         </div>
                     </div>
@@ -50,9 +50,9 @@
                     <div class="dropdown">
                         <button class="dropbtn"><img class="CartBlock-img" src="{{ static('img/icons/loon-icon.svg') }}" alt="loon-icon.svg" /></button>
                         <div class="dropdown-content">
-                            <a class="dropdown-content-a" href="#">Личный кабинет</a>
+                            <a class="dropdown-content-a" href="{{ url('accounts:my-account') }}">Личный кабинет</a>
                             <a class="dropdown-content-a" href="#">Административный раздел</a>
-                            <a class="dropdown-content-a" href="#">Выход</a>
+                            <a class="dropdown-content-a" href="{{ url('accounts:logout') }}">Выход</a>
                         </div>
                     </div>
                     <a class="CartBlock-block" href="#"><img class="CartBlock-img" src="{{ static('img/icons/cart.svg') }}" alt="cart.svg" /><span class="CartBlock-amount">0</span></a>

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "debug_toolbar",
     "django_filters",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -167,6 +168,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = "accounts.User"
+
 FIXTURE_DIRS = ["fixtures"]
 
 PAGINATE_PRODUCTS_BY = 6
@@ -179,3 +182,4 @@ SHELL_PLUS = "ipython"
 # print SQL queries in shell_plus
 SHELL_PLUS_PRINT_SQL = True
 SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+PAGINATE_REVIEWS_BY = 3

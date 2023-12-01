@@ -1,0 +1,20 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+    <div class="Middle Middle_top">
+        <div class="Section">
+            <div class="wrap">
+                <div class="Product">
+                    <h1>{{ product.name }}</h1>
+
+                    <div class="Tabs Tabs_default">
+                        {% include "products/reviews.jinja2" %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

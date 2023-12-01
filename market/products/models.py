@@ -1,4 +1,6 @@
 from decimal import Decimal
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -68,6 +70,11 @@ class Product(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+
+        return reverse("products:product-detail", kwargs={"pk": self.pk})
+
 
 signals.post_save.connect(receiver=save_product, sender=Product)
 signals.post_delete.connect(receiver=delete_product, sender=Product)
@@ -90,11 +97,19 @@ class ProductDetail(models.Model):
         constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
 
 
+def product_image_directory_path(instance: "ProductImage", filename: str) -> str:
+    """Функция создания уникального пути к изображениям продукта"""
+    return "products/{product}/{filename}".format(
+        product=instance.product.name,
+        filename=filename,
+    )
+
+
 class ProductImage(models.Model):
     """Фотографии продукта"""
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(verbose_name=_("изображение"), default=1)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_images")
+    image = models.ImageField(upload_to=product_image_directory_path, verbose_name=_("изображение"), default=1)
     sort_image = models.IntegerField()
 
 
@@ -112,3 +127,9 @@ class Banner(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
     image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name="изображение")
     is_active = models.BooleanField(default=True)
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт")
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Пользователь")
+    text = models.TextField(blank=True, max_length=3000, verbose_name="Отзыв")
