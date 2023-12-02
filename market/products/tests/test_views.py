@@ -44,8 +44,8 @@ class TestProductListView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context_data["object_list"]), product_count)
 
-    def test_avg_price_ordering(self):
-        """Проверка сортировки по средней цене."""
+    def test_avg_price_asc_ordering(self):
+        """Проверка сортировки по средней цене по возрастанию."""
 
         url = reverse("products:product-list") + "?o=avg_price"
         response = self.client.get(url)
@@ -53,6 +53,16 @@ class TestProductListView(TestCase):
 
         for idx in range(1, len(products)):
             self.assertTrue(products[idx].avg_price >= products[idx - 1].avg_price)
+
+    def test_avg_price_desc_ordering(self):
+        """Проверка сортировки по средней цене по убыванию."""
+
+        url = reverse("products:product-list") + "?o=-avg_price"
+        response = self.client.get(url)
+        products = response.context_data["object_list"]
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].avg_price <= products[idx - 1].avg_price)
 
     def test_date_of_publication_ordering(self):
         """Проверка сортировки по дате публикации"""
