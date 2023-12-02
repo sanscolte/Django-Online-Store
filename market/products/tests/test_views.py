@@ -27,7 +27,7 @@ class TestProductListView(TestCase):
         self.assertContains(response, "Smeg")
         self.assertEqual(product_count, 1)
 
-    @patch("products.views.ProductListView.paginate_by", Product.objects.count())
+    @patch("products.views.ProductListView.paginate_by", None)
     def test_filter_avg_price_in_range(self):
         """Проверка фильтра по диапазону цен. Пагинация отключена в декораторе."""
 
