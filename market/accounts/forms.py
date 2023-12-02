@@ -1,4 +1,8 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    UserCreationForm,
+    UserChangeForm,
+)
 from .models import User
 from django import forms
 
@@ -96,3 +100,80 @@ class MyUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("password1", "password2", "full_name", "email", "phone_number")
+
+
+class MyUserChangeForm(UserChangeForm):
+    """Класс отвечает за форму изменения пользователя"""
+
+    password1 = forms.CharField(
+        max_length=150,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-input",
+                "data-validate": "requirePassword",
+                "placeholder": "Тут можно изменить пароль",
+                "autocomplete": "new-password",
+                "maxlength": "150",
+            }
+        ),
+    )
+    password2 = forms.CharField(
+        max_length=150,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-input",
+                "data-validate": "requireRepeatPassword",
+                "placeholder": "Введите пароль повторно",
+                "autocomplete": "new-password",
+                "maxlength": "150",
+            }
+        ),
+    )
+    full_name = forms.CharField(
+        max_length=254,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"class": "form-input", "data-validate": "require", "placeholder": "Введите ФИО", "maxlength": "254"}
+        ),
+    )
+    email = forms.EmailField(
+        max_length=254,
+        label="e-mail",
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-input",
+                "data-validate": "requireMail",
+                "placeholder": "Введите E-mail",
+                "maxlength": "254",
+            }
+        ),
+    )
+    phone_number = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-input",
+                "data-validate": "requirePhone",
+                "placeholder": "Введите номер телефона",
+                "type": "tel",
+            }
+        ),
+    )
+    avatar = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(
+            attrs={
+                "class": "Profile-file form-input",
+                "type": "file",
+                "accept": ".jpg,.gif,.png",
+                "data-validate": "onlyImgAvatar",
+            }
+        ),
+    )
+
+    class Meta:
+        model = User
+        fields = ("password1", "password2", "full_name", "email", "phone_number", "avatar")

@@ -1,12 +1,13 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 
-from .forms import MyUserCreationForm
+from .forms import MyUserCreationForm, MyUserChangeForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 from .forms import UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 class MyRegisterView(CreateView):
@@ -28,6 +29,24 @@ class MyRegisterView(CreateView):
         user = authenticate(self.request, email=email, password=password)
         login(request=self.request, user=user)
         return response
+
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    """Изменение пользователя"""
+
+    form_class = MyUserChangeForm
+    template_name = "accounts/profile.jinja2"
+    login_url = "/login/"
+
+    def get_success_url(self):
+        return reverse("accounts:profile")
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        messages.info(self.request, "Профиль успешно сохранен")
+        return super(ProfileView, self).form_valid(form)
 
 
 class MyAccountView(LoginRequiredMixin, TemplateView):
