@@ -1,3 +1,5 @@
+from django.db.models import Avg
+from django.db.models.functions import Round
 from django.http import HttpRequest
 from django.shortcuts import render, redirect  # noqa F401
 
@@ -21,16 +23,8 @@ class ProductListView(FilterView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
     filterset_class = ProductFilter
 
-
-# def get_queryset(self):
-#     queryset = Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2)).order_by("-avg_price")
-#     sort_by = self.request.GET.get("sort_by")
-#
-#     if sort_by == "date_of_publication":
-#         queryset = queryset.order_by("-date_of_publication")
-#     if sort_by == "price":
-#         queryset = queryset.order_by("avg_price")
-#     return queryset
+    def get_queryset(self):
+        return Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
 
 
 class ProductDetailView(DetailView):

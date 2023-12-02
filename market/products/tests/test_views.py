@@ -42,21 +42,27 @@ class TestProductListView(TestCase):
             .count()
         )
         self.assertEqual(response.status_code, 200)
-        print((len(response.context_data["object_list"]), product_count))
         self.assertEqual(len(response.context_data["object_list"]), product_count)
 
-    def test_price(self):
-        """Проверка цены на понижение"""
+    def test_avg_price_ordering(self):
+        """Проверка сортировки по средней цене."""
 
-        url = reverse("products:product-list")
+        url = reverse("products:product-list") + "?o=avg_price"
         response = self.client.get(url)
         products = response.context_data["object_list"]
-        price = 0
-        for product in products:
-            if price == 0:
-                price = product.avg_price
-            self.assertTrue(price >= product.avg_price)
-            price = product.avg_price
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].avg_price >= products[idx - 1].avg_price)
+
+    def test_date_of_publication_ordering(self):
+        """Проверка сортировки по дате публикации"""
+
+        url = reverse("products:product-list") + "?o=publication"
+        response = self.client.get(url)
+        products = response.context_data["object_list"]
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].date_of_publication >= products[idx - 1].date_of_publication)
 
 
 User = get_user_model()
