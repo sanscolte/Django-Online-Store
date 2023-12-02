@@ -1,3 +1,7 @@
+from unittest.mock import patch
+
+from django.db.models import Avg
+from django.db.models.functions import Round
 from django.test import TestCase
 from django.urls import reverse
 from django.core.cache import cache
@@ -13,15 +17,33 @@ class TestProductListView(TestCase):
     def setUp(self) -> None:
         cache.clear()
 
-    def test_filter(self):
-        """Проверка наличия продукта на странице"""
+    def test_filter_name_iexact(self):
+        """Проверка фильтра по наименованию продукта"""
 
-        url = reverse("products:product-list") + "?name=Smeg"
+        url = reverse("products:product-list") + "?name__iexact=smeg"
         response = self.client.get(url)
         product_count = Product.objects.filter(name="Smeg").count()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Smeg")
         self.assertEqual(product_count, 1)
+
+    @patch("products.views.ProductListView.paginate_by", Product.objects.count())
+    def test_filter_avg_price_in_range(self):
+        """Проверка фильтра по диапазону цен. Пагинация отключена в декораторе."""
+
+        min_price = 1_000
+        max_price = 10_000
+
+        url = reverse("products:product-list") + f"?avg_price__gte={min_price}&avg_price__lte={max_price}"
+        response = self.client.get(url)
+        product_count = (
+            Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
+            .filter(avg_price__gte=min_price, avg_price__lte=max_price)
+            .count()
+        )
+        self.assertEqual(response.status_code, 200)
+        print((len(response.context_data["object_list"]), product_count))
+        self.assertEqual(len(response.context_data["object_list"]), product_count)
 
     def test_price(self):
         """Проверка цены на понижение"""
