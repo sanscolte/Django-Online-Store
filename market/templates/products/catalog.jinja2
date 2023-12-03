@@ -11,10 +11,11 @@
                             </strong>
                         </header>
                         <div class="Section-columnContent">
-                            <form class="form" action="#" method="post">
+                            <form class="form" action="{{ url('products:product-list') }}" method="get">
                                 <div class="form-group">
                                     <div class="range Section-columnRange">
-                                        <input class="range-line" id="price" name="price" type="text" data-type="double" data-min="7" data-max="50" data-from="7" data-to="27" />
+                                        <input class="range-line" id="avg_price__gte" name="avg_price__gte" type="text" data-min="5000" data-max="10000" />
+                                        <input class="range-line" id="avg_price__lte" name="avg_price__lte" type="text" data-min="5000" data-max="10000" />
                                         <div class="range-price">Цена:&#32;
                                             <div class="rangePrice">
                                             </div>
@@ -22,7 +23,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-input form-input_full" id="title" name="title" type="text" placeholder="Название" />
+                                    <input class="form-input form-input_full" id="name__iexact" name="name__iexact" type="text" placeholder="Название" />
                                 </div>
                                 <div class="form-group">
                                     <!-- - var options = setOptions(items, ['value', 'selected', 'disabled']);-->
@@ -38,7 +39,7 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <div class="buttons"><a class="btn btn_square btn_dark btn_narrow" href="#">Фильтр</a>
+                                    <div class="buttons"><input type="submit" class="btn btn_square btn_dark btn_narrow" value="Фильтр">
                                     </div>
                                 </div>
                             </form>
@@ -59,12 +60,12 @@
                     <div class="Sort">
                         <div class="Sort-title">Сортировать по:
                         </div>
-                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="#">Популярности</a><a class="Sort-sortBy" href="{{ url('products:product-list') }}?sort_by=price">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="{{ url('products:product-list') }}?sort_by=date_of_publication">Новизне</a>
+                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="?o=publication">Популярности</a><a class="Sort-sortBy" href="?o=-avg_price">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="?o=-publication">Новизне</a>
                         </div>
                     </div>
                     <div class="Cards">
                         {% for product in products %}
-                            <div class="Card"><a class="Card-picture"><img src="{{ product.product_images.url }}" alt="" /></a>
+                            <div class="Card"><a class="Card-picture"><img src="{{ product.image }}" alt="" /></a>
                                 <div class="Card-content">
                                     <strong class="Card-title"><a href="#">{{ product.name }}</a>
                                     </strong>
