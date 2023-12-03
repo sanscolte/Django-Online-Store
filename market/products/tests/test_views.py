@@ -12,7 +12,13 @@ from django.contrib.auth import get_user_model
 class TestProductListView(TestCase):
     """Класс тестов представлений продуктов"""
 
-    fixtures = ["04-shops.json", "05-categories.json", "06-products.json", "08-offers.json"]
+    fixtures = [
+        "04-shops.json",
+        "05-categories.json",
+        "06-products.json",
+        "08-offers.json",
+        "11-product-images.json",
+    ]
 
     def setUp(self) -> None:
         cache.clear()
@@ -73,6 +79,14 @@ class TestProductListView(TestCase):
 
         for idx in range(1, len(products)):
             self.assertTrue(products[idx].date_of_publication >= products[idx - 1].date_of_publication)
+
+    def test_product_image_url(self):
+        """Проверка формирования preview продукта"""
+
+        url = reverse("products:product-list") + "?name__iexact=smeg"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context_data["object_list"][0].image, "/uploads/products/Smeg/smeg1.jpg")
 
 
 User = get_user_model()

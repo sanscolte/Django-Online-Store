@@ -1,5 +1,5 @@
-from django.db.models import Avg
-from django.db.models.functions import Round
+from django.db.models import Avg, Subquery, OuterRef, CharField, Value
+from django.db.models.functions import Round, Concat
 from django.http import HttpRequest
 from django.shortcuts import render, redirect  # noqa F401
 
@@ -9,7 +9,7 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 
-from products.models import Product
+from products.models import Product, ProductImage
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .filters import ProductFilter
 from .forms import ReviewForm
@@ -24,7 +24,19 @@ class ProductListView(FilterView):
     filterset_class = ProductFilter
 
     def get_queryset(self):
-        return Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
+        images = ProductImage.objects.filter(product=OuterRef("pk")).order_by("sort_image")
+        queryset = (
+            Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
+            .annotate(
+                image=Concat(
+                    Value(settings.MEDIA_URL),
+                    Subquery(images.values("image")[:1]),
+                    output_field=CharField(),
+                ),
+            )
+            .order_by("date_of_publication")
+        )
+        return queryset
 
 
 class ProductDetailView(DetailView):
