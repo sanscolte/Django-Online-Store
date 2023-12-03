@@ -72,7 +72,6 @@ class Product(models.Model):
         """Вычисляет изображение для списка продуктов"""
 
         images = self.product_images.values_list("image").first()
-        assert len(images) > 0, "Нет ни одного изображения в продукте"
         return "/uploads/" + images[0]
 
     def __str__(self) -> str:
