@@ -49,7 +49,7 @@
                      </label>
                      {{ form.password1 }}
                      {% if form.password1.errors %}
-                         {% for error in form.password2.errors %}
+                         {% for error in form.password1.errors %}
                              <div class="form-error">{{ error|escape }}</div>
                          {% endfor %}
                      {% endif %}
