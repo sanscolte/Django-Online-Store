@@ -72,7 +72,8 @@ class Product(models.Model):
         """Вычисляет изображение для списка продуктов"""
 
         images = self.product_images.values_list("image").first()
-        return "/uploads/" + images[0]
+        if images:
+            return "/uploads/" + images[0]
 
     def __str__(self) -> str:
         return f"{self.name}"
