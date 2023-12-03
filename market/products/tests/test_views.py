@@ -1,3 +1,7 @@
+from unittest.mock import patch
+
+from django.db.models import Avg
+from django.db.models.functions import Round
 from django.test import TestCase
 from django.urls import reverse
 from django.core.cache import cache
@@ -13,28 +17,62 @@ class TestProductListView(TestCase):
     def setUp(self) -> None:
         cache.clear()
 
-    def test_filter(self):
-        """Проверка наличия продукта на странице"""
+    def test_filter_name_iexact(self):
+        """Проверка фильтра по наименованию продукта"""
 
-        url = reverse("products:product-list") + "?name=Smeg"
+        url = reverse("products:product-list") + "?name__iexact=smeg"
         response = self.client.get(url)
         product_count = Product.objects.filter(name="Smeg").count()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Smeg")
         self.assertEqual(product_count, 1)
 
-    def test_price(self):
-        """Проверка цены на понижение"""
+    @patch("products.views.ProductListView.paginate_by", None)
+    def test_filter_avg_price_in_range(self):
+        """Проверка фильтра по диапазону цен. Пагинация отключена в декораторе."""
 
-        url = reverse("products:product-list")
+        min_price = 1_000
+        max_price = 10_000
+
+        url = reverse("products:product-list") + f"?avg_price__gte={min_price}&avg_price__lte={max_price}"
+        response = self.client.get(url)
+        product_count = (
+            Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
+            .filter(avg_price__gte=min_price, avg_price__lte=max_price)
+            .count()
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context_data["object_list"]), product_count)
+
+    def test_avg_price_asc_ordering(self):
+        """Проверка сортировки по средней цене по возрастанию."""
+
+        url = reverse("products:product-list") + "?o=avg_price"
         response = self.client.get(url)
         products = response.context_data["object_list"]
-        price = 0
-        for product in products:
-            if price == 0:
-                price = product.avg_price
-            self.assertTrue(price >= product.avg_price)
-            price = product.avg_price
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].avg_price >= products[idx - 1].avg_price)
+
+    def test_avg_price_desc_ordering(self):
+        """Проверка сортировки по средней цене по убыванию."""
+
+        url = reverse("products:product-list") + "?o=-avg_price"
+        response = self.client.get(url)
+        products = response.context_data["object_list"]
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].avg_price <= products[idx - 1].avg_price)
+
+    def test_date_of_publication_ordering(self):
+        """Проверка сортировки по дате публикации"""
+
+        url = reverse("products:product-list") + "?o=publication"
+        response = self.client.get(url)
+        products = response.context_data["object_list"]
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].date_of_publication >= products[idx - 1].date_of_publication)
 
 
 User = get_user_model()
