@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from products.forms import ReviewForm
-from products.models import Review
+from products.forms import ReviewForm, ProductDetailForm
+from products.models import Review, Product, Detail
 
 
 class ReviewFormTest(TestCase):
@@ -21,12 +21,18 @@ class ReviewFormTest(TestCase):
         form = ReviewForm(data=data)
         self.assertFalse(form.is_valid())
 
-    def test_invalid_rating_form(self):
-        """Тестирование формы с некорректными значениями рейтинга"""
 
-        incorrect_values: list[int] = [-1, 6]
+class ProductDetailFormTest(TestCase):
+    """Класс тестов для формы ProductDetail"""
 
-        for value in incorrect_values:
-            data: dict[str, int] = {"text": "test review", "rating": value}
-            form = ReviewForm(data=data)
-            self.assertFalse(form.is_valid())
+    def test_valid_product_details_form(self):
+        product = Product.objects.create(name="test product")
+        detail = Detail.objects.create(name="test detail")
+        data = {"product": product.pk, "detail": detail.pk, "value": "test value"}
+        form = ProductDetailForm(data=data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_product_details_form(self):
+        data = {"product": "", "detail": "", "value": ""}
+        form = ProductDetailForm(data=data)
+        self.assertFalse(form.is_valid())

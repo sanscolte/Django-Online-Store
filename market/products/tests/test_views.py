@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-from django.core import serializers
 
-from products.models import Review, Product
+from products.models import Product
+
 
 User = get_user_model()
 
@@ -22,22 +22,29 @@ class ProductDetailReviewTest(TestCase):
     def setUp(self):
         self.client.force_login(User.objects.get(pk=1))
 
-    def test_view_context(self):
-        """Тестирование передачи данных в контексте"""
+    def test_view_with_reviews(self):
+        """Тестирование контекста с отзывами"""
 
         pk: int = 1
-        reviews_context = serializers.serialize("json", Review.objects.filter(product__pk=pk))
-        product_context = Product.objects.get(pk=pk)
+        response = self.client.get(reverse("products:product-detail", args=[pk]))
+        reviews = response.context_data.get("reviews")
 
-        response_reviews_context = serializers.serialize(
-            "json", self.client.get(reverse("products:product-detail", args=(pk,))).context_data["reviews"]
-        )
-        response_product_context = self.client.get(reverse("products:product-detail", args=(pk,))).context_data[
-            "product"
-        ]
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("reviews" in response.context_data)
+        self.assertEqual(reviews.number, 1)
+        self.assertEqual(len(reviews), 3)
 
-        self.assertEqual(response_reviews_context, reviews_context)
-        self.assertEqual(response_product_context, product_context)
+    def test_view_without_reviews(self):
+        """Тестирование контекста без отзывов"""
+
+        pk: int = 10
+        response = self.client.get(reverse("products:product-detail", args=[pk]))
+        reviews = response.context_data.get("reviews")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("reviews" in response.context_data)
+        self.assertEqual(reviews.number, 1)
+        self.assertEqual(len(reviews), 0)
 
     def test_view_post(self):
         """Тестирование отправки POST-запроса"""
@@ -50,3 +57,22 @@ class ProductDetailReviewTest(TestCase):
         response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form)
 
         self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
+
+
+class ProductDetailTest(TestCase):
+    """Класс тестов представлений детальной страницы продукта"""
+
+    fixtures = [
+        "fixtures/05-categories.json",
+        "fixtures/06-products.json",
+    ]
+
+    def test_view_product_detail_page(self):
+        """Тестирование представления страницы с деталями продукта"""
+
+        pk = 1
+        response = self.client.get(reverse("products:product-detail", args=[pk]))
+        product = Product.objects.get(pk=pk)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, product)

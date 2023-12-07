@@ -8,26 +8,24 @@
                 <div class="Product">
                     <h1>{{ product.name }}</h1>
 
+                    <div>
+                        <button type="submit">Купить</button>
+                    </div>
+
                     <div class="product-images">
                         {% if images %}
-                            <div class="Header-slider">
-                                <div class="Slider Slider_main">
-                                    <div class="Slider-box">
-                                        {% for image in images %}
-                                            <div class="Slider-item">
-                                                <div class="Slider-content">
-                                                    <div class="row">
-                                                        <div class="row-block">
-                                                            <img src={{ image.image.url }}>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <div class="Slider Slider_main">
+                                <div class="Slider-box">
+                                    {% for image in images %}
+                                        <div class="Slider-item">
+                                            <div class="Slider-content Profile-img">
+                                                <img src="{{ image.image.url }}" alt="Изображение товара">
                                             </div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="Slider-navigateWrap">
-                                        <div class="Slider-navigate"></div>
-                                    </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="Slider-navigateWrap">
+                                    <div class="Slider-navigate"></div>
                                 </div>
                             </div>
                         {% else %}
@@ -46,60 +44,36 @@
                         {% endif %}
                     </div>
 
-                    <div class="Tabs Tabs_default">
-                        <div class="Tabs-links">
-                            <a class="Tabs-link" href="#reviews">
-                                <span>Отзывы ({{ reviews|length }})</span>
-                            </a>
-                        </div>
-                        {% if reviews %}
-                            <div class="Tabs-wrap">
-                            <div class="Tabs-block" id="reviews">
-                            <header class="Section-header">
-                                <h3 class="Section-title">{{ reviews|length }} отзыв
-                                </h3>
-                            </header>
-                            {% for review in reviews %}
-                                <div class="Comments">
-                                    <div class="Comment">
-                                        <div class="Comment-column Comment-column_pict">
-                                            <div class="Comment-avatar">
-                                            </div>
-                                        </div>
-                                        <div class="Comment-column">
-                                            <header class="Comment-header">
-                                                <div>
-                                                    <strong class="Comment-title">{{ review.user }}
-                                                    </strong><span class="Comment-date">Декабрь 25&#32;&#32;/&#32;&#32;2017&#32;&#32;/&#32;&#32;22:50</span>
-                                                </div>
-                                            </header>
-                                            <div class="Comment-content">{{ review.text }}
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="offers">
+                        <h3>Предложения:</h3>
+                        {% if offers %}
+                            {% for offer in offers %}
+                                <div>
+                                    <img src='{{ offer.shop.image.url }}' alt='Изображение магазина'>
+                                    <h4>Магазин: {{ offer.shop }}</h4>
+                                    <p>Цена: {{ offer.price }}</p>
+                                    <b>Товаров осталось: {{ offer.remains }}</b>
                                 </div>
                             {% endfor %}
+                        {% else %}
+                            <h3>Пока нет предложений от продавцов!</h3>
                         {% endif %}
-                        <header class="Section-header Section-header_product">
-                            <h3 class="Section-title">Добавить отзыв
-                            </h3>
-                        </header>
-                        <div class="Tabs-addComment">
-                            <form class="form" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
+                    </div>
 
-                                <div class="form-group">
-                                    {{ review_form }}
-                                </div>
+                    <div class="Tabs Tabs_default">
+                        {% include "products/reviews.jinja2" %}
+                    </div>
 
-                                <div class="form-group">
-                                    <button class="btn btn_muted" type="submit">Отправить отзыв
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        </div>
-                        </div>
+                    <div class="discounts">
+                        <h3>Скидки:</h3>
+                    </div>
+
+                    <div>
+                        <button type="submit">Купить</button>
+                    </div>
+
+                    <div class="seen-products">
+                        <h3>Ранее просмотренные товары:</h3>
                     </div>
                 </div>
 

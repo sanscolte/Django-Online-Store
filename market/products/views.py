@@ -6,10 +6,13 @@ from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
-from products.models import Product, ProductDetail, ProductImage
-from .constants import KEY_FOR_CACHE_PRODUCTS
+from .models import Product, ProductDetail, ProductImage
+from .constants import KEY_FOR_CACHE_PRODUCTS, KEY_FOR_CACHE_PRODUCT_DETAILS
 from .services.reviews_services import ReviewsService
 from .forms import ReviewForm, ProductDetailForm, ProductImageForm
+
+from shops.models import Offer
+from shops.forms import OfferForm
 
 
 @method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
@@ -20,6 +23,7 @@ class ProductListView(ListView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
 
+@method_decorator(cache_page(60 * 3600, key_prefix=KEY_FOR_CACHE_PRODUCT_DETAILS), name="dispatch")
 class ProductDetailView(DetailView):
     template_name = "products/product_detail.jinja2"
     model = Product
@@ -35,6 +39,8 @@ class ProductDetailView(DetailView):
         context["product_details_form"] = ProductDetailForm()
         context["images"] = ProductImage.objects.filter(product=self.object)
         context["images_form"] = ProductImageForm()
+        context["offers"] = Offer.objects.filter(product=self.object)
+        context["offers_form"] = OfferForm()
         return context
 
     def post(self, request: HttpRequest, **kwargs):

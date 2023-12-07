@@ -1,11 +1,10 @@
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from .constants import KEY_FOR_CACHE_PRODUCTS
+from .constants import KEY_FOR_CACHE_PRODUCTS, KEY_FOR_CACHE_PRODUCT_DETAILS
 from django.core.cache import cache
 from django.db.models import signals
 
@@ -16,6 +15,14 @@ def save_product(**kwargs):
 
 def delete_product(**kwargs):
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
+
+
+def save_product_details(**kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCT_DETAILS)
+
+
+def delete_product_details(**kwargs):
+    cache.delete(KEY_FOR_CACHE_PRODUCT_DETAILS)
 
 
 class Category(models.Model):
@@ -98,6 +105,10 @@ class ProductDetail(models.Model):
         constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
 
 
+signals.post_save.connect(receiver=save_product_details, sender=ProductDetail)
+signals.post_delete.connect(receiver=delete_product_details, sender=ProductDetail)
+
+
 def product_image_directory_path(instance: "ProductImage", filename: str) -> str:
     """Функция создания уникального пути к изображениям продукта"""
     return "products/{product}/{filename}".format(
@@ -134,4 +145,3 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт")
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Пользователь")
     text = models.TextField(blank=True, max_length=3000, verbose_name="Отзыв")
-    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Рейтинг")
