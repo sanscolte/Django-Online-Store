@@ -1,2 +1,1 @@
 KEY_FOR_CACHE_PRODUCTS = "products"
-KEY_FOR_CACHE_PRODUCT_DETAILS = "product-details"
