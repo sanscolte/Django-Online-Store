@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 
@@ -21,6 +22,7 @@ class ProductDetailReviewTest(TestCase):
 
     def setUp(self):
         self.client.force_login(User.objects.get(pk=1))
+        cache.clear()
 
     def test_view_with_reviews(self):
         """Тестирование контекста с отзывами"""
@@ -30,7 +32,7 @@ class ProductDetailReviewTest(TestCase):
         reviews = response.context_data.get("reviews")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("reviews" in response.context_data)
+        self.assertContains(response, "Отзывы")
         self.assertEqual(reviews.number, 1)
         self.assertEqual(len(reviews), 3)
 
@@ -42,7 +44,7 @@ class ProductDetailReviewTest(TestCase):
         reviews = response.context_data.get("reviews")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("reviews" in response.context_data)
+        self.assertContains(response, "Отзывы")
         self.assertEqual(reviews.number, 1)
         self.assertEqual(len(reviews), 0)
 
