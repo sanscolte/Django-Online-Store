@@ -82,6 +82,9 @@ class Detail(models.Model):
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
 
+    def __str__(self) -> str:
+        return f"{self.name}"
+
 
 class ProductDetail(models.Model):
     """Значение свойства продукта"""
@@ -96,6 +99,7 @@ class ProductDetail(models.Model):
 
 def product_image_directory_path(instance: "ProductImage", filename: str) -> str:
     """Функция создания уникального пути к изображениям продукта"""
+
     return "products/{product}/{filename}".format(
         product=instance.product.name,
         filename=filename,

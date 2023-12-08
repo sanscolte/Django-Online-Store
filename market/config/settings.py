@@ -176,6 +176,8 @@ PAGINATE_PRODUCTS_BY = 6
 
 CACHE_TIME = 60 * 10
 
+CACHE_TIME_DETAIL_PRODUCT_PAGE = 60 * 60 * 24
+
 # django-extensions shell_plus settings
 SHELL_PLUS = "ipython"
 
