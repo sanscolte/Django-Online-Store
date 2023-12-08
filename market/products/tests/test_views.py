@@ -3,8 +3,7 @@ from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 
-from products.models import Product
-
+from products.models import Product, Category
 
 User = get_user_model()
 
@@ -61,7 +60,7 @@ class ProductDetailReviewTest(TestCase):
         self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
 
 
-class ProductDetailTest(TestCase):
+class ProductDetailViewTest(TestCase):
     """Класс тестов представлений детальной страницы продукта"""
 
     fixtures = [
@@ -69,12 +68,13 @@ class ProductDetailTest(TestCase):
         "fixtures/06-products.json",
     ]
 
-    def test_view_product_detail_page(self):
+    def setUp(self):
+        self.category = Category.objects.create(name="test category")
+        self.product = Product.objects.create(name="test product", category=self.category)
+
+    def test_product_detail_view_context(self):
         """Тестирование представления страницы с деталями продукта"""
 
-        pk = 1
-        response = self.client.get(reverse("products:product-detail", args=[pk]))
-        product = Product.objects.get(pk=pk)
-
+        response = self.client.get(reverse("products:product-detail", args=[self.product.pk]))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, product)
+        self.assertContains(response, self.product)

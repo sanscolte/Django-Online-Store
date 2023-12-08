@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django.core.cache import cache
 
 from .models import Product, ProductDetail, ProductImage
 from .constants import KEY_FOR_CACHE_PRODUCTS, KEY_FOR_CACHE_PRODUCT_DETAILS
@@ -23,7 +24,7 @@ class ProductListView(ListView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
 
-@method_decorator(cache_page(60 * 3600, key_prefix=KEY_FOR_CACHE_PRODUCT_DETAILS), name="dispatch")
+@method_decorator(cache_page(60 * 60 * 24, key_prefix=KEY_FOR_CACHE_PRODUCT_DETAILS), name="dispatch")
 class ProductDetailView(DetailView):
     template_name = "products/product_detail.jinja2"
     model = Product
@@ -43,11 +44,30 @@ class ProductDetailView(DetailView):
         context["offers_form"] = OfferForm()
         return context
 
+    def handle_product_details_update(self):
+        # Логика обновления деталей товара
+        # ...
+
+        # Сброс кэша страницы товара
+        cache_key = "product_page_cache" + str(self.object.pk)
+        cache.delete(cache_key)
+
     def post(self, request: HttpRequest, **kwargs):
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
             review_form.instance.user = self.request.user
             review_form.instance.product = self.get_object()
             review_form.save()
+
+        # Обработка POST-запроса, например, при обновлении деталей товара
+        # ...
+        # product_detail_form = ProductDetailForm(request.POST)
+        # if product_detail_form.is_valid():
+        #     product_detail_form.instance.product = self.get_object()
+        #
+        #     product_detail_form.save()
+        #     self.handle_product_details_update()
+
+        # return super().post(request, *args, **kwargs)
 
         return redirect(self.get_object())
