@@ -13,7 +13,6 @@ from .models import Product, ProductDetail, ProductImage
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .services.reviews_services import ReviewsService
 from .forms import ReviewForm, ProductDetailForm, ProductImageForm
-from config.settings import CACHE_TIME_DETAIL_PRODUCT_PAGE
 
 from shops.models import Offer
 from shops.forms import OfferForm
@@ -27,7 +26,9 @@ class ProductListView(ListView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
 
-@method_decorator(cache_page(CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix="product_page_cache"), name="dispatch")
+@method_decorator(
+    cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix="product_page_cache"), name="dispatch"
+)
 class ProductDetailView(DetailView):
     template_name = "products/product_detail.jinja2"
     model = Product
@@ -54,7 +55,7 @@ class ProductDetailView(DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         unique_cache_key = self.get_cache_key(*args, **kwargs)
-        cache_decorator = cache_page(CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix=unique_cache_key)
+        cache_decorator = cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix=unique_cache_key)
         cached_dispatch = cache_decorator(super().dispatch)
         return cached_dispatch(request, *args, **kwargs)
 
