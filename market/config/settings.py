@@ -185,3 +185,13 @@ SHELL_PLUS = "ipython"
 SHELL_PLUS_PRINT_SQL = True
 SHELL_PLUS_PRINT_SQL_TRUNCATE = None
 PAGINATE_REVIEWS_BY = 3
+
+
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = "meganoshops@yandex.ru"
+EMAIL_HOST_PASSWORD = "lmxgiyelbswrujgz"
+DEFAULT_FROM_EMAIL = "meganoshops@yandex.ru"
