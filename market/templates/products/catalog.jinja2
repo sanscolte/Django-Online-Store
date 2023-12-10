@@ -60,7 +60,7 @@
                     <div class="Sort">
                         <div class="Sort-title">Сортировать по:
                         </div>
-                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="?o=publication">Популярности</a><a class="Sort-sortBy" href="?o=-avg_price">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="?o=-publication">Новизне</a>
+                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="?o=publication">Популярности</a><a class="Sort-sortBy" href="?o=-avg_price">Цене</a><a class="Sort-sortBy" href="?o=reviews_count">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="?o=-publication">Новизне</a>
                         </div>
                     </div>
                     <div class="Cards">
@@ -81,10 +81,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="Pagination">
-                        <div class="Pagination-ins"><a class="Pagination-element Pagination-element_prev" href="#"><img src="{{ static('img/icons/prevPagination.svg') }}" alt="prevPagination.svg" /></a><a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">1</span></a><a class="Pagination-element" href="#"><span class="Pagination-text">2</span></a><a class="Pagination-element" href="#"><span class="Pagination-text">3</span></a><a class="Pagination-element Pagination-element_prev" href="#"><img src="{{ static('img/icons/nextPagination.svg') }}" alt="nextPagination.svg" /></a>
-                        </div>
-                    </div>
+                    {% include "pagination.jinja2" %}
                 </div>
             </div>
         </div>

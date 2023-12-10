@@ -70,6 +70,26 @@ class TestProductListView(TestCase):
         for idx in range(1, len(products)):
             self.assertTrue(products[idx].avg_price <= products[idx - 1].avg_price)
 
+    def test_reviews_count_desc_ordering(self):
+        """Проверка сортировки по количеству отзывов по убыванию."""
+
+        url = reverse("products:product-list") + "?o=-reviews_count"
+        response = self.client.get(url)
+        products = response.context_data["object_list"]
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].reviews_count <= products[idx - 1].reviews_count)
+
+    def test_reviews_count_asc_ordering(self):
+        """Проверка сортировки по количеству отзывов по возрастанию."""
+
+        url = reverse("products:product-list") + "?o=reviews_count"
+        response = self.client.get(url)
+        products = response.context_data["object_list"]
+
+        for idx in range(1, len(products)):
+            self.assertTrue(products[idx].reviews_count >= products[idx - 1].reviews_count)
+
     def test_date_of_publication_ordering(self):
         """Проверка сортировки по дате публикации"""
 

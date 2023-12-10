@@ -1,4 +1,4 @@
-from django.db.models import Avg, Subquery, OuterRef, CharField, Value
+from django.db.models import Avg, Subquery, OuterRef, CharField, Value, Count
 from django.db.models.functions import Round, Concat
 from django.http import HttpRequest
 from django.shortcuts import render, redirect  # noqa F401
@@ -26,7 +26,8 @@ class ProductListView(FilterView):
     def get_queryset(self):
         images = ProductImage.objects.filter(product=OuterRef("pk")).order_by("sort_image")
         queryset = (
-            Product.objects.annotate(avg_price=Round(Avg("offers__price"), 2))
+            Product.objects.annotate(reviews_count=Count("reviews"))
+            .annotate(avg_price=Round(Avg("offers__price"), 2))
             .annotate(
                 image=Concat(
                     Value(settings.MEDIA_URL),
