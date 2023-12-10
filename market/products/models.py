@@ -45,9 +45,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     details = models.ManyToManyField("Detail", through="ProductDetail", verbose_name=_("характеристики"))
 
-    class Meta:
-        ordering = []
-
     @property
     def num_of_purchases(self):
         return 0
@@ -66,14 +63,6 @@ class Product(models.Model):
         assert len(prices) > 0, "Товар не продается ни в одном из магазинов. Невозможно вычислить минимальную цену."
 
         return min(prices)
-
-    @property
-    def image(self):
-        """Вычисляет изображение для списка продуктов"""
-
-        images = self.product_images.values_list("image").first()
-        if images:
-            return "/uploads/" + images[0]
 
     def __str__(self) -> str:
         return f"{self.name}"
