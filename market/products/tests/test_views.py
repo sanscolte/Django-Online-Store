@@ -1,6 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
+
+from products.models import Product, Category
 
 User = get_user_model()
 
@@ -18,6 +21,7 @@ class ProductDetailReviewTest(TestCase):
 
     def setUp(self):
         self.client.force_login(User.objects.get(pk=1))
+        cache.clear()
 
     def test_view_with_reviews(self):
         """Тестирование контекста с отзывами"""
@@ -27,7 +31,7 @@ class ProductDetailReviewTest(TestCase):
         reviews = response.context_data.get("reviews")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("reviews" in response.context_data)
+        self.assertContains(response, "Отзывы")
         self.assertEqual(reviews.number, 1)
         self.assertEqual(len(reviews), 3)
 
@@ -39,7 +43,7 @@ class ProductDetailReviewTest(TestCase):
         reviews = response.context_data.get("reviews")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("reviews" in response.context_data)
+        self.assertContains(response, "Отзывы")
         self.assertEqual(reviews.number, 1)
         self.assertEqual(len(reviews), 0)
 
@@ -54,3 +58,23 @@ class ProductDetailReviewTest(TestCase):
         response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form)
 
         self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
+
+
+class ProductDetailViewTest(TestCase):
+    """Класс тестов представлений детальной страницы продукта"""
+
+    fixtures = [
+        "fixtures/05-categories.json",
+        "fixtures/06-products.json",
+    ]
+
+    def setUp(self):
+        self.category = Category.objects.create(name="test category")
+        self.product = Product.objects.create(name="test product", category=self.category)
+
+    def test_product_detail_view_context(self):
+        """Тестирование представления страницы с деталями продукта"""
+
+        response = self.client.get(reverse("products:product-detail", args=[self.product.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.product)

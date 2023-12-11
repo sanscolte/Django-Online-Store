@@ -70,6 +70,26 @@ class ProfileViewTest(TestCase):
         )
 
 
+class PasswordResetViewViewTest(TestCase):
+    """Класс для тестирования страницы изменения пароля пользователя"""
+
+    fixtures = ["fixtures/01-users.json"]
+
+    def test_reset_password_page_exist_at_desired_location(self):
+        response = self.client.get(reverse("accounts:password_reset"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "введите адрес электронной почты")
+
+    def test_password_reset_done_page_successfully(self):
+        response = self.client.post(reverse("accounts:password_reset"), {"email": "demon_at@mail.ru"})
+        self.assertRedirects(
+            response=response,
+            expected_url=reverse("accounts:password_reset_done"),
+            status_code=302,
+            target_status_code=200,
+        )
+
+
 class MyLoginViewTest(TestCase):
     """Класс для тестирования страницы для входа пользователя"""
 

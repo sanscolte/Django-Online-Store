@@ -1,8 +1,15 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 
-from .forms import MyUserCreationForm, MyUserChangeForm
-from django.contrib.auth.views import LoginView, LogoutView
+from .forms import MyUserCreationForm, MyUserChangeForm, MyPasswordResetForm, MySetPasswordForm
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordResetView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetCompleteView,
+)
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, CreateView, UpdateView
 from .forms import UserLoginForm
@@ -73,3 +80,25 @@ class MyLogoutView(LogoutView):
     """Класс представления для выхода пользователя"""
 
     next_page = reverse_lazy("shops:home")
+
+
+class MyPasswordResetView(PasswordResetView):
+    email_template_name = "accounts/password_reset_email.html"
+    template_name = "accounts/password_reset_form.jinja2"
+    form_class = MyPasswordResetForm
+    success_url = reverse_lazy("accounts:password_reset_done")
+
+
+class MyPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "accounts/password_reset_done.jinja2"
+
+
+class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "accounts/password_reset_confirm.jinja2"
+    form_class = MySetPasswordForm
+    post_reset_login = True
+    success_url = reverse_lazy("accounts:password_reset_complete")
+
+
+class MyPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "accounts/password_reset_complete.jinja2"

@@ -1,0 +1,12 @@
+{% if history_products %}
+    <h3>Ранее просмотренные товары:</h3>
+    <ul>
+        {% for history_product in history_products %}
+            <li>
+                {{ history_product.product.name }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>Пока у вас нет просмотренных товаров</h3>
+{% endif %}
