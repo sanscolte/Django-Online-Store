@@ -9,7 +9,7 @@ from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
-from .models import Product, ProductDetail, ProductImage
+from .models import Product, ProductDetail, ProductImage, HistoryProducts
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .services.history_products_services import HistoryProductsService
 from .services.reviews_services import ReviewsService
@@ -21,18 +21,18 @@ from shops.forms import OfferForm
 
 @method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class ProductListView(ListView):
+    model = Product
     template_name = "products/catalog.jinja2"
     context_object_name = "products"
-    model = Product
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
 
-# @method_decorator(
-#     cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix="product_page_cache"), name="dispatch"
-# )
+@method_decorator(
+    cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix="product_page_cache"), name="dispatch"
+)
 class ProductDetailView(DetailView):
-    template_name = "products/product_detail.jinja2"
     model = Product
+    template_name = "products/product_detail.jinja2"
     context_object_name = "product"
 
     def get_context_data(self, **kwargs):
@@ -55,16 +55,16 @@ class ProductDetailView(DetailView):
 
         return context
 
-    # def get_cache_key(self, *args, **kwargs):
-    #     product = self.get_object()
-    #     product_id = product.pk
-    #     return f"product_detail_page_cache_{str(product_id)}"
+    def get_cache_key(self, *args, **kwargs):
+        product = self.get_object()
+        product_id = product.pk
+        return f"product_detail_page_cache_{str(product_id)}"
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     unique_cache_key = self.get_cache_key(*args, **kwargs)
-    #     cache_decorator = cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix=unique_cache_key)
-    #     cached_dispatch = cache_decorator(super().dispatch)
-    #     return cached_dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        unique_cache_key = self.get_cache_key(*args, **kwargs)
+        cache_decorator = cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix=unique_cache_key)
+        cached_dispatch = cache_decorator(super().dispatch)
+        return cached_dispatch(request, *args, **kwargs)
 
     @receiver([post_save, post_delete], sender=ProductDetail)
     def clear_product_detail_cache(sender, instance, **kwargs):
@@ -79,3 +79,13 @@ class ProductDetailView(DetailView):
             review_form.save()
 
         return redirect(self.get_object())
+
+
+class HistoryProductsView(ListView):
+    model = HistoryProducts
+    template_name = "products/history-products.jinja2"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["history_products"] = HistoryProducts.objects.all()
+        return context

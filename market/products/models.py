@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -147,3 +149,8 @@ class HistoryProducts(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product_history", verbose_name="Продукт"
     )
+
+    @receiver([post_save, post_delete], sender=ProductDetail)
+    def clear_product_detail_cache(sender, instance, **kwargs):
+        cache_key = "product_detail_page_cache_" + str(instance.product.pk)
+        cache.delete(cache_key)

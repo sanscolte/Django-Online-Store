@@ -14,7 +14,7 @@ class HistoryProductsService:
         self.user = user
 
     def add_product_history(self) -> None:
-        """Добавляет товар к списку просмотренных товаров"""
+        """Добавляет товар в список просмотренных товаров"""
 
         if self.check_product_in_history():
             history_last_obj = HistoryProducts.objects.last().product

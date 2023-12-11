@@ -1,0 +1,58 @@
+[
+  {
+    "model": "products.historyproducts",
+    "pk": 41,
+    "fields": {
+      "user": 1,
+      "product": 5
+    }
+  },
+  {
+    "model": "products.historyproducts",
+    "pk": 44,
+    "fields": {
+      "user": 1,
+      "product": 10
+    }
+  },
+  {
+    "model": "products.historyproducts",
+    "pk": 45,
+    "fields": {
+      "user": 1,
+      "product": 11
+    }
+  },
+  {
+    "model": "products.historyproducts",
+    "pk": 48,
+    "fields": {
+      "user": 1,
+      "product": 3
+    }
+  },
+  {
+    "model": "products.historyproducts",
+    "pk": 50,
+    "fields": {
+      "user": 1,
+      "product": 4
+    }
+  },
+  {
+    "model": "products.historyproducts",
+    "pk": 59,
+    "fields": {
+      "user": 1,
+      "product": 1
+    }
+  },
+  {
+    "model": "products.historyproducts",
+    "pk": 60,
+    "fields": {
+      "user": 1,
+      "product": 2
+    }
+  }
+]
