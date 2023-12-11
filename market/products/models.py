@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+from accounts.models import User
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from django.core.cache import cache
 from django.db.models import signals
@@ -127,6 +129,17 @@ class Banner(models.Model):
 
 
 class Review(models.Model):
+    """Модель отзыва"""
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт")
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Пользователь")
     text = models.TextField(blank=True, max_length=3000, verbose_name="Отзыв")
+
+
+class HistoryProducts(models.Model):
+    """Модель истории просмотров продуктов"""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_history", verbose_name="Пользователь")
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product_history", verbose_name="Продукт"
+    )

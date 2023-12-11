@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import QuerySet
 from django.http import HttpRequest
 
 from products.models import Product, Review
@@ -15,10 +16,10 @@ class ReviewsService:
         self.request = request
         self.product = product
 
-    def get_reviews_for_product(self):
+    def get_reviews_for_product(self) -> (QuerySet[Review], int, bool):
         """
         Возвращает отзывы о выбранном товаре
-        :return: пагинатор
+        :return: пагинатор; номер следующей страницы; флаг, есть ли следующая страницы
         """
 
         reviews = Review.objects.filter(product=self.product).order_by("product_id")

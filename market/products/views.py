@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from products.models import Product
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .forms import ReviewForm
+from .services.history_products_services import HistoryProductsService
 from .services.reviews_services import ReviewsService
 
 
@@ -31,6 +32,11 @@ class ProductDetailView(DetailView):
         context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
         context["reviews_count"] = review_service.get_reviews_count()
+
+        if self.request.user.is_authenticated:
+            history_service = HistoryProductsService(self.get_object(), self.request.user)
+            history_service.add_product_history()
+
         return context
 
     def post(self, request: HttpRequest, **kwargs):
