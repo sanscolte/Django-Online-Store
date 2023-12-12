@@ -44,8 +44,8 @@
                                 <input type="submit" value="Войти">
                             </div>
                         </form>
-                        <a class="forgot-label" href="e-mail.html">Забыли пароль?</a>
-                        <a class="registr" href="registr.html">
+                        <a class="forgot-label" href="{{ url('accounts:password_reset') }}">Забыли пароль?</a>
+                        <a class="registr" href="{{ url('accounts:registration') }}">
                             Регистрация
                         </a>
                     </div>
