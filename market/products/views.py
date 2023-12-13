@@ -27,22 +27,42 @@ class ProductListView(ListView):
     paginate_by = settings.PAGINATE_PRODUCTS_BY
 
 
-@method_decorator(
-    cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix="product_page_cache"), name="dispatch"
-)
+@receiver([post_save, post_delete], sender=ProductDetail)
+def clear_product_detail_cache(sender, instance, **kwargs):
+    ProductDetailView.clear_cache_for_product_detail(instance.product.pk)
+
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = "products/product_detail.jinja2"
     context_object_name = "product"
 
+    @staticmethod
+    def get_cache_key(product_id):
+        return f"product_detail_{str(product_id)}"
+
+    @staticmethod
+    def clear_cache_for_product_detail(product_id):
+        cache.delete(ProductDetailView.get_cache_key(product_id))
+
     def get_context_data(self, **kwargs):
+        cache_key = self.get_cache_key(self.object.pk)
+        context_detail_data = cache.get(cache_key)
         context = super().get_context_data(**kwargs)
+
         review_service = ReviewsService(self.request, self.get_object())
         views_service = ProductsViewsService(self.get_object(), self.request.user)
+
         context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
         context["reviews_count"] = review_service.get_reviews_count()
-        context["product_details"] = ProductDetail.objects.filter(product=self.object)
+
+        if context_detail_data is None:
+            context["product_details"] = ProductDetail.objects.filter(product=self.object)
+            cache.set(cache_key, context["product_details"], 86400)
+        else:
+            context["product_details"] = context_detail_data
+
         context["product_details_form"] = ProductDetailForm()
         context["images"] = ProductImage.objects.filter(product=self.object)
         context["images_form"] = ProductImageForm()
@@ -54,22 +74,6 @@ class ProductDetailView(DetailView):
             views_service.add_product_view()
 
         return context
-
-    def get_cache_key(self, *args, **kwargs):
-        product = self.get_object()
-        product_id = product.pk
-        return f"product_detail_page_cache_{str(product_id)}"
-
-    def dispatch(self, request, *args, **kwargs):
-        unique_cache_key = self.get_cache_key(*args, **kwargs)
-        cache_decorator = cache_page(settings.CACHE_TIME_DETAIL_PRODUCT_PAGE, key_prefix=unique_cache_key)
-        cached_dispatch = cache_decorator(super().dispatch)
-        return cached_dispatch(request, *args, **kwargs)
-
-    @receiver([post_save, post_delete], sender=ProductDetail)
-    def clear_product_detail_cache(sender, instance, **kwargs):
-        cache_key = "product_detail_page_cache_" + str(instance.product.pk)
-        cache.delete(cache_key)
 
     def post(self, request: HttpRequest, **kwargs):
         review_form = ReviewForm(request.POST)
