@@ -2,16 +2,16 @@ from django.core.cache import cache
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.http import HttpRequest
-from django.shortcuts import render, redirect  # noqa F401
+from django.shortcuts import redirect
 
 from django.views.generic import ListView, DetailView
 from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
-from .models import Product, ProductDetail, ProductImage, HistoryProducts
+from .models import Product, ProductDetail, ProductImage, ProductsViews
 from .constants import KEY_FOR_CACHE_PRODUCTS
-from .services.history_products_services import HistoryProductsService
+from .services.products_views_services import ProductsViewsService
 from .services.reviews_services import ReviewsService
 from .forms import ReviewForm, ProductDetailForm, ProductImageForm
 
@@ -38,7 +38,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         review_service = ReviewsService(self.request, self.get_object())
-        history_service = HistoryProductsService(self.get_object(), self.request.user)
+        views_service = ProductsViewsService(self.get_object(), self.request.user)
         context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
         context["reviews_count"] = review_service.get_reviews_count()
@@ -48,10 +48,10 @@ class ProductDetailView(DetailView):
         context["images_form"] = ProductImageForm()
         context["offers"] = Offer.objects.filter(product=self.object)
         context["offers_form"] = OfferForm()
-        context["history_products"] = history_service.get_history()
+        context["products_views"] = views_service.get_views()
 
         if self.request.user.is_authenticated:
-            history_service.add_product_history()
+            views_service.add_product_view()
 
         return context
 
@@ -81,11 +81,11 @@ class ProductDetailView(DetailView):
         return redirect(self.get_object())
 
 
-class HistoryProductsView(ListView):
-    model = HistoryProducts
-    template_name = "products/history-products.jinja2"
+class ProductsViewsView(ListView):
+    model = ProductsViews
+    template_name = "products/products-views.jinja2"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["history_products"] = HistoryProducts.objects.all()
+        context["products_views"] = ProductsViews.objects.all()
         return context

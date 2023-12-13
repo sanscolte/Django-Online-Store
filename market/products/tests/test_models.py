@@ -8,7 +8,7 @@ from products.models import (
     Banner,
     Review,
     ProductImage,
-    HistoryProducts,
+    ProductsViews,
 )
 
 
@@ -210,19 +210,19 @@ class ProductImageTest(TestCase):
         self.assertEqual(ProductImage.objects.count(), 82)
 
 
-class HistoryProductsTest(TestCase):
-    """Класс тестов модели HistoryProducts"""
+class ProductsViewsTest(TestCase):
+    """Класс тестов модели ProductsViews"""
 
     fixtures = [
         "01-users.json",
         "05-categories.json",
         "06-products.json",
-        "17-history-products.json",
+        "19-products-views.json",
     ]
 
     def test_verbose_name(self):
         """Тестирование валидности имени поля модели"""
-        history = HistoryProducts.objects.first()
+        views = ProductsViews.objects.first()
 
         field_verboses = {
             "product": "Продукт",
@@ -231,9 +231,9 @@ class HistoryProductsTest(TestCase):
 
         for field, expected_value in field_verboses.items():
             with self.subTest(field=field):
-                self.assertEqual(history._meta.get_field(field).verbose_name, expected_value)
+                self.assertEqual(views._meta.get_field(field).verbose_name, expected_value)
 
     def test_assert_expected_num_of_views(self):
         """Тестирование количества просмотров"""
 
-        self.assertTrue(HistoryProducts.objects.count() > 5)
+        self.assertTrue(ProductsViews.objects.count() > 5)

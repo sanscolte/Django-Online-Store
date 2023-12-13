@@ -1,14 +1,14 @@
 <div>
-    {% if history_products %}
-        <h3>Ранее просмотренные товары:</h3>
+    <h3>Ранее просмотренные товары:</h3>
+    {% if products_views %}
         <ul>
-            {% for history_product in history_products %}
+            {% for products_view in products_views %}
                 <li>
-                    {{ history_product.product.name }}
+                    {{ products_view.product.name }}
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <h3>Пока у вас нет просмотренных товаров</h3>
+        <h4>Пока у вас нет просмотренных товаров</h4>
     {% endif %}
 </div>
