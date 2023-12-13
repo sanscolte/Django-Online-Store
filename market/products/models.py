@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+from accounts.models import User
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from django.core.cache import cache
 from django.db.models import signals
@@ -131,6 +133,37 @@ class Banner(models.Model):
 
 
 class Review(models.Model):
+    """Модель отзыва"""
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+
+    def __str__(self) -> str:
+        return f"{self.user} ({self.created_at}): {self.text}"
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт")
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Пользователь")
     text = models.TextField(blank=True, max_length=3000, verbose_name="Отзыв")
+    created_at = models.DateTimeField(default=timezone.now)
+
+
+class ProductsViews(models.Model):
+    """Модель истории просмотров продуктов"""
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "История просмотра"
+        verbose_name_plural = "История просмотров"
+
+    def __str__(self) -> str:
+        return f"{self.user} ({self.created_at}): {self.product}"
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="products_views", verbose_name="Пользователь"
+    )  # noqa
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="products_views", verbose_name="Продукт"
+    )
+    created_at = models.DateTimeField(default=timezone.now)
