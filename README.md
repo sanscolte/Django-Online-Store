@@ -46,10 +46,7 @@ docker rm -f -v redis-db
 ```shell
 flake8 market
 ```
-* Линтер pylint
-```shell
-pylint --rcfile=.pylintrc market/*
-```
+
 * Линтер black
 ```shell
 black market
