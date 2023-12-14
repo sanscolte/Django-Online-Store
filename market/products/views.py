@@ -46,9 +46,10 @@ class ProductDetailView(DetailView):
         cache.delete(ProductDetailView.get_cache_key(product_id))
 
     def get_context_data(self, **kwargs):
-        cache_key = self.get_cache_key(self.object.pk)
-        context_detail_data = cache.get(cache_key)
         context = super().get_context_data(**kwargs)
+        cache_key = self.get_cache_key(self.object.pk)
+        context["product_details"] = ProductDetail.objects.filter(product=self.object)
+        cache.get_or_set(cache_key, context["product_details"], 86400)
 
         review_service = ReviewsService(self.request, self.get_object())
         views_service = ProductsViewsService(self.get_object(), self.request.user)
@@ -56,13 +57,6 @@ class ProductDetailView(DetailView):
         context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
         context["reviews_count"] = review_service.get_reviews_count()
-
-        if context_detail_data is None:
-            context["product_details"] = ProductDetail.objects.filter(product=self.object)
-            cache.set(cache_key, context["product_details"], 86400)
-        else:
-            context["product_details"] = context_detail_data
-
         context["product_details_form"] = ProductDetailForm()
         context["images"] = ProductImage.objects.filter(product=self.object)
         context["images_form"] = ProductImageForm()
