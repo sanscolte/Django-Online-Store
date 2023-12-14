@@ -5,8 +5,8 @@ import os.path
 from django.contrib import admin  # noqa F401
 from django.core.files.storage import FileSystemStorage
 from django.core.management import call_command
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import path
 
 from .forms import ProductImportForm
@@ -42,33 +42,54 @@ class ProductAdmin(admin.ModelAdmin):
             }
             return render(request, "admin/product-import-form.html", context)
 
-        form = ProductImportForm(request.POST, request.FILES)
+        if request.method == "POST":
+            form = ProductImportForm(request.POST, request.FILES)
+            if not form.is_valid():
+                context = {
+                    "form": form,
+                }
 
-        if not form.is_valid():
-            context = {
-                "form": form,
-            }
-            return render(request, "admin/product-import-form.html", context, status=400)
+                file = form.cleaned_data["json_file"]
+                fs = FileSystemStorage()
+                filename = fs.save(file.name, file)
 
-        file = form.cleaned_data["json_file"]
-        fs = FileSystemStorage()
-        filename = fs.save(file.name, file)
-        call_command("loaddata", file.name)
+                with open(os.path.join(f"uploads/{filename}"), "r") as json_file:
+                    json_file = json_file.read()
+                    data = json.loads(json_file)
 
-        print("saved file", filename)
-        self.message_user(request, "Data from file was imported")
+                for product in data:
+                    try:
+                        product_name = product["fields"]["name"]
+                        category = product["fields"]["category"]
+                    except KeyError:
+                        product_name = None
+                        category = None
+                    is_success = "FAIL"
+                    logger.exception(
+                        "", extra={"product": product_name, "category": category, "is_success": is_success}
+                    )  # noqa
 
-        with open(os.path.join(f"uploads/{filename}"), "r") as json_file:
-            json_file = json_file.read()
-            data = json.loads(json_file)
+                return render(request, "admin/product-import-form.html", context, status=400)
 
-        for product in data:
-            product_name = product["fields"]["name"]
-            category = product["fields"]["category"]
-            is_success = "SUCCESS"
-            logger.debug("", extra={"product": product_name, "category": category, "is_success": is_success})
+            file = form.cleaned_data["json_file"]
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            call_command("loaddata", file.name)
 
-        return redirect("..")
+            print("saved file", filename)
+            self.message_user(request, "Data from file was imported")
+
+            with open(os.path.join(f"uploads/{filename}"), "r") as json_file:
+                json_file = json_file.read()
+                data = json.loads(json_file)
+
+            for product in data:
+                product_name = product["fields"]["name"]
+                category = product["fields"]["category"]
+                is_success = "SUCCESS"
+                logger.debug("", extra={"product": product_name, "category": category, "is_success": is_success})
+
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
     def get_urls(self):
         urls = super().get_urls()

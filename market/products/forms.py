@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 
 from .models import Review, ProductDetail, ProductImage
@@ -38,19 +40,18 @@ class ProductImportForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         json_file = cleaned_data.get("json_file")
+        json_data = json.load(json_file)[0]
 
         if not json_file.name.endswith(".json"):
             raise forms.ValidationError("Файл должен быть в формате JSON")
-        return cleaned_data
-
-    def clean_name(self):
-        name = self.cleaned_data.get("name")
-        if not name:
+        try:
+            name = json_data["fields"]["name"]  # noqa
+        except KeyError:
             raise forms.ValidationError("Наименование обязательно для заполнения")
-        return name
 
-    def clean_category(self):
-        category = self.cleaned_data.get("category")
-        if not category:
+        try:
+            category = json_data["fields"]["category"]  # noqa
+        except KeyError:
             raise forms.ValidationError("Категория обязательна для заполнения")
-        return category
+
+        return cleaned_data

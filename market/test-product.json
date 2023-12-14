@@ -1,6 +1,8 @@
 [
   {
+    "model": "products.product",
     "fields": {
+      "description": "Suspendisse enim tortor, dignissim eget fermentum non, ultricies sollicitudin nisi. Nam eros ligula, pharetra at tellus sed, mollis tincidunt nisi. Quisque non enim et erat porta varius id eu neque. Vivamus mauris eros, consectetur in pulvinar quis, dictum quis libero. Duis id velit sed risus aliquet dictum. Nullam feugiat quam nec libero gravida varius ac at ante. Sed pretium semper elementum. Vivamus a lacus interdum, commodo sem eget, faucibus dui. Maecenas pulvinar molestie libero eu lobortis. Pellentesque condimentum orci et fringilla dignissim. Vivamus at lectus sit amet magna rutrum accumsan. Nullam fermentum metus dignissim interdum fringilla. Ut auctor, dui ut lacinia aliquam, justo nunc eleifend justo, ac aliquam arcu nisl eget mauris. Mauris blandit nunc sem, in varius lectus porta quis. Aenean ornare ipsum massa, nec ornare ligula bibendum aliquet.",
       "category": 3
     }
   }
