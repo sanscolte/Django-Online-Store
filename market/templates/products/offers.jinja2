@@ -1,0 +1,16 @@
+<div class="Tabs-block" id="offers">
+    <div class="offers">
+        {% if offers %}
+            {% for offer in offers %}
+                <div>
+                    <img src='{{ offer.shop.image.url }}' alt='Изображение магазина'>
+                    <h4>Магазин: {{ offer.shop }}</h4>
+                    <p>Цена: {{ offer.price }}</p>
+                    <b>Товаров осталось: {{ offer.remains }}</b>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Пока нет предложений от продавцов!</h3>
+        {% endif %}
+    </div>
+</div>

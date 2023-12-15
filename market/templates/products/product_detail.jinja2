@@ -33,35 +33,29 @@
                         {% endif %}
                     </div>
 
-                    <div class="product-details">
-                        {% if product_details %}
-                            {% for detail in product_details %}
-                                <h4>{{ detail.detail }}:</h4>
-                                <p>{{ detail.value }}</p>
-                            {% endfor %}
-                        {% else %}
-                            <h3>У товара пока не занесены характеристики!</h3>
-                        {% endif %}
-                    </div>
-
-                    <div class="offers">
-                        <h3>Предложения:</h3>
-                        {% if offers %}
-                            {% for offer in offers %}
-                                <div>
-                                    <img src='{{ offer.shop.image.url }}' alt='Изображение магазина'>
-                                    <h4>Магазин: {{ offer.shop }}</h4>
-                                    <p>Цена: {{ offer.price }}</p>
-                                    <b>Товаров осталось: {{ offer.remains }}</b>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <h3>Пока нет предложений от продавцов!</h3>
-                        {% endif %}
-                    </div>
-
                     <div class="Tabs Tabs_default">
-                        {% include "products/reviews.jinja2" %}
+                        <div class="Tabs-links">
+                            <a class="Tabs-link" href="#description">
+                                <span>Описание</span>
+                            </a>
+                            <a class="Tabs-link" href="#offers">
+                                <span>Предложения</span>
+                            </a>
+                            <a class="Tabs-link" href="#details">
+                                <span>Характеристики</span>
+                            </a>
+                            <a class="Tabs-link" href="#reviews">
+                                <span>Отзывы ({{ reviews_count }})</span>
+                            </a>
+                        </div>
+                        <div class="Tabs-wrap">
+                            <div class="Tabs-block" id="description">
+                                {{ product.description }}
+                            </div>
+                            {% include "products/offers.jinja2" %}
+                            {% include "products/details.jinja2" %}
+                            {% include "products/reviews.jinja2" %}
+                        </div>
                     </div>
 
                     <div class="discounts">
