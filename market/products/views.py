@@ -1,16 +1,20 @@
+from django.db.models import Avg, Subquery, OuterRef, CharField, Value, Count
+from django.db.models.functions import Round, Concat
 from django.core.cache import cache
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.http import HttpRequest
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect  # noqa F401
 
 from django.views.generic import ListView, DetailView
 from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django_filters.views import FilterView
 
 from .models import Product, ProductDetail, ProductImage, ProductsViews
 from .constants import KEY_FOR_CACHE_PRODUCTS
+from .filters import ProductFilter
 from .services.products_views_services import ProductsViewsService
 from .services.reviews_services import ReviewsService
 from .forms import ReviewForm, ProductDetailForm, ProductImageForm
@@ -20,11 +24,27 @@ from shops.forms import OfferForm
 
 
 @method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
-class ProductListView(ListView):
-    model = Product
+class ProductListView(FilterView):
     template_name = "products/catalog.jinja2"
     context_object_name = "products"
     paginate_by = settings.PAGINATE_PRODUCTS_BY
+    filterset_class = ProductFilter
+
+    def get_queryset(self):
+        images = ProductImage.objects.filter(product=OuterRef("pk")).order_by("sort_image")
+        queryset = (
+            Product.objects.annotate(reviews_count=Count("reviews"))
+            .annotate(avg_price=Round(Avg("offers__price"), 2))
+            .annotate(
+                image=Concat(
+                    Value(settings.MEDIA_URL),
+                    Subquery(images.values("image")[:1]),
+                    output_field=CharField(),
+                ),
+            )
+            .order_by("date_of_publication")
+        )
+        return queryset
 
 
 @receiver([post_save, post_delete], sender=ProductDetail)

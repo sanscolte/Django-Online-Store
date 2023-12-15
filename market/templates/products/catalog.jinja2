@@ -11,11 +11,11 @@
                             </strong>
                         </header>
                         <div class="Section-columnContent">
-                            <form class="form" action="#" method="post">
+                            <form class="form" action="{{ url('products:product-list') }}" method="get">
                                 <div class="form-group">
                                     <div class="range Section-columnRange">
-                                        <input class="range-line" id="price" name="price" type="text" data-type="double"
-                                               data-min="7" data-max="50" data-from="7" data-to="27"/>
+                                        <input class="range-line" id="avg_price__gte" name="avg_price__gte" type="text" data-min="5000" data-max="10000" />
+                                        <input class="range-line" id="avg_price__lte" name="avg_price__lte" type="text" data-min="5000" data-max="10000" />
                                         <div class="range-price">Цена:&#32;
                                             <div class="rangePrice">
                                             </div>
@@ -23,8 +23,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-input form-input_full" id="title" name="title" type="text"
-                                           placeholder="Название"/>
+                                    <input class="form-input form-input_full" id="name__iexact" name="name__iexact" type="text" placeholder="Название" />
                                 </div>
                                 <div class="form-group">
                                     <!-- - var options = setOptions(items, ['value', 'selected', 'disabled']);-->
@@ -42,8 +41,7 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <div class="buttons"><a class="btn btn_square btn_dark btn_narrow"
-                                                            href="#">Фильтр</a>
+                                    <div class="buttons"><input type="submit" class="btn btn_square btn_dark btn_narrow" value="Фильтр">
                                     </div>
                                 </div>
                             </form>
@@ -69,21 +67,21 @@
                     <div class="Sort">
                         <div class="Sort-title">Сортировать по:
                         </div>
-                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="#">Популярности</a><a
-                                class="Sort-sortBy" href="#">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a
-                                class="Sort-sortBy Sort-sortBy_inc" href="#">Новизне</a>
+                        <div class="Sort-variants">
+                            <a class="Sort-sortBy Sort-sortBy_dec" href="?o=publication&page={{ page_obj.number }}">Популярности</a>
+                            <a class="Sort-sortBy" href="?o=-avg_price&page={{ page_obj.number }}">Цене</a>
+                            <a class="Sort-sortBy" href="?o=reviews_count&page={{ page_obj.number }}">Отзывам</a>
+                            <a class="Sort-sortBy Sort-sortBy_inc" href="?o=-publication&page={{ page_obj.number }}">Новизне</a>
                         </div>
                     </div>
                     <div class="Cards">
                         {% for product in products %}
-                            <div class="Card"><a class="Card-picture" href="#"><img src="{{ product.image }}"
-                                                                                    alt="card.jpg"/></a>
+                            <div class="Card"><a class="Card-picture"><img src="{{ product.image }}" alt="" /></a>
                                 <div class="Card-content">
                                     <strong class="Card-title"><a href="#">{{ product.name }}</a>
                                     </strong>
                                     <div class="Card-description">
-                                        <div class="Card-cost"><span
-                                                class="Card-price">От {{ product.min_price.0 }}</span>
+                                        <div class="Card-cost"><span class="Card-price">От {{ product.avg_price }}</span>
                                         </div>
                                         <div class="Card-category">{{ product.category }}
                                         </div>
@@ -95,17 +93,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="Pagination">
-                        <div class="Pagination-ins"><a class="Pagination-element Pagination-element_prev" href="#"><img
-                                src="{{ static('img/icons/prevPagination.svg') }}" alt="prevPagination.svg"/></a><a
-                                class="Pagination-element Pagination-element_current" href="#"><span
-                                class="Pagination-text">1</span></a><a class="Pagination-element" href="#"><span
-                                class="Pagination-text">2</span></a><a class="Pagination-element" href="#"><span
-                                class="Pagination-text">3</span></a><a
-                                class="Pagination-element Pagination-element_prev" href="#"><img
-                                src="{{ static('img/icons/nextPagination.svg') }}" alt="nextPagination.svg"/></a>
-                        </div>
-                    </div>
+                    {% include "pagination.jinja2" %}
                 </div>
             </div>
         </div>
