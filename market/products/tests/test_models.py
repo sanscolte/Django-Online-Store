@@ -8,6 +8,7 @@ from products.models import (
     Banner,
     Review,
     ProductImage,
+    ProductsViews,
 )
 
 
@@ -202,3 +203,32 @@ class ProductImageTest(TestCase):
 
     def test_assert_expected_num_of_categories(self):
         self.assertEqual(ProductImage.objects.count(), 82)
+
+
+class ProductsViewsTest(TestCase):
+    """Класс тестов модели ProductsViews"""
+
+    fixtures = [
+        "01-users.json",
+        "05-categories.json",
+        "06-products.json",
+        "19-products-views.json",
+    ]
+
+    def test_verbose_name(self):
+        """Тестирование валидности имени поля модели"""
+        views = ProductsViews.objects.first()
+
+        field_verboses = {
+            "product": "Продукт",
+            "user": "Пользователь",
+        }
+
+        for field, expected_value in field_verboses.items():
+            with self.subTest(field=field):
+                self.assertEqual(views._meta.get_field(field).verbose_name, expected_value)
+
+    def test_assert_expected_num_of_views(self):
+        """Тестирование количества просмотров"""
+
+        self.assertTrue(ProductsViews.objects.count() > 5)

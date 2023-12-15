@@ -21,7 +21,7 @@
     "model": "accounts.user",
     "pk": 2,
     "fields": {
-      "password": "123456",
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
       "last_login": "2023-11-24T20:36:12Z",
       "is_superuser": false,
       "email": "melnik@mail.ru",
@@ -41,7 +41,7 @@
     "model": "accounts.user",
     "pk": 3,
     "fields": {
-      "password": "1234567890",
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
       "last_login": "2023-11-24T06:00:00Z",
       "is_superuser": false,
       "email": "tolkach@mail.ru",
@@ -61,7 +61,7 @@
     "model": "accounts.user",
     "pk": 4,
     "fields": {
-      "password": "1234567",
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
       "last_login": "2023-11-06T18:00:00Z",
       "is_superuser": false,
       "email": "garaja@mail.ru",
@@ -81,7 +81,7 @@
     "model": "accounts.user",
     "pk": 5,
     "fields": {
-      "password": "098765",
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
       "last_login": "2023-11-12T00:00:00Z",
       "is_superuser": false,
       "email": "guravlov@mail.ru",
@@ -101,7 +101,7 @@
     "model": "accounts.user",
     "pk": 6,
     "fields": {
-      "password": "45678123",
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
       "last_login": "2023-11-24T20:48:28Z",
       "is_superuser": false,
       "email": "kozlov@mail.ru",

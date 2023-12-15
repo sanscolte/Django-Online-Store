@@ -1,0 +1,14 @@
+<div class="Tabs-block" id="details">
+    <div class="product-details">
+        {% if product_details %}
+            {% for detail in product_details %}
+                <div>
+                    <h4>{{ detail.detail }}:</h4>
+                    <p>{{ detail.value }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>У товара пока не занесены характеристики!</h3>
+        {% endif %}
+    </div>
+</div>
