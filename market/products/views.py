@@ -48,8 +48,9 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cache_key = self.get_cache_key(self.object.pk)
-        context["product_details"] = ProductDetail.objects.filter(product=self.object)
-        cache.get_or_set(cache_key, context["product_details"], 86400)
+        context["product_details"] = cache.get_or_set(
+            cache_key, ProductDetail.objects.filter(product=self.object), settings.CACHE_TIME_DETAIL_PRODUCT_PAGE
+        )
 
         review_service = ReviewsService(self.request, self.get_object())
         views_service = ProductsViewsService(self.get_object(), self.request.user)
