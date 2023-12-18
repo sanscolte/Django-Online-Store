@@ -4,7 +4,7 @@
            {% if page_obj.number == p %}
                 <a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">{{ p }}</span></a>
            {% else %}
-                <a class="Pagination-element" href="{{ url('products:product-list') }}?page={{ p }}"><span class="Pagination-text">{{ p }}</span></a>
+                <a class="Pagination-element" href="?page={{ p }}{% for k, v in query.items() %}&{{ k }}={{ v }}{% endfor %}"><span class="Pagination-text">{{ p }}</span></a>
            {% endif %}
         {% endfor %}
     </div>

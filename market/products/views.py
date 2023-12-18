@@ -1,3 +1,5 @@
+from typing import Any, Dict
+
 from django.db.models import Avg, Subquery, OuterRef, CharField, Value, Count
 from django.db.models.functions import Round, Concat
 from django.core.cache import cache
@@ -45,6 +47,15 @@ class ProductListView(FilterView):
             .order_by("date_of_publication")
         )
         return queryset
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["query"] = dict()
+        for k, v in context["filter"].data.items():
+            if k != "page":
+                context["query"][k] = v
+
+        return context
 
 
 @receiver([post_save, post_delete], sender=ProductDetail)
