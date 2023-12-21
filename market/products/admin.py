@@ -1,22 +1,24 @@
-import json
 import logging
 import os.path
+import time  # noqa
 
+from django.conf import settings
 from django.contrib import admin  # noqa F401
+from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
-from django.core.management import call_command
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.urls import path
 
 from .forms import ProductImportForm
 from .models import Category, Product, Banner, Review, ProductImage, ProductDetail, Detail, ProductsViews
+from .tasks import import_products, get_import_status, set_import_status
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 file_handler = logging.FileHandler(os.path.join("logs/import/products-import.log"))
-formatter = logging.Formatter("%(asctime)s - %(product)s - %(category)d - %(is_success)s", datefmt="%d-%b-%y %H:%M:%S")
+formatter = logging.Formatter("%(asctime)s - %(product)s - %(category)s - %(is_success)s", datefmt="%d-%b-%y %H:%M:%S")
 
 logger.addHandler(file_handler)
 file_handler.setFormatter(formatter)
@@ -37,59 +39,58 @@ class ProductAdmin(admin.ModelAdmin):
     def import_json(self, request: HttpRequest) -> HttpResponse:
         if request.method == "GET":
             form = ProductImportForm()
+            status = get_import_status()
+            if status == "В процессе выполнения":
+                context = {
+                    "status": "Предыдущий импорт ещё не выполнен. Пожалуйста, дождитесь его окончания",
+                }
+                return render(request, "admin/product-import-form.html", context)
+
             context = {
                 "form": form,
+                "status": status,
             }
             return render(request, "admin/product-import-form.html", context)
 
         if request.method == "POST":
             form = ProductImportForm(request.POST, request.FILES)
-            if not form.is_valid():
-                context = {
-                    "form": form,
-                }
+            files = [filename for filename in request.FILES.getlist("json_files")]
+            email = request.POST.get("email")
 
-                file = form.cleaned_data["json_file"]
-                fs = FileSystemStorage()
-                filename = fs.save(file.name, file)
+            fs_success = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, "import/success"))
+            fs_fail = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, "import/fail"))
 
-                with open(os.path.join(f"uploads/{filename}"), "r") as json_file:
-                    json_file = json_file.read()
-                    data = json.loads(json_file)
+            success_message = ""
+            error_message = ""
 
-                for product in data:
-                    try:
-                        product_name = product["fields"]["name"]
-                        category = product["fields"]["category"]
-                    except KeyError:
-                        product_name = None
-                        category = None
-                    is_success = "FAIL"
-                    logger.exception(
-                        "", extra={"product": product_name, "category": category, "is_success": is_success}
-                    )  # noqa
+            if form.is_valid():
+                set_import_status("В процессе выполнения")
+                for file in files:
+                    filename = fs_success.save(file.name, file)
+                    import_products.delay(filename=filename, is_valid=True, email=email)
 
-                return render(request, "admin/product-import-form.html", context, status=400)
+                    # time.sleep(10)
+                    set_import_status("Выполнен")
+                    status = get_import_status()
+                    success_message = "Продукты успешно импортированы"
 
-            file = form.cleaned_data["json_file"]
-            fs = FileSystemStorage()
-            filename = fs.save(file.name, file)
-            call_command("loaddata", file.name)
+            else:
+                set_import_status("Завершён с ошибкой")
+                for file in files:
+                    filename = fs_fail.save(file.name, file)
+                    import_products.delay(filename=filename, is_valid=False, email=email)
 
-            print("saved file", filename)
-            self.message_user(request, "Data from file was imported")
+                    # time.sleep(10)
+                    status = get_import_status()
+                    error_message = "Ошибка при импорте продуктов"
 
-            with open(os.path.join(f"uploads/{filename}"), "r") as json_file:
-                json_file = json_file.read()
-                data = json.loads(json_file)
-
-            for product in data:
-                product_name = product["fields"]["name"]
-                category = product["fields"]["category"]
-                is_success = "SUCCESS"
-                logger.debug("", extra={"product": product_name, "category": category, "is_success": is_success})
-
-            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+            cache.clear()
+            context = {
+                "form": form,
+                "status": status,
+            }
+            self.message_user(request, success_message + error_message)
+            return render(request, "admin/product-import-form.html", context)
 
     def get_urls(self):
         urls = super().get_urls()
