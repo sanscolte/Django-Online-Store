@@ -19,7 +19,7 @@ class DiscountBase(models.Model):
         return self.start_date <= now <= self.end_date
 
     def __str__(self):
-        return f"DiscountProduct(percentage={self.percentage}, event={self.name})"
+        return f"percentage={self.percentage}, event={self.name}"
 
 
 class DiscountProduct(DiscountBase):
