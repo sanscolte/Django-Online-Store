@@ -20,10 +20,10 @@ class CartServices:
         """Добавление товара в корзину или обновление его количества."""
 
         if not shop:
-            shops = Shop.objects.filter(products=product.id)
+            shops = Shop.objects.filter(products=product)
             shop = random.choice(shops)
         product_id = str(product.id)
-        offer = Offer.objects.get(product_id=product.id, shop_id=shop.id)
+        offer = Offer.objects.get(product=product, shop__name=shop)
         if product_id not in self.cart:
             self.cart[product_id] = {"quantity": 0, "price": str(offer.price)}
         if update_quantity:

@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
-
 from cart.forms import CartAddProductForm
 from cart.services import CartServices
 from products.models import Product
