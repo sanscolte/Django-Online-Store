@@ -23,6 +23,8 @@ from .forms import ReviewForm, ProductDetailForm, ProductImageForm
 
 from shops.models import Offer
 from shops.forms import OfferForm
+from cart.forms import CartAddProductForm
+from cart.services import CartServices
 
 
 @method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
@@ -51,11 +53,27 @@ class ProductListView(FilterView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["query"] = dict()
+        context["cart_form"] = CartAddProductForm(initial={"quantity": 1, "update": False})
         for k, v in context["filter"].data.items():
             if k != "page":
                 context["query"][k] = v
 
         return context
+
+    def post(self, request: HttpRequest, **kwargs):
+        cart_form = CartAddProductForm(request.POST)
+        if cart_form.is_valid():
+            product_name = request.POST["product_name"]
+            product = Product.objects.get(name=product_name)
+            quantity = cart_form.cleaned_data["quantity"]
+            cart_services = CartServices(request)
+            cart_services.add(
+                product=product,
+                shop=None,
+                quantity=quantity,
+                update_quantity=True,
+            )
+        return redirect("products:product-list")
 
 
 @receiver([post_save, post_delete], sender=ProductDetail)
@@ -88,6 +106,7 @@ class ProductDetailView(DetailView):
 
         context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
+        context["cart_form"] = CartAddProductForm(initial={"quantity": 1, "update": False})
         context["reviews_count"] = review_service.get_reviews_count()
         context["product_details_form"] = ProductDetailForm()
         context["images"] = ProductImage.objects.filter(product=self.object)
@@ -103,11 +122,21 @@ class ProductDetailView(DetailView):
 
     def post(self, request: HttpRequest, **kwargs):
         review_form = ReviewForm(request.POST)
-        if review_form.is_valid():
+        cart_form = CartAddProductForm(request.POST)
+        if review_form.is_valid() and "btnform2" in request.POST:
             review_form.instance.user = self.request.user
             review_form.instance.product = self.get_object()
             review_form.save()
-
+        if cart_form.is_valid() and "btnform1" in request.POST:
+            shop_name = request.POST["shop_name"]
+            quantity = cart_form.cleaned_data["quantity"]
+            cart_services = CartServices(request)
+            cart_services.add(
+                product=self.get_object(),
+                shop=shop_name,
+                quantity=quantity,
+                update_quantity=True,
+            )
         return redirect(self.get_object())
 
 

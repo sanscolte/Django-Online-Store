@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django_filters",
     "accounts",
     "discounts",
+    "cart",
 ]
 
 MIDDLEWARE = [
@@ -196,3 +197,5 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = config["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = config["EMAIL_HOST_PASSWORD"]
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CART_SESSION_ID = "cart"
