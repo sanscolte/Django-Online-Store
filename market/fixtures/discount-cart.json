@@ -1,0 +1,112 @@
+[
+  {
+    "model": "discounts.discountcart",
+    "pk": 1,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 10,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.10"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 2,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 20,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.20"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 3,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 25,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.25"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 4,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 30,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.30"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 5,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 35,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.35"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 6,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 40,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.40"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 7,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 50,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.50"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 8,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 55,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.55"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 9,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 60,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.60"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 10,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 65,
+      "start_date": "2023-12-24",
+      "end_date": "2023-12-31",
+      "weigh": "0.65"
+    }
+  }
+]

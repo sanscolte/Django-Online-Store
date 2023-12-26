@@ -53,3 +53,7 @@ class DiscountCart(DiscountBase):
         verbose_name="вес скидки",
         validators=[MinValueValidator(0.01), MaxValueValidator(1.00)],
     )
+
+    class Meta:
+        verbose_name = "Скидка для корзины"
+        verbose_name_plural = "Скидки для корзины"
