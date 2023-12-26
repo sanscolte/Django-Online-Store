@@ -160,14 +160,9 @@ class ProductDetailReviewTest(TestCase):
             "text": "test review",
             "rating": 5,
         }
-        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form, follow=True)
+        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form)
 
-        self.assertEqual(response.status_code, 200)
-        expected_redirect_url = reverse("products:product-detail", args=(pk,))
-        self.assertContains(response, expected_redirect_url)
-        # self.assertContains(response, f'href="{expected_redirect_url}"')
-        # self.assertRedirects(response, reverse("products:product-detail", args=(pk,)), status_code=302)
-        # self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
+        self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
 
 
 class ProductDetailViewTest(TestCase):

@@ -8,10 +8,6 @@
                 <div class="Product">
                     <h1>{{ product.name }}</h1>
 
-                    <div>
-                        <button type="submit">Купить</button>
-                    </div>
-
                     <div class="product-images">
                         {% if images %}
                             <div class="Slider Slider_main">
@@ -69,21 +65,10 @@
                             <input type="hidden" name="product_id" value="{{ product.id }}">
                             <button type="submit">Добавить в список сравнения</button>
                         {% endif %}
-                        {% if messages %}
-                            <div class="alert alert-info" role="alert">
-                                {% for message in messages %}
-                                    {{ message }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
                     </form>
 
                     <div class="discounts">
                         <h3>Скидки:</h3>
-                    </div>
-
-                    <div>
-                        <button type="submit">Купить</button>
                     </div>
 
                     <div>
