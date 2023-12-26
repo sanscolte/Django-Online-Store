@@ -78,7 +78,7 @@
                         {% for product in products %}
                             <div class="Card"><a class="Card-picture"><img src="{{ product.image }}" alt="" /></a>
                                 <div class="Card-content">
-                                    <strong class="Card-title"><a href="#">{{ product.name }}</a>
+                                    <strong class="Card-title"><a href="{{ url('products:product-detail', pk=product.pk) }}">{{ product.name }}</a>
                                     </strong>
                                     <div class="Card-description">
                                         <div class="Card-cost"><span class="Card-price">От {{ product.avg_price }}</span>

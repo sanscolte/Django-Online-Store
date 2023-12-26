@@ -20,22 +20,25 @@
                 <div class="Cards Cards_blog">
                     {% for discount in discounts %}
                         {% if discount.is_active %}
-                            <div class="Card"><a class="Card-picture" href="#"><img src="{{ static('img/content/sale/product.png')}}" alt="product.png" /></a>
-                                <div class="Card-date">
-                                    <strong class="Card-date-number">{{ discount.start_date.day }}
-                                    </strong><span class="Card-date-month">{{ discount.start_date.strftime('%B')[:3] }}</span>
-                                </div>
-                                <div class="Card-date Card-date_to">
-                                    <strong class="Card-date-number">{{ discount.end_date.day }}
-                                    </strong><span class="Card-date-month">{{ discount.end_date.strftime('%B')[:3] }}</span>
-                                </div>
-                                <div class="Card-content">
-                                    <strong class="Card-title"><a href="#">{{ discount }}</a>
-                                    </strong>
-                                    <div class="Card-description">Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod tincid unt ut laoreet dolore
+                            {% for product in discount.products.all() %}
+                                <div class="Card"><a class="Card-picture"><img src="{{ product.image }}" alt="" /></a>
+                                    <div class="Card-date">
+                                        <strong class="Card-date-number">{{ discount.start_date.day }}
+                                        </strong><span class="Card-date-month">{{ discount.start_date.strftime('%B')[:3] }}</span>
+                                    </div>
+                                    <div class="Card-date Card-date_to">
+                                        <strong class="Card-date-number">{{ discount.end_date.day }}
+                                        </strong><span class="Card-date-month">{{ discount.end_date.strftime('%B')[:3] }}</span>
+                                    </div>
+
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="{{ url('products:product-detail', pk=product.pk) }}">{{ product.name }}</a>
+                                        </strong>
+                                        <div class="Card-description">{{ product.description_short }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endfor %}
                         {% endif %}
                     {% endfor %}
                 </div>

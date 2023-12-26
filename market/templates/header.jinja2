@@ -83,11 +83,13 @@
                         </div>
                     </div>
                     <div class="CategoriesButton-content">
-                        <div class="CategoriesButton-link"><a href="#">
-                                <div class="CategoriesButton-icon"><img src="{{ static('img/icons/departments/1.svg')}}" alt="1.svg" />
-                                </div><span class="CategoriesButton-text">Example</span>
-                            </a>
-                        </div>
+                        {% for category in categories %}
+                            <div class="CategoriesButton-link"><a href="#">
+                                    <div class="CategoriesButton-icon"><img src="{{ static('img/icons/departments/2.svg') }}" alt="" />
+                                    </div><span class="CategoriesButton-text">{{ category.name }}</span>
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
