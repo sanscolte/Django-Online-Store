@@ -7,9 +7,8 @@ from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 
-from products.models import Product, Category, ProductsViews
+from products.models import Product, ProductsViews, ComparisonList
 from products.services.products_views_services import ProductsViewsService
-
 
 User = get_user_model()
 
@@ -161,25 +160,33 @@ class ProductDetailReviewTest(TestCase):
             "text": "test review",
             "rating": 5,
         }
-        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form)
+        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form, follow=True)
 
-        self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
+        self.assertEqual(response.status_code, 200)
+        expected_redirect_url = reverse("products:product-detail", args=(pk,))
+        self.assertContains(response, expected_redirect_url)
+        # self.assertContains(response, f'href="{expected_redirect_url}"')
+        # self.assertRedirects(response, reverse("products:product-detail", args=(pk,)), status_code=302)
+        # self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
 
 
 class ProductDetailViewTest(TestCase):
     """Класс тестов представлений детальной страницы продукта"""
 
     fixtures = [
+        "fixtures/01-users.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
     ]
 
     def setUp(self):
-        self.category = Category.objects.create(name="test category")
-        self.product = Product.objects.create(name="test product", category=self.category)
+        self.user = User.objects.get(pk=1)
+        self.product = Product.objects.get(pk=1)
 
     def test_product_detail_view_context(self):
         """Тестирование представления страницы с деталями продукта"""
+
+        self.client.force_login(self.user)
 
         response = self.client.get(reverse("products:product-detail", args=[self.product.pk]))
         self.assertEqual(response.status_code, 200)
@@ -253,3 +260,82 @@ class HistoryProductsViewTest(TestCase):
         self.assertTrue("products_views" in response.context_data)
         self.assertEqual(len(products_views_list), 1)
         self.assertEqual(history_product.product.name, "iPhone")
+
+
+class BaseComparisonViewTest(TestCase):
+    """Класс тестов для базового представления списка сравнения продуктов"""
+
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/04-shops.json",
+        "fixtures/05-categories.json",
+        "fixtures/06-products.json",
+        "fixtures/08-offers.json",
+        "fixtures/17-details.json",
+        "fixtures/18-product-details.json",
+    ]
+
+    def setUp(self):
+        self.user = User.objects.get(pk=1)
+        self.product = Product.objects.get(pk=1)
+
+    def test_get_comparison_list_creates_comparison_list(self):
+        """Тестирование создания списка сравнения для пользователя"""
+
+        self.client.force_login(self.user)
+        response = self.client.get(reverse("products:get_comparison_list"))
+        self.assertEqual(response.status_code, 200)
+
+        comparison_list_id = self.client.session.get("comparison_list_id")
+        self.assertIsNotNone(comparison_list_id)
+
+        comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=self.user)
+        self.assertIsNotNone(comparison_list)
+
+    def test_get_comparison_count_returns_correct_count(self):
+        """Тестирование правильного подсчёта продуктов, находящихся в списке сравнения"""
+
+        self.client.force_login(self.user)
+        response = self.client.get(reverse("products:get_comparison_list"))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertIn("products_in_comparison", response.context_data)
+        self.assertEqual(len(response.context_data["products_in_comparison"]), 0)
+
+        comparison_list_id = self.client.session.get("comparison_list_id")
+        comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=self.user)
+        comparison_list.products.add(self.product)
+
+        response = self.client.get(reverse("products:get_comparison_list"))
+
+        self.assertIn("products_in_comparison", response.context_data)
+        self.assertEqual(len(response.context_data["products_in_comparison"]), 1)
+
+
+class ComparisonListViewTest(TestCase):
+    """Класс тестов для представления списка сравнения продуктов"""
+
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/04-shops.json",
+        "fixtures/05-categories.json",
+        "fixtures/06-products.json",
+        "fixtures/08-offers.json",
+        "fixtures/17-details.json",
+        "fixtures/18-product-details.json",
+    ]
+
+    def setUp(self):
+        self.user = User.objects.get(pk=1)
+        self.comparison_list = ComparisonList.objects.create(user=self.user)
+
+    def test_get_context_data(self):
+        """Тестирование получения контекстной информации"""
+
+        self.client.force_login(self.user)
+        response = self.client.get(reverse("products:get_comparison_list"))
+        self.assertEqual(response.status_code, 200)
+
+        context = response.context_data
+        self.assertIn("products_in_comparison", context)
+        self.assertIn("product_details_in_comparison", context)

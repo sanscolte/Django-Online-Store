@@ -1,0 +1,36 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+    <div class="Middle Middle_top">
+        <div class="Section">
+            <div class="wrap">
+
+                <div class="Products_Comparison">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Detail Name</th>
+                                {% for product in products_in_comparison %}
+                                    <th>{{ product.name }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detail_key, detail_value in data_for_template.items() %}
+                                <tr>
+                                    <td>{{ detail_key }}</td>
+                                    {% for value in detail_value %}
+                                        <td>{{ value }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

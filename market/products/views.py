@@ -5,8 +5,10 @@ from django.db.models.functions import Round, Concat
 from django.core.cache import cache
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from django.http import HttpRequest
-from django.shortcuts import render, redirect  # noqa F401
+from django.http import HttpRequest, JsonResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404  # noqa F401
+from django.urls import reverse
+from django.views import View
 
 from django.views.generic import ListView, DetailView
 from django.conf import settings
@@ -14,7 +16,7 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 
-from .models import Product, ProductDetail, ProductImage, ProductsViews
+from .models import Product, ProductDetail, ProductImage, ProductsViews, ComparisonList
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .filters import ProductFilter
 from .services.products_views_services import ProductsViewsService
@@ -76,14 +78,69 @@ class ProductListView(FilterView):
         return redirect("products:product-list")
 
 
+class BaseComparisonView(View):
+    def get_comparison_list(self, request, limit=3):
+        comparison_list_id = request.session.get("comparison_list_id")
+
+        if comparison_list_id:
+            try:
+                comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=request.user)
+            except ComparisonList.DoesNotExist:
+                comparison_list = ComparisonList.objects.create(user=request.user)
+        else:
+            comparison_list = ComparisonList.objects.create(user=request.user)
+            request.session["comparison_list_id"] = comparison_list.id
+
+        return comparison_list
+
+    def get_comparison_count(self, request):
+        user_comparison_list = self.get_comparison_list(request)
+        count = user_comparison_list.products.count()
+        return JsonResponse({"count": count})
+
+
+class ComparisonListView(ListView, BaseComparisonView):
+    model = ComparisonList
+    template_name = "products/comparison-products.jinja2"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_comparison_list = self.get_comparison_list(self.request)
+
+        comparison_products = user_comparison_list.products.all()
+        unique_details = ProductDetail.objects.filter(product__in=comparison_products)
+
+        context["products_in_comparison"] = comparison_products
+        context["product_details_in_comparison"] = unique_details
+
+        unique_details_dict = {}
+
+        for detail_first in unique_details:
+            detail_values_list = []
+            detail_key = detail_first.detail.name
+            for i_product in comparison_products:
+                value = "---"
+                for detail_second in unique_details:
+                    if detail_second.detail.name == detail_key and detail_second.product.name == i_product.name:
+                        value = detail_second.value
+                detail_values_list.append(value)
+            unique_details_dict[detail_key] = detail_values_list
+
+        print(unique_details_dict)
+
+        context["data_for_template"] = unique_details_dict
+
+        return context
+
+
 @receiver([post_save, post_delete], sender=ProductDetail)
 def clear_product_detail_cache(sender, instance, **kwargs):
     ProductDetailView.clear_cache_for_product_detail(instance.product.pk)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(DetailView, BaseComparisonView):
     model = Product
-    template_name = "products/product_detail.jinja2"
+    template_name = "products/product-details.jinja2"
     context_object_name = "product"
 
     @staticmethod
@@ -104,6 +161,8 @@ class ProductDetailView(DetailView):
         review_service = ReviewsService(self.request, self.get_object())
         views_service = ProductsViewsService(self.get_object(), self.request.user)
 
+        comparison_list = self.get_comparison_list(self.request)
+
         context["reviews"], context["next_page"], context["has_next"] = review_service.get_reviews_for_product()
         context["review_form"] = ReviewForm()
         context["cart_form"] = CartAddProductForm(initial={"quantity": 1, "update": False})
@@ -114,6 +173,8 @@ class ProductDetailView(DetailView):
         context["offers"] = Offer.objects.filter(product=self.object)
         context["offers_form"] = OfferForm()
         context["products_views"] = views_service.get_views()
+        context["comparison_list"] = comparison_list
+        context["is_product_in_comparison"] = self.is_product_in_comparison(self.request.user, self.object.pk)
 
         if self.request.user.is_authenticated:
             views_service.add_product_view()
@@ -121,6 +182,18 @@ class ProductDetailView(DetailView):
         return context
 
     def post(self, request: HttpRequest, **kwargs):
+        action = request.POST.get("action")
+
+        if action == "add_review":
+            return self.handle_review(request)
+        elif action == "add_to_comparison":
+            return self.handle_comparison(request, "add")
+        elif action == "remove_from_comparison":
+            return self.handle_comparison(request, "remove")
+        else:
+            return JsonResponse({"error": "Invalid action"})
+
+    def handle_review(self, request: HttpRequest):
         review_form = ReviewForm(request.POST)
         cart_form = CartAddProductForm(request.POST)
         if review_form.is_valid() and "btnform2" in request.POST:
@@ -137,7 +210,42 @@ class ProductDetailView(DetailView):
                 quantity=quantity,
                 update_quantity=True,
             )
-        return redirect(self.get_object())
+        # response = HttpResponse(status=302)
+        # response['Location'] = reverse('products:product-detail', args=(self.get_object().pk,))
+        # return response
+        return HttpResponseRedirect(reverse("products:product-detail", args=(self.get_object().pk,)), status=302)
+        # return redirect()
+
+    def handle_comparison(self, request: HttpRequest, action):
+        product_id = request.POST.get("product_id")
+
+        if action == "add":
+            return self.add_to_comparison(request, product_id)
+        elif action == "remove":
+            return self.remove_from_comparison(request, product_id)
+
+    def is_product_in_comparison(self, user, product_id):
+        user_comparison_list = self.get_comparison_list(self.request)
+        return product_id in user_comparison_list.products.values_list("id", flat=True)
+
+    def add_to_comparison(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+        user_comparison_list = self.get_comparison_list(request)
+
+        if user_comparison_list.products.count() == 3:
+            return JsonResponse({"message": "List cannot exceed three products."})
+        else:
+            if product not in user_comparison_list.products.all():
+                user_comparison_list.products.add(product)
+                return JsonResponse({"message": "Success adding"})
+            else:
+                return JsonResponse({"message": "Product already in list."})
+
+    def remove_from_comparison(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+        user_comparison_list = self.get_comparison_list(request)
+        user_comparison_list.products.remove(product)
+        return JsonResponse({"message": "Product removed from list."})
 
 
 class ProductsViewsView(ListView):

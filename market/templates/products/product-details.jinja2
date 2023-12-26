@@ -58,6 +58,26 @@
                         </div>
                     </div>
 
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if is_product_in_comparison %}
+                            <input type="hidden" name="action" value="remove_from_comparison">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit">Удалить из списка сравнения</button>
+                        {% else %}
+                            <input type="hidden" name="action" value="add_to_comparison">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit">Добавить в список сравнения</button>
+                        {% endif %}
+                        {% if messages %}
+                            <div class="alert alert-info" role="alert">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </form>
+
                     <div class="discounts">
                         <h3>Скидки:</h3>
                     </div>
