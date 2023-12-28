@@ -1,20 +1,26 @@
 from decimal import Decimal
 
 from django.conf import settings
+
 from products.models import Product
 from shops.models import Shop, Offer
 import random
 
 
 class CartServices:
-    def __init__(self, request):
+    _instance = None
+
+    def __new__(cls, request, *args, **kwargs):
         """Создает корзину"""
 
-        self.session = request.session
-        cart = self.session.get(settings.CART_SESSION_ID)
-        if not cart:
-            cart = self.session[settings.CART_SESSION_ID] = {}
-        self.cart = cart
+        if not CartServices._instance:
+            CartServices._instance = super(CartServices, cls).__new__(cls, *args, **kwargs)
+            cls.session = request.session
+            cart = cls.session.get(settings.CART_SESSION_ID)
+            if not cart:
+                cart = cls.session[settings.CART_SESSION_ID] = {}
+            cls.cart = cart
+        return CartServices._instance
 
     def add(self, product: Product, shop: None, quantity=1, update_quantity=False) -> None:
         """Добавление товара в корзину или обновление его количества."""
@@ -70,27 +76,31 @@ class CartServices:
 
         return sum(item["quantity"] for item in self.cart.values())
 
-    def get_total_price(self) -> Decimal:
+    @classmethod
+    def get_total_price(cls) -> Decimal:
         """Возвращает общую стоимость товаров в корзине."""
 
-        return sum(Decimal(item["price"]) * item["quantity"] for item in self.cart.values())
+        return sum(Decimal(item["price"]) * item["quantity"] for item in cls.cart.values())
 
-    def get_products_in_cart(self) -> list:
+    @classmethod
+    def get_products_in_cart(cls) -> list:
         """Возвращает список экземпляров модели Product корзины."""
 
-        product_ids = self.cart.keys()
+        product_ids = cls.cart.keys()
         products_in_cart = Product.objects.filter(id__in=product_ids)
         return products_in_cart
 
-    def get_offers_in_cart(self) -> list:
+    @classmethod
+    def get_offers_in_cart(cls) -> list:
         """Возвращает список экземпляров модели Offer корзины."""
 
-        offer_ids = (item["offers"] for item in self.cart.values())
+        offer_ids = (item["offers"] for item in cls.cart.values())
         offers_in_cart = Offer.objects.filter(id__in=offer_ids)
         return offers_in_cart
 
-    def clear(self, only_session: bool = False) -> None:
+    @classmethod
+    def clear(cls, only_session: bool = False) -> None:
         """Очистка корзины."""
 
-        del self.session[settings.CART_SESSION_ID]
-        self.save()
+        del cls.session[settings.CART_SESSION_ID]
+        cls.save()
