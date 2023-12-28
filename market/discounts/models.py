@@ -34,7 +34,7 @@ class DiscountProduct(DiscountBase):
 
 class DiscountSet(DiscountBase):
     categories = models.ManyToManyField(Category, related_name="discount_sets")
-    weigh = models.DecimalField(
+    weight = models.DecimalField(
         max_digits=3,
         decimal_places=2,
         verbose_name="вес скидки",

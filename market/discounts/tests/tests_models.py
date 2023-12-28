@@ -15,7 +15,7 @@ class DiscountSetTest(TestCase):
 
         self.discount_set = DiscountSet.objects.create(
             percentage=10,
-            weight=0.01,
+            weight=0.02,
             start_date=timezone.now().date(),
             end_date=timezone.now().date() + timedelta(days=7),
         )
