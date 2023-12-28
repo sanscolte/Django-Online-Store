@@ -6,7 +6,7 @@
       "name": "Новый год",
       "percentage": 10,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
         1
       ]
@@ -17,9 +17,9 @@
     "pk": 2,
     "fields": {
       "name": "Новый год",
-      "percentage": 20,
+      "percentage": 15,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
         2
       ]
@@ -30,9 +30,9 @@
     "pk": 3,
     "fields": {
       "name": "Новый год",
-      "percentage": 30,
+      "percentage": 20,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
         3
       ]
@@ -45,7 +45,7 @@
       "name": "Новый год",
       "percentage": 25,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
         4
       ]
@@ -56,9 +56,9 @@
     "pk": 5,
     "fields": {
       "name": "Новый год",
-      "percentage": 35,
+      "percentage": 30,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
         5
       ]
@@ -69,9 +69,9 @@
     "pk": 6,
     "fields": {
       "name": "Новый год",
-      "percentage": 40,
+      "percentage": 25,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
         6
       ]
@@ -82,11 +82,11 @@
     "pk": 7,
     "fields": {
       "name": "Новый год",
-      "percentage": 50,
+      "percentage": 30,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
-        7
+        8
       ]
     }
   },
@@ -95,11 +95,11 @@
     "pk": 8,
     "fields": {
       "name": "Новый год",
-      "percentage": 15,
+      "percentage": 30,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
-        8
+        9
       ]
     }
   },
@@ -108,11 +108,11 @@
     "pk": 9,
     "fields": {
       "name": "Новый год",
-      "percentage": 55,
+      "percentage": 50,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
-        9
+        11
       ]
     }
   },
@@ -123,9 +123,9 @@
       "name": "Новый год",
       "percentage": 45,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
+      "end_date": "2024-01-10",
       "products": [
-        11
+        15
       ]
     }
   }

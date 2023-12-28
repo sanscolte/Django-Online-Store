@@ -6,8 +6,8 @@
       "name": "Новый год",
       "percentage": 10,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.10"
+      "end_date": "2024-01-10",
+      "weight": "0.10"
     }
   },
   {
@@ -17,8 +17,8 @@
       "name": "Новый год",
       "percentage": 20,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.20"
+      "end_date": "2024-01-10",
+      "weight": "0.20"
     }
   },
   {
@@ -28,8 +28,8 @@
       "name": "Новый год",
       "percentage": 25,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.25"
+      "end_date": "2024-01-10",
+      "weight": "0.24"
     }
   },
   {
@@ -39,8 +39,8 @@
       "name": "Новый год",
       "percentage": 30,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.30"
+      "end_date": "2024-01-10",
+      "weight": "0.30"
     }
   },
   {
@@ -50,8 +50,8 @@
       "name": "Новый год",
       "percentage": 35,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.35"
+      "end_date": "2024-01-10",
+      "weight": "0.34"
     }
   },
   {
@@ -61,8 +61,8 @@
       "name": "Новый год",
       "percentage": 40,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.40"
+      "end_date": "2024-01-10",
+      "weight": "0.40"
     }
   },
   {
@@ -70,10 +70,10 @@
     "pk": 7,
     "fields": {
       "name": "Новый год",
-      "percentage": 50,
+      "percentage": 45,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.50"
+      "end_date": "2024-01-10",
+      "weight": "0.44"
     }
   },
   {
@@ -81,10 +81,10 @@
     "pk": 8,
     "fields": {
       "name": "Новый год",
-      "percentage": 55,
+      "percentage": 50,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.55"
+      "end_date": "2024-01-10",
+      "weight": "0.50"
     }
   },
   {
@@ -92,10 +92,10 @@
     "pk": 9,
     "fields": {
       "name": "Новый год",
-      "percentage": 60,
+      "percentage": 55,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.60"
+      "end_date": "2024-01-10",
+      "weight": "0.54"
     }
   },
   {
@@ -103,10 +103,10 @@
     "pk": 10,
     "fields": {
       "name": "Новый год",
-      "percentage": 65,
+      "percentage": 60,
       "start_date": "2023-12-24",
-      "end_date": "2023-12-31",
-      "weigh": "0.65"
+      "end_date": "2024-01-10",
+      "weight": "0.60"
     }
   }
 ]
