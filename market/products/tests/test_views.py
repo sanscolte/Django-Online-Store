@@ -122,6 +122,9 @@ class ProductDetailReviewTest(TestCase):
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
         "fixtures/16-reviews.json",
+        "fixtures/17-details.json",
+        "fixtures/18-product-details.json",
+        "fixtures/19-products-views.json",
     ]
 
     def setUp(self):
@@ -160,7 +163,10 @@ class ProductDetailReviewTest(TestCase):
             "text": "test review",
             "rating": 5,
         }
-        response = self.client.post(reverse("products:product-detail", args=(pk,)), data=review_form)
+        response = self.client.post(
+            reverse("products:product-detail", args=(pk,)), data=review_form, action="add_review_or_cart"
+        )
+        self.assertIsNotNone(response)
 
         self.assertRedirects(response, reverse("products:product-detail", args=(pk,)))
 

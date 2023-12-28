@@ -5,7 +5,7 @@ from django.db.models.functions import Round, Concat
 from django.core.cache import cache
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404  # noqa F401
 from django.views import View
 
@@ -196,15 +196,20 @@ class ProductDetailView(DetailView, BaseComparisonView):
             return self.handle_comparison(request, "add")
         elif action == "remove_from_comparison":
             return self.handle_comparison(request, "remove")
+        else:
+            return HttpResponseNotFound("Ошибка!")
 
     def handle_review_or_cart(self, request):
         review_form = ReviewForm(request.POST)
         cart_form = CartAddProductForm(request.POST)
+
         if review_form.is_valid() and "btnform2" in request.POST:
             review_form.instance.user = self.request.user
             review_form.instance.product = self.get_object()
             review_form.save()
-        if cart_form.is_valid() and "btnform1" in request.POST:
+            return redirect("products:product-detail", pk=review_form.instance.product.pk)
+
+        elif cart_form.is_valid() and "btnform1" in request.POST:
             shop_name = request.POST["shop_name"]
             quantity = cart_form.cleaned_data["quantity"]
             cart_services = CartServices(request)
@@ -214,8 +219,9 @@ class ProductDetailView(DetailView, BaseComparisonView):
                 quantity=quantity,
                 update_quantity=True,
             )
+            return redirect(self.get_object())
 
-        return redirect(self.get_object())
+        return HttpResponseNotFound("Ошибка!")
 
     def handle_comparison(self, request, action):
         product_id = request.POST.get("product_id")
