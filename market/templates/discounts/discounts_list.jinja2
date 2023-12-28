@@ -21,7 +21,7 @@
                     {% for discount in discounts %}
                         {% if discount.is_active %}
                             {% for product in discount.products.all() %}
-                                <div class="Card"><a class="Card-picture"><img src="{{ product.image }}" alt="" /></a>
+                                <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/product.png') }}" alt="" /></a>
                                     <div class="Card-date">
                                         <strong class="Card-date-number">{{ discount.start_date.day }}
                                         </strong><span class="Card-date-month">{{ discount.start_date.strftime('%B')[:3] }}</span>

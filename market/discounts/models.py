@@ -47,7 +47,7 @@ class DiscountSet(DiscountBase):
 
 
 class DiscountCart(DiscountBase):
-    weigh = models.DecimalField(
+    weight = models.DecimalField(
         max_digits=3,
         decimal_places=2,
         verbose_name="вес скидки",
