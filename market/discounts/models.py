@@ -53,6 +53,8 @@ class DiscountCart(DiscountBase):
         verbose_name="вес скидки",
         validators=[MinValueValidator(0.01), MaxValueValidator(1.00)],
     )
+    price_from = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="диапазон цены от")
+    price_to = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="диапазон цены до")
 
     class Meta:
         verbose_name = "Скидка для корзины"
