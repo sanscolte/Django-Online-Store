@@ -14,7 +14,10 @@ class DiscountSetTest(TestCase):
         self.category2 = Category.objects.create(name="Category 2")
 
         self.discount_set = DiscountSet.objects.create(
-            percentage=10, start_date=timezone.now().date(), end_date=timezone.now().date() + timedelta(days=7)
+            percentage=10,
+            weight=0.02,
+            start_date=timezone.now().date(),
+            end_date=timezone.now().date() + timedelta(days=7),
         )
 
         self.discount_set.categories.add(self.category1, self.category2)
