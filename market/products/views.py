@@ -190,8 +190,10 @@ class ProductDetailView(DetailView, BaseComparisonView):
     def post(self, request, **kwargs):
         action = request.POST.get("action")
 
-        if action == "add_review_or_cart":
-            return self.handle_review_or_cart(request)
+        if action == "add_review":
+            return self.handle_review(request)
+        elif action == "add_to_cart":
+            return self.handle_cart(request)
         elif action == "add_to_comparison":
             return self.handle_comparison(request, "add")
         elif action == "remove_from_comparison":
@@ -199,17 +201,21 @@ class ProductDetailView(DetailView, BaseComparisonView):
         else:
             return HttpResponseNotFound("Ошибка!")
 
-    def handle_review_or_cart(self, request):
+    def handle_review(self, request):
         review_form = ReviewForm(request.POST)
-        cart_form = CartAddProductForm(request.POST)
 
-        if review_form.is_valid() and "btnform2" in request.POST:
+        if review_form.is_valid():
             review_form.instance.user = self.request.user
             review_form.instance.product = self.get_object()
             review_form.save()
             return redirect("products:product-detail", pk=review_form.instance.product.pk)
 
-        elif cart_form.is_valid() and "btnform1" in request.POST:
+        return HttpResponseNotFound("Ошибка!")
+
+    def handle_cart(self, request):
+        cart_form = CartAddProductForm(request.POST)
+
+        if cart_form.is_valid():
             shop_name = request.POST["shop_name"]
             quantity = cart_form.cleaned_data["quantity"]
             cart_services = CartServices(request)
