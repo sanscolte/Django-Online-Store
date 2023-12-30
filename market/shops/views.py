@@ -7,7 +7,7 @@ from .models import Shop
 
 import random
 from config.settings import CACHE_TIME
-from products.models import Banner
+from products.models import Banner, Category
 
 
 class IndexPageView(TemplateView):
@@ -17,6 +17,7 @@ class IndexPageView(TemplateView):
         """Добавление баннеров и времени кэша в контекст шаблона"""
 
         context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
         context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=3)
         context["cache_time"] = CACHE_TIME
         return context

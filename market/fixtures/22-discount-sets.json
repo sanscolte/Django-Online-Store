@@ -1,0 +1,152 @@
+[
+  {
+    "model": "discounts.discountset",
+    "pk": 1,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 10,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.09",
+      "categories": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 2,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 15,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.16",
+      "categories": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 3,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 20,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.21",
+      "categories": [
+        1,
+        3
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 4,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 25,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.23",
+      "categories": [
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 5,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 35,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.36",
+      "categories": [
+        3,
+        5
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 6,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 40,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.38",
+      "categories": [
+        8,
+        6
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 7,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 45,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.43",
+      "categories": [
+        10,
+        12
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 8,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 50,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.51",
+      "categories": [
+        10,
+        11
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 9,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 15,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.13",
+      "categories": [
+        9,
+        11
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 10,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 25,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.26",
+      "categories": [
+        12,
+        5
+      ]
+    }
+  }
+]
