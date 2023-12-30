@@ -13,13 +13,14 @@ class CartServices:
     def __new__(cls, request, *args, **kwargs):
         """Создает корзину"""
 
+        cls.session = request.session
+        cart = cls.session.get(settings.CART_SESSION_ID)
+        if not cart:
+            cart = cls.session[settings.CART_SESSION_ID] = {}
+        cls.cart = cart
         if not CartServices._instance:
             CartServices._instance = super(CartServices, cls).__new__(cls, *args, **kwargs)
-            cls.session = request.session
-            cart = cls.session.get(settings.CART_SESSION_ID)
-            if not cart:
-                cart = cls.session[settings.CART_SESSION_ID] = {}
-            cls.cart = cart
+
         return CartServices._instance
 
     def add(self, product: Product, shop: None, quantity=1, update_quantity=False) -> None:
@@ -53,12 +54,12 @@ class CartServices:
     def __iter__(self):
         """Проходим по товарам корзины и получаем соответствующие объекты.
         :return: dict
-        :param quantity: количество товра
-        :param price: цена за единицу товра
-        :param offers: id предлжения
-        :param product: товар
-        :param price: общая цена за единицу товра
-        :param update_quantity_form: форма для обновления товара
+        quantity: количество товра
+        price: цена за единицу товра
+        offers: id предлжения
+        product: товар
+        price: общая цена за единицу товра
+        update_quantity_form: форма для обновления товара
         """
 
         product_ids = self.cart.keys()
