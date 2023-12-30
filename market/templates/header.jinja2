@@ -60,8 +60,8 @@
                             <a class="dropdown-content-a" href="{{ url('accounts:logout') }}">Выход</a>
                         </div>
                     </div>
-                    <a class="CartBlock-block" href="#"><img class="CartBlock-img" src="{{ static('img/icons/cart.svg') }}" alt="cart.svg" /><span class="CartBlock-amount">0</span></a>
-                    <div class="CartBlock-block"><span class="CartBlock-price">0.00$</span>
+                    <a class="CartBlock-block" href="{{ url('cart:cart_detail') }}"><img class="CartBlock-img" src="{{ static('img/icons/cart.svg') }}" alt="cart.svg" /><span class="CartBlock-amount">{{cart_data.__len__()}}</span></a>
+                    <div class="CartBlock-block"><span class="CartBlock-price">{{cart_data.get_total_price()}}</span>
                     </div>
                 </div>
             </div>
