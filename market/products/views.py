@@ -82,10 +82,7 @@ class BaseComparisonView(View):
         comparison_list_id = request.session.get("comparison_list_id")
 
         if comparison_list_id:
-            try:
-                comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=request.user)
-            except ComparisonList.DoesNotExist:
-                comparison_list = ComparisonList.objects.create(user=request.user)
+            comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=request.user)
         else:
             comparison_list = ComparisonList.objects.create(user=request.user)
             request.session["comparison_list_id"] = comparison_list.id
@@ -96,6 +93,10 @@ class BaseComparisonView(View):
         user_comparison_list = self.get_comparison_list(request)
         count = user_comparison_list.products.count()
         return count if count < limit else False
+
+    def is_product_in_comparison(self, user, product_id):
+        user_comparison_list = self.get_comparison_list(self.request)
+        return product_id in user_comparison_list.products.values_list("id", flat=True)
 
 
 class ComparisonListView(ListView, BaseComparisonView):
@@ -111,6 +112,7 @@ class ComparisonListView(ListView, BaseComparisonView):
         unique_details = ProductDetail.objects.filter(product__in=comparison_products)
 
         context["products_in_comparison"] = comparison_products
+        context["comparison_count"] = self.get_comparison_count(self.request)
         context["products_views"] = products_views
         context["product_details_in_comparison"] = unique_details
         context["first_row_for_template"] = []
@@ -181,6 +183,7 @@ class ProductDetailView(DetailView, BaseComparisonView):
         context["products_views"] = views_service.get_views()
         context["comparison_list"] = comparison_list
         context["is_product_in_comparison"] = self.is_product_in_comparison(self.request.user, self.object.pk)
+        context["comparison_count"] = self.get_comparison_count(self.request)
 
         if self.request.user.is_authenticated:
             views_service.add_product_view()
@@ -194,10 +197,6 @@ class ProductDetailView(DetailView, BaseComparisonView):
             return self.handle_review(request)
         elif action == "add_to_cart":
             return self.handle_cart(request)
-        elif action == "add_to_comparison":
-            return self.handle_comparison(request, "add")
-        elif action == "remove_from_comparison":
-            return self.handle_comparison(request, "remove")
         else:
             return HttpResponseNotFound("Ошибка!")
 
@@ -229,26 +228,20 @@ class ProductDetailView(DetailView, BaseComparisonView):
 
         return HttpResponseNotFound("Ошибка!")
 
-    def handle_comparison(self, request, action):
+
+class AddToComparisonListView(ProductDetailView):
+    def post(self, request, **kwargs):
         product_id = request.POST.get("product_id")
-
-        if action == "add":
-            return self.add_to_comparison(request, product_id)
-        elif action == "remove":
-            return self.remove_from_comparison(request, product_id)
-
-    def is_product_in_comparison(self, user, product_id):
-        user_comparison_list = self.get_comparison_list(self.request)
-        return product_id in user_comparison_list.products.values_list("id", flat=True)
-
-    def add_to_comparison(self, request, product_id):
         product = get_object_or_404(Product, id=product_id)
         user_comparison_list = self.get_comparison_list(request)
-        if self.get_comparison_count(request):
+        if self.get_comparison_count(request) or not isinstance(self.get_comparison_count(request), bool):
             user_comparison_list.products.add(product)
         return redirect(self.get_object())
 
-    def remove_from_comparison(self, request, product_id):
+
+class RemoveFromComparisonListView(ProductDetailView):
+    def post(self, request, **kwargs):
+        product_id = request.POST.get("product_id")
         product = get_object_or_404(Product, id=product_id)
         user_comparison_list = self.get_comparison_list(request)
         user_comparison_list.products.remove(product)

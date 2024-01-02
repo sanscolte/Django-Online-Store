@@ -5,34 +5,36 @@
     <div class="Middle Middle_top">
         <div class="Section">
             <div class="wrap">
-
-                <div class="Products_Comparison">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Detail Name</th>
-                                {% for product in first_row_for_template %}
-                                    <th>
-                                        <a href="{{ product.get_absolute_url() }}" target="_blank">
-                                            {{ product.name }}
-                                        </a>
-                                    </th>
-                                {% endfor %}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for detail_key, detail_value in data_for_template.items() %}
+                {% if products_in_comparison|length %}
+                    <div class="Products_Comparison">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td>{{ detail_key }}</td>
-                                    {% for value in detail_value %}
-                                        <td>{{ value }}</td>
+                                    <th>Detail Name</th>
+                                    {% for product in first_row_for_template %}
+                                        <th>
+                                            <a href="{{ product.get_absolute_url() }}" target="_blank">
+                                                {{ product.name }}
+                                            </a>
+                                        </th>
                                     {% endfor %}
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
+                            </thead>
+                            <tbody>
+                                {% for detail_key, detail_value in data_for_template.items() %}
+                                    <tr>
+                                        <td>{{ detail_key }}</td>
+                                        {% for value in detail_value %}
+                                            <td>{{ value }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <h3>В списке сравнения нет ни одного товара! Добавьте свой первый товар из <a href="{{ url('products:product-list') }}">каталога</a>.</h3>
+                {% endif %}
             </div>
         </div>
     </div>

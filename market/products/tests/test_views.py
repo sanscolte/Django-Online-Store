@@ -4,11 +4,12 @@ from django.db.models import Avg
 from django.db.models.functions import Round
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
-from django.test import TestCase
-from django.urls import reverse
+from django.test import TestCase, Client
+from django.urls import reverse, reverse_lazy
 
 from products.models import Product, ProductsViews, ComparisonList
 from products.services.products_views_services import ProductsViewsService
+from products.views import BaseComparisonView
 
 User = get_user_model()
 
@@ -283,7 +284,7 @@ class BaseComparisonViewTest(TestCase):
         """Тестирование создания списка сравнения для пользователя"""
 
         self.client.force_login(self.user)
-        response = self.client.get(reverse("products:get_comparison_list"))
+        response = self.client.get(reverse("products:comparison-list"))
         self.assertEqual(response.status_code, 200)
 
         comparison_list_id = self.client.session.get("comparison_list_id")
@@ -296,7 +297,7 @@ class BaseComparisonViewTest(TestCase):
         """Тестирование правильного подсчёта продуктов, находящихся в списке сравнения"""
 
         self.client.force_login(self.user)
-        response = self.client.get(reverse("products:get_comparison_list"))
+        response = self.client.get(reverse("products:comparison-list"))
         self.assertEqual(response.status_code, 200)
 
         self.assertIn("products_in_comparison", response.context_data)
@@ -306,7 +307,7 @@ class BaseComparisonViewTest(TestCase):
         comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=self.user)
         comparison_list.products.add(self.product)
 
-        response = self.client.get(reverse("products:get_comparison_list"))
+        response = self.client.get(reverse("products:comparison-list"))
 
         self.assertIn("products_in_comparison", response.context_data)
         self.assertEqual(len(response.context_data["products_in_comparison"]), 1)
@@ -333,9 +334,86 @@ class ComparisonListViewTest(TestCase):
         """Тестирование получения контекстной информации"""
 
         self.client.force_login(self.user)
-        response = self.client.get(reverse("products:get_comparison_list"))
+        response = self.client.get(reverse("products:comparison-list"))
         self.assertEqual(response.status_code, 200)
 
         context = response.context_data
         self.assertIn("products_in_comparison", context)
         self.assertIn("product_details_in_comparison", context)
+
+
+class AddToComparisonListViewTest(TestCase):
+    fixtures = [
+        "fixtures/01-users.json",
+    ]
+
+    def setUp(self):
+        self.user = User.objects.get(pk=1)
+        self.client.force_login(self.user)
+        self.product_1 = Product.objects.create(name="Test Product 1")
+        self.product_2 = Product.objects.create(name="Test Product 2")
+        self.product_3 = Product.objects.create(name="Test Product 3")
+        self.product_4 = Product.objects.create(name="Test Product 4")
+        self.comparison_list_id = self.client.session.get("comparison_list_id")
+        self.comparison_list, created = ComparisonList.objects.get_or_create(
+            id=self.comparison_list_id, user=self.user
+        )
+        self.comparison_count = BaseComparisonView.get_comparison_count(self.client.request.user, self.client.request)
+
+    def test_add_to_comparison_list(self):
+        data = {
+            "product_id": self.product_1.pk,
+            "action": "add_to_comparison",
+        }
+        response = self.client.post(reverse_lazy("products:add-to-list", kwargs={"pk": self.product_1.pk}), data)
+        self.assertTrue(self.comparison_list.products.filter(pk=self.product_1.pk).exists())
+        self.assertEqual(response.status_code, 302)
+
+    def test_max_products_to_comparison_list(self):
+        self.assertFalse(self.comparison_count)
+        self.comparison_list.products.add(self.product_1)
+        self.assertIn(self.product_1, self.comparison_list.products.all())
+        self.assertTrue(self.comparison_count)
+        self.comparison_list.products.add(self.product_2)
+        self.assertIn(self.product_2, self.comparison_list.products.all())
+        self.comparison_list.products.add(self.product_3)
+        self.assertTrue(self.comparison_count)
+        self.assertIn(self.product_3, self.comparison_list.products.all())
+        self.comparison_list.products.add(self.product_4)
+        self.assertFalse(self.comparison_count)
+        self.assertNotIn(self.product_4, self.comparison_list.products.all())
+
+
+class RemoveFromComparisonListViewTest(TestCase):
+    fixtures = [
+        "fixtures/01-users.json",
+    ]
+
+    def setUp(self):
+        self.user = User.objects.get(pk=1)
+        self.product = Product.objects.create(name="Test Product")
+        self.client = Client()
+        self.client.force_login(self.user)
+        self.comparison_list_id = self.client.session.get("comparison_list_id")
+        self.comparison_list, created = ComparisonList.objects.get_or_create(
+            id=self.comparison_list_id, user=self.user
+        )
+
+    def test_remove_from_comparison_list(self):
+        self.client.force_login(self.user)
+        self.comparison_list.products.add(self.product)
+
+        response_get = self.client.get(reverse("products:remove-from-list", kwargs={"pk": self.product.pk}))
+        self.assertEqual(response_get.status_code, 200)
+
+        self.assertTrue(self.user.is_authenticated)
+
+        data = {
+            "csrfmiddlewaretoken": self.client.cookies["csrftoken"].value,
+            "action": "remove_from_comparison",
+            "product_id": self.product.pk,
+        }
+
+        response = self.client.post(reverse("products:remove-from-list", kwargs={"pk": self.product.pk}), data)
+        self.assertFalse(self.comparison_list.products.filter(pk=self.product.pk).exists())
+        self.assertEqual(response.status_code, 302)
