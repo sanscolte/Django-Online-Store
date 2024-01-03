@@ -167,3 +167,10 @@ class ProductsViews(models.Model):
         Product, on_delete=models.CASCADE, related_name="products_views", verbose_name="Продукт"
     )
     created_at = models.DateTimeField(default=timezone.now)
+
+
+class ComparisonList(models.Model):
+    """Модель сравнения продуктов"""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)

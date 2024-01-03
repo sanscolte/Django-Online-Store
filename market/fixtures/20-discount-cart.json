@@ -1,1 +1,132 @@
-[{"model": "discounts.discountcart", "pk": 1, "fields": {"name": "Новый год", "percentage": 10, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.12", "price_from": "6000.00", "price_to": "15000.00"}}, {"model": "discounts.discountcart", "pk": 2, "fields": {"name": "Новый год", "percentage": 20, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.18", "price_from": "15000.00", "price_to": "20000.00"}}, {"model": "discounts.discountcart", "pk": 3, "fields": {"name": "Новый год", "percentage": 25, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.26", "price_from": "20000.00", "price_to": "30000.00"}}, {"model": "discounts.discountcart", "pk": 4, "fields": {"name": "Новый год", "percentage": 30, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.29", "price_from": "30000.00", "price_to": "35000.00"}}, {"model": "discounts.discountcart", "pk": 5, "fields": {"name": "Новый год", "percentage": 40, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.42", "price_from": "40000.00", "price_to": "50000.00"}}, {"model": "discounts.discountcart", "pk": 6, "fields": {"name": "Новый год", "percentage": 45, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.45", "price_from": "45000.00", "price_to": "50000.00"}}, {"model": "discounts.discountcart", "pk": 7, "fields": {"name": "Новый год", "percentage": 50, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.51", "price_from": "50000.00", "price_to": "60000.00"}}, {"model": "discounts.discountcart", "pk": 8, "fields": {"name": "Новый год", "percentage": 55, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.56", "price_from": "60000.00", "price_to": "65000.00"}}, {"model": "discounts.discountcart", "pk": 9, "fields": {"name": "Новый год", "percentage": 60, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.61", "price_from": "65000.00", "price_to": "75000.00"}}, {"model": "discounts.discountcart", "pk": 10, "fields": {"name": "Новый год", "percentage": 65, "start_date": "2023-12-24", "end_date": "2024-01-10", "weight": "0.67", "price_from": "75000.00", "price_to": "90000.00"}}]
+[
+  {
+    "model": "discounts.discountcart",
+    "pk": 1,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 10,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.12",
+      "price_from": "6000.00",
+      "price_to": "15000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 2,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 20,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.18",
+      "price_from": "15000.00",
+      "price_to": "20000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 3,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 25,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.26",
+      "price_from": "20000.00",
+      "price_to": "30000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 4,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 30,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.29",
+      "price_from": "30000.00",
+      "price_to": "35000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 5,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 40,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.42",
+      "price_from": "40000.00",
+      "price_to": "50000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 6,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 45,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.45",
+      "price_from": "45000.00",
+      "price_to": "50000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 7,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 50,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.51",
+      "price_from": "50000.00",
+      "price_to": "60000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 8,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 55,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.56",
+      "price_from": "60000.00",
+      "price_to": "65000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 9,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 60,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.61",
+      "price_from": "65000.00",
+      "price_to": "75000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 10,
+    "fields": {
+      "name": "Новый год",
+      "percentage": 65,
+      "start_date": "2023-12-24",
+      "end_date": "2024-01-10",
+      "weight": "0.67",
+      "price_from": "75000.00",
+      "price_to": "90000.00"
+    }
+  }
+]
