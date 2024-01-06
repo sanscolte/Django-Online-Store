@@ -2,44 +2,56 @@ from django.db import models
 from products.models import Product
 
 
-class Order(models.Model):
-    """Модель заказа с информацией о пользователе"""
+class DeliveryTypes(models.TextChoices):
+    """Модель выбора типа доставки"""
 
-    DELIVERY_TYPES = [("regular", "обычная доставка"), ("express", "экспресс-доставка")]
+    REGULAR = "regular", "обычная доставка"
+    EXPRESS = "express", "экспресс-доставка"
 
-    PAYMENT_TYPES = [("card", "онлайн картой"), ("random", "онлайн со случайного чужого счета")]
+
+class PaymentTypes(models.TextChoices):
+    """Модель выбора типа оплаты"""
+
+    CARD = "card", "онлайн картой"
+    RANDOM = "random", "онлайн со случайного чужого счета"
+
+
+class Status(models.TextChoices):
+    """Модель выбора статуса заказа"""
 
     STATUS_CREATED = "created"
     STATUS_OK = "ok"
     STATUS_DELIVERED = "delivered"
     STATUS_PAID = "paid"
     STATUS_NOT_PAID = "not paid"
-    STATUS_CHOICES = [
-        (
-            "Success",
-            (
-                (STATUS_CREATED, "создан"),
-                (STATUS_OK, "выполнен"),
-                (STATUS_DELIVERED, "доставляется"),
-                (STATUS_PAID, "оплачен"),
-            ),
-        ),
-        (STATUS_NOT_PAID, "не оплачен"),
-    ]
+
+
+class Order(models.Model):
+    """Модель заказа с информацией о пользователе"""
 
     full_name = models.CharField(max_length=50, verbose_name="full name")
     email = models.EmailField(verbose_name="email")
     phone_number = models.CharField(max_length=12, unique=True, verbose_name="phone")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="created at")
     delivery_type = models.CharField(
-        max_length=50, choices=DELIVERY_TYPES, verbose_name="delivery type", blank=False, default=DELIVERY_TYPES[0]
+        max_length=50,
+        choices=DeliveryTypes.choices,
+        verbose_name="delivery type",
+        blank=False,
+        default=DeliveryTypes.REGULAR,
     )
     address = models.CharField(max_length=250, verbose_name="address")
     city = models.CharField(max_length=50, verbose_name="city")
     payment_type = models.CharField(
-        max_length=50, choices=PAYMENT_TYPES, blank=False, default=PAYMENT_TYPES[0], verbose_name="payment type"
+        max_length=50,
+        choices=PaymentTypes.choices,
+        blank=False,
+        default=PaymentTypes.CARD,
+        verbose_name="payment type",
     )
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_CREATED, verbose_name="status")
+    status = models.CharField(
+        max_length=15, choices=Status.choices, default=Status.STATUS_CREATED, verbose_name="status"
+    )
 
 
 class OrderItem(models.Model):
