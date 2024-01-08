@@ -20,7 +20,7 @@ from .models import (
     ProductsViews,
     ProductImport,
 )  # noqa
-from .tasks import import_products, get_import_status
+from .tasks import import_products, get_import_status  # noqa
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -68,13 +68,13 @@ class ProductAdmin(admin.ModelAdmin):
 
             if form.is_valid():
                 files = form.cleaned_data["json_files"]
-                email = form.cleaned_data["email"]
+                email = form.cleaned_data["email"]  # noqa
 
                 for file in files:
                     file_obj = ProductImport.objects.get_or_create(filename=file.name, file=file)
                     files_objs.append(file_obj[0])
 
-                import_products.delay(file_ids=[file_obj.id for file_obj in files_objs], email=email)
+                # import_products.delay(file_ids=[file_obj.id for file_obj in files_objs], email=email)
 
             status = get_import_status()
 
