@@ -169,6 +169,13 @@ class ProductsViews(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 
+class ComparisonList(models.Model):
+    """Модель сравнения продуктов"""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)
+
+
 class ProductImport(models.Model):
     """Модель хранения файла импорта продукта"""
 

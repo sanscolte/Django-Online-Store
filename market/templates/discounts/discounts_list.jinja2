@@ -1,0 +1,59 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <div class="Middle Middle_top">
+        <div class="Middle-top">
+            <div class="wrap">
+                <div class="Middle-header">
+
+                    <ul class="breadcrumbs Middle-breadcrumbs">
+                        <li class="breadcrumbs-item"><a href="index.html">Главная</a>
+                        </li>
+                        <li class="breadcrumbs-item breadcrumbs-item_current"><span>Блог</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="Section">
+            <div class="wrap">
+                <div class="Cards Cards_blog">
+                    {% for discount in discounts %}
+                        {% if discount.is_active %}
+                            {% for product in discount.products.all() %}
+                                <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/product.png') }}" alt="" /></a>
+                                    <div class="Card-date">
+                                        <strong class="Card-date-number">{{ discount.start_date.day }}
+                                        </strong><span class="Card-date-month">{{ discount.start_date.strftime('%B')[:3] }}</span>
+                                    </div>
+                                    <div class="Card-date Card-date_to">
+                                        <strong class="Card-date-number">{{ discount.end_date.day }}
+                                        </strong><span class="Card-date-month">{{ discount.end_date.strftime('%B')[:3] }}</span>
+                                    </div>
+
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="{{ url('products:product-detail', pk=product.pk) }}">{{ product.name }}</a>
+                                        </strong>
+                                        <div class="Card-description">{{ product.description_short }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Pagination">
+    <div class="Pagination-ins">
+        {% for p in paginator.page_range %}
+           {% if page_obj.number == p %}
+                <a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">{{ p }}</span></a>
+           {% else %}
+                <a class="Pagination-element" href="?page={{ p }}"><span class="Pagination-text">{{ p }}</span></a>
+           {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

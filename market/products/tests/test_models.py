@@ -9,6 +9,7 @@ from products.models import (
     Review,
     ProductImage,
     ProductsViews,
+    ComparisonList,
 )
 
 
@@ -16,17 +17,12 @@ class ProductModelTest(TestCase):
     """Класс тестов модели Продукт"""
 
     @classmethod
-    def setUpClass(cls):
+    def setUpTestData(cls):
         cls.detail = Detail.objects.create(name="тестовая характеристика")
         cls.product = Product.objects.create(
             name="Тестовый продукт",
         )
         cls.product.details.set([cls.detail])
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.detail.delete()
-        cls.product.delete()
 
     def test_verbose_name(self):
         product = ProductModelTest.product
@@ -237,3 +233,60 @@ class ProductsViewsTest(TestCase):
         """Тестирование количества просмотров"""
 
         self.assertTrue(ProductsViews.objects.count() > 5)
+
+
+class ComparisonListTest(TestCase):
+    """Класс тестов для модели списка сравнения продуктов"""
+
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/04-shops.json",
+        "fixtures/05-categories.json",
+        "fixtures/06-products.json",
+        "fixtures/08-offers.json",
+        "fixtures/17-details.json",
+        "fixtures/18-product-details.json",
+    ]
+
+    def setUp(self):
+        self.user = User.objects.get(pk=1)
+        self.product1 = Product.objects.get(pk=1)
+        self.product2 = Product.objects.get(pk=2)
+
+    def test_comparison_list_creation(self):
+        """Тестирование создания списка сравнения"""
+
+        comparison_list = ComparisonList.objects.create(user=self.user)
+        self.assertEqual(comparison_list.user, self.user)
+        self.assertEqual(comparison_list.products.count(), 0)
+
+    def test_add_product_to_comparison_list(self):
+        """Тестирование добавления продуктов в список сравнения"""
+
+        comparison_list = ComparisonList.objects.create(user=self.user)
+
+        comparison_list.products.add(self.product1)
+        comparison_list.products.add(self.product2)
+
+        self.assertIn(self.product1, comparison_list.products.all())
+        self.assertIn(self.product2, comparison_list.products.all())
+
+    def test_remove_product_from_comparison_list(self):
+        """Тестирование удаления продукта из списка сравнения"""
+
+        comparison_list = ComparisonList.objects.create(user=self.user)
+        comparison_list.products.add(self.product1)
+
+        comparison_list.products.remove(self.product1)
+
+        self.assertNotIn(self.product1, comparison_list.products.all())
+
+    def test_clear_comparison_list(self):
+        """Тестирование очистки списка сравнения"""
+
+        comparison_list = ComparisonList.objects.create(user=self.user)
+        comparison_list.products.add(self.product1, self.product2)
+
+        comparison_list.products.clear()
+
+        self.assertEqual(comparison_list.products.count(), 0)

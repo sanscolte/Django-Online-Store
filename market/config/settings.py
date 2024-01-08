@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django_filters",
     "accounts",
+    "discounts",
+    "cart",
+    "orders",
     "django_celery_beat",
     "django_celery_results",
 ]
@@ -87,6 +90,7 @@ TEMPLATES = [
                 # "context_processors.cart_context.cart",
                 # "context_processors.shop_views_context.load_settings",
                 "django.contrib.messages.context_processors.messages",
+                "cart.context_processors.cart_price",
             ],
         },
     },
@@ -148,7 +152,7 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -176,7 +180,7 @@ PAGINATE_PRODUCTS_BY = 6
 
 CACHE_TIME = 60 * 10
 
-CACHE_TIME_DETAIL_PRODUCT_PAGE = 60 * 60 * 24
+CACHE_TIME_DETAIL_PRODUCT_PAGE = 60 * 60 * 24  # кэширование характеристик товара на сутки
 
 # django-extensions shell_plus settings
 SHELL_PLUS = "ipython"
@@ -194,6 +198,8 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = config["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = config["EMAIL_HOST_PASSWORD"]
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CART_SESSION_ID = "cart"
 
 # CELERY
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
