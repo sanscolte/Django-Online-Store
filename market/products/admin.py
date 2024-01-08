@@ -2,17 +2,25 @@ import logging
 import os.path
 import time  # noqa
 
-from django.conf import settings
 from django.contrib import admin  # noqa F401
 from django.core.cache import cache
-from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.urls import path
 
 from .forms import ProductImportForm
-from .models import Category, Product, Banner, Review, ProductImage, ProductDetail, Detail, ProductsViews
-from .tasks import import_products, get_import_status, set_import_status
+from .models import (
+    Category,
+    Product,
+    Banner,
+    Review,
+    ProductImage,
+    ProductDetail,
+    Detail,
+    ProductsViews,
+    ProductImport,
+)  # noqa
+from .tasks import import_products, get_import_status
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -53,43 +61,29 @@ class ProductAdmin(admin.ModelAdmin):
             return render(request, "admin/product-import-form.html", context)
 
         if request.method == "POST":
+            success_message = "Продукты успешно импортированы"
+            # error_message = "Ошибка при импорте продуктов"
             form = ProductImportForm(request.POST, request.FILES)
-            files = [filename for filename in request.FILES.getlist("json_files")]
-            email = request.POST.get("email")
-
-            fs_success = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, "import/success"))
-            fs_fail = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, "import/fail"))
-
-            success_message = ""
-            error_message = ""
+            files_objs = []
 
             if form.is_valid():
-                set_import_status("В процессе выполнения")
+                files = form.cleaned_data["json_files"]
+                email = form.cleaned_data["email"]
+
                 for file in files:
-                    filename = fs_success.save(file.name, file)
-                    import_products.delay(filename=filename, is_valid=True, email=email)
+                    file_obj = ProductImport.objects.get_or_create(filename=file.name, file=file)
+                    files_objs.append(file_obj[0])
 
-                    # time.sleep(10)
-                    set_import_status("Выполнен")
-                    status = get_import_status()
-                    success_message = "Продукты успешно импортированы"
+                import_products.delay(file_ids=[file_obj.id for file_obj in files_objs], email=email)
 
-            else:
-                set_import_status("Завершён с ошибкой")
-                for file in files:
-                    filename = fs_fail.save(file.name, file)
-                    import_products.delay(filename=filename, is_valid=False, email=email)
-
-                    # time.sleep(10)
-                    status = get_import_status()
-                    error_message = "Ошибка при импорте продуктов"
+            status = get_import_status()
 
             cache.clear()
             context = {
                 "form": form,
                 "status": status,
             }
-            self.message_user(request, success_message + error_message)
+            self.message_user(request, success_message)
             return render(request, "admin/product-import-form.html", context)
 
     def get_urls(self):

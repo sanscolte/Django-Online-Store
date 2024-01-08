@@ -167,3 +167,10 @@ class ProductsViews(models.Model):
         Product, on_delete=models.CASCADE, related_name="products_views", verbose_name="Продукт"
     )
     created_at = models.DateTimeField(default=timezone.now)
+
+
+class ProductImport(models.Model):
+    """Модель хранения файла импорта продукта"""
+
+    filename = models.CharField(max_length=255)
+    file = models.FileField()
