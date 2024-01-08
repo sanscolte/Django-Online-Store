@@ -29,3 +29,16 @@ class OrderStepTwoForm(forms.ModelForm):
             "address": Textarea(attrs={"class": "form-textarea"}),
             "delivery_type": RadioSelect,
         }
+
+
+class OrderStepThreeForm(forms.ModelForm):
+    """
+    Форма для обработки третьего заказа товара
+    """
+
+    class Meta:
+        model = Order
+        fields = ("payment_type",)
+        widgets = {
+            "payment_type": RadioSelect,
+        }

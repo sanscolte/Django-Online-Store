@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 
 from accounts.views import MyRegisterView
-from orders.forms import OrderStepTwoForm
+from orders.forms import OrderStepTwoForm, OrderStepThreeForm
 
 
 class OrderStepOneView(MyRegisterView):
@@ -55,3 +55,26 @@ class OrderStepTwoView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse("orders:order_step_3")
+
+
+class OrderStepThreeView(LoginRequiredMixin, FormView):
+    """
+    Отображает страницу третьего шага заказа
+    """
+
+    form_class = OrderStepThreeForm
+    template_name = "orders/order_step_3.jinja2"
+    login_url = "/login/"
+
+    def form_valid(self, form):
+        self.request.session["payment"] = form.cleaned_data["payment_type"]
+        return super().form_valid(form)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        if self.request.session.get("payment"):
+            initial["payment_type"] = self.request.session.get("payment")
+        return initial
+
+    def get_success_url(self):
+        return reverse("orders:order_step_4")
