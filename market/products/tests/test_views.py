@@ -423,10 +423,6 @@ def get_admin_change_view_url(obj: Product) -> str:
 class ImportProductsViewTest(TestCase):
     """Класс тестов для представления импорта продуктов"""
 
-    def setUp(self):
-        client = Client()
-        client.login(username="demon_at@mail.ru", password="61903991shalaikodima")
-
     def test_valid_file_import(self):
         filename = "test_valid_file.json"
         file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
@@ -442,12 +438,12 @@ class ImportProductsViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 5)
 
-        with self.assertRaises(Exception):
-            self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{filename}")))
-            self.assertEqual(response.context["email"], "test@example.com")
-            self.assertEqual(response.context["status"], "Выполнен")
-            self.assertRedirects(response, url, status_code=302)
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{filename}")))
+        self.assertEqual(response.context["email"], "test@example.com")
+        self.assertEqual(response.context["status"], "Выполнен")
+        self.assertRedirects(response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
         files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_valid_file*.json"))
@@ -469,12 +465,12 @@ class ImportProductsViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 0)
 
-        with self.assertRaises(Exception):
-            self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{filename}")))
-            self.assertEqual(response.context["email"], "test@example.com")
-            self.assertEqual(response.context["status"], "Завершён с ошибкой")
-            self.assertRedirects(response, url, status_code=302)
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{filename}")))
+        self.assertEqual(response.context["email"], "test@example.com")
+        self.assertEqual(response.context["status"], "Завершён с ошибкой")
+        self.assertRedirects(response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
         files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_invalid_file*.json"))
@@ -499,16 +495,17 @@ class ImportProductsViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 5)
 
-        with self.assertRaises(Exception):
-            new_valid_files = glob.glob(os.path.join(settings.MEDIA_ROOT, "import/success/test_valid_file_*.json"))
-            new_invalid_files = glob.glob(os.path.join(settings.MEDIA_ROOT, "import/fail/test_invalid_file_*.json"))
-            new_files = new_valid_files + new_invalid_files
-            for new_file in new_files:
-                self.assertTrue(os.path.exists(new_file))
-            self.assertEqual(response.context["email"], "test@example.com")
-            self.assertEqual(response.context["status"], "Завершён с ошибкой")
-            self.assertRedirects(response, url, status_code=302)
+        new_valid_files = glob.glob(os.path.join(settings.MEDIA_ROOT, "import/success/test_valid_file_*.json"))
+        new_invalid_files = glob.glob(os.path.join(settings.MEDIA_ROOT, "import/fail/test_invalid_file_*.json"))
+        new_files = new_valid_files + new_invalid_files
+        for new_file in new_files:
+            self.assertTrue(os.path.exists(new_file))
+
+        self.assertEqual(response.context["email"], "test@example.com")
+        self.assertEqual(response.context["status"], "Завершён с ошибкой")
+        self.assertRedirects(response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
         valid_files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_valid_file*.json"))
@@ -533,14 +530,14 @@ class ImportProductsViewTest(TestCase):
         snd_response = self.client.post(url, data, follow=True)
 
         self.assertEqual(fst_response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 5)
 
-        with self.assertRaises(Exception):
-            self.assertEqual(snd_response.status_code, 400)
-            self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{filename}")))
-            self.assertEqual(fst_response.context["email"], "test@example.com")
-            self.assertEqual(fst_response.context["status"], "Выполнен")
-            self.assertEqual(snd_response.context["status"], "В процессе выполнения")
-            self.assertRedirects(fst_response, url, status_code=302)
+        self.assertEqual(snd_response.status_code, 400)
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{filename}")))
+        self.assertEqual(fst_response.context["email"], "test@example.com")
+        self.assertEqual(fst_response.context["status"], "Выполнен")
+        self.assertEqual(snd_response.context["status"], "В процессе выполнения")
+        self.assertRedirects(fst_response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
         files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_valid_file*.json"))
@@ -562,14 +559,15 @@ class ImportProductsViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 0)
 
-        with self.assertRaises(Exception):
-            with self.assertRaises(ValidationError):
-                pass
-            self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{filename}")))
-            self.assertEqual(response.context["email"], "test@example.com")
-            self.assertEqual(response.context["status"], "Завершён с ошибкой")
-            self.assertRedirects(response, url, status_code=302)
+        # при пустом файле должна вернуться ошибка ValidationError
+        with self.assertRaises(ValidationError):
+            pass
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{filename}")))
+        self.assertEqual(response.context["email"], "test@example.com")
+        self.assertEqual(response.context["status"], "Завершён с ошибкой")
+        self.assertRedirects(response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
         files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_empty_file*.json"))
