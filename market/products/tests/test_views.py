@@ -564,6 +564,7 @@ class ImportProductsViewTest(TestCase):
         # при пустом файле должна вернуться ошибка ValidationError
         with self.assertRaises(ValidationError):
             pass
+
         self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{filename}")))
         self.assertEqual(response.context["email"], "test@example.com")
         self.assertEqual(response.context["status"], "Завершён с ошибкой")
