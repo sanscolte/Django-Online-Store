@@ -11,7 +11,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.core.mail import send_mail
 from django.utils import timezone
 
-from products.models import Product, Category
+from products.models import Product, Category, ProductImport
 from shops.models import Shop, Offer
 
 logger = logging.getLogger(__name__)
@@ -32,20 +32,14 @@ CACHE_TTL = getattr(settings, "CACHE_TTL", DEFAULT_TIMEOUT)
 
 @shared_task
 def import_products(file_ids: list[id], email=None):  # noqa
-    # success_location = os.path.join(settings.MEDIA_ROOT, "import/success/")
-    # fail_location = os.path.join(settings.MEDIA_ROOT, "import/fail/")
-    # intermediate_location = os.path.join(settings.MEDIA_ROOT, "import")
-    # fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, "import"))
-
     for file_id in file_ids:
-        # file_obj = ProductImport.objects.get(id=file_id)
-        # filename = file_obj.filename
-        # file = file_obj.file
+        file_obj = ProductImport.objects.get(id=file_id)
 
-        try:
-            data = json.load()
-        except json.decoder.JSONDecodeError:
-            raise forms.ValidationError("Ошибка при чтении файла JSON")
+        with open(os.path.join(settings.MEDIA_ROOT, file_obj.file.name), encoding="utf-8") as fp:
+            try:
+                data = json.load(fp)
+            except json.decoder.JSONDecodeError:
+                raise forms.ValidationError("Ошибка при чтении файла JSON")
 
         try:
             for obj in data:
@@ -119,7 +113,7 @@ def import_products(file_ids: list[id], email=None):  # noqa
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
-                created_category = Category.objects.get(name=category)
+                created_category = Category.objects.get_or_create(name=category)
                 created_shop = Shop.objects.get_or_create(
                     name=shop_name,
                     description=shop_description,

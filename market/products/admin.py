@@ -74,7 +74,7 @@ class ProductAdmin(admin.ModelAdmin):
                     file_obj = ProductImport.objects.get_or_create(filename=file.name, file=file)
                     files_objs.append(file_obj[0])
 
-                # import_products.delay(file_ids=[file_obj.id for file_obj in files_objs], email=email)
+                import_products.delay(file_ids=[file_obj.id for file_obj in files_objs], email=email)
 
             status = get_import_status()
 

@@ -17,6 +17,7 @@ from django.test import Client
 
 from products.models import Product, ProductsViews, ComparisonList
 from products.services.products_views_services import ProductsViewsService
+from products.tasks import import_products
 
 User = get_user_model()
 
@@ -423,6 +424,7 @@ def get_admin_change_view_url(obj: Product) -> str:
 class ImportProductsViewTest(TestCase):
     """Класс тестов для представления импорта продуктов"""
 
+    @patch("products.admin.import_products.delay", import_products)
     def test_valid_file_import(self):
         filename = "test_valid_file.json"
         file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
