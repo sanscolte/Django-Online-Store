@@ -2,9 +2,15 @@ from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView
 
 from accounts.views import MyRegisterView
 from orders.forms import OrderStepTwoForm, OrderStepThreeForm
+from orders.models import Order, OrderItem
+from orders.services import OrderService
+from cart.services import CartServices
+from products.models import ProductImage
 
 
 class OrderStepOneView(MyRegisterView):
@@ -13,7 +19,7 @@ class OrderStepOneView(MyRegisterView):
     """
 
     template_name = "orders/order_step_1.jinja2"
-    success_url = reverse_lazy("orders:order_step_2")
+    success_url = reverse_lazy("orders:order-step-2")
 
     def dispatch(self, request, *args, **kwargs):
         if request.method.lower() in self.http_method_names:
@@ -24,7 +30,7 @@ class OrderStepOneView(MyRegisterView):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(reverse("orders:order_step_2"))
+            return redirect(reverse("orders:order-step-2"))
         return super().post(request, *args, **kwargs)
 
 
@@ -54,7 +60,7 @@ class OrderStepTwoView(LoginRequiredMixin, FormView):
         return initial
 
     def get_success_url(self):
-        return reverse("orders:order_step_3")
+        return reverse("orders:order-step-3")
 
 
 class OrderStepThreeView(LoginRequiredMixin, FormView):
@@ -77,4 +83,50 @@ class OrderStepThreeView(LoginRequiredMixin, FormView):
         return initial
 
     def get_success_url(self):
-        return reverse("orders:order_step_4")
+        return reverse("orders:order-step-4")
+
+
+class OrderStepFourView(LoginRequiredMixin, TemplateView):
+    """
+    Отображает страницу четвертого шага заказа
+    """
+
+    template_name = "orders/order_step_4.jinja2"
+
+    def post(self, request, *args, **kwargs):
+        cart = CartServices(self.request)
+        order = Order.objects.create(
+            phone_number=request.user.phone_number,
+            full_name=request.user.full_name,
+            email=request.user.email,
+            delivery_type=request.session["delivery"],
+            city=request.session["city"],
+            address=request.session["address"],
+            payment_type=request.session["payment"],
+        )
+        for item in cart:
+            OrderItem.objects.create(
+                order=order,
+                product=item["product"],
+                price=item["price"],
+                quantity=item["quantity"],
+            )
+        if request.session["payment"] == "card":
+            return HttpResponseRedirect(reverse("shops:home"))
+        elif request.session["payment"] == "random":
+            return HttpResponseRedirect(reverse("shops:home"))
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_service = OrderService(self.request)
+        cart = CartServices(self.request)
+        context["cart"] = cart
+        for item in cart:
+            item["images"] = ProductImage.objects.filter(product=item["product"].pk)
+        context["delivery"] = self.request.session["delivery"]
+        context["city"] = self.request.session["city"]
+        context["address"] = self.request.session["address"]
+        context["payment"] = self.request.session["payment"]
+        context["total_price"] = order_service.get_total_price()
+        return context
