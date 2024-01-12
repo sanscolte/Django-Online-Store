@@ -1,6 +1,6 @@
 [
   {
-    "Товар": "iPhone 15 Pro Max bla",
+    "Товар": "iPhone 15 Pro Max",
     "Описание товара": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     "Категория товара": "Смартфоны",
     "Магазин": "re:Store",
@@ -14,7 +14,7 @@
     "Остатки": 1
   },
   {
-    "Товар": "iPhone 15 Pro bla",
+    "Товар": "iPhone 15 Pro",
     "Описание товара": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac leo ut justo suscipit fringilla. Duis viverra auctor elit ac consectetur. Phasellus sed cursus enim. Nam malesuada, mi sit amet egestas sagittis, lectus purus egestas mauris, vel tincidunt tortor diam eget sem. Ut non sollicitudin sapien. Etiam egestas eu risus sed iaculis. Maecenas dapibus arcu ligula, ut mollis velit eleifend at. Nulla fermentum ultrices odio, facilisis aliquet mi malesuada nec.",
     "Категория товара": "Смартфоны",
     "Магазин": "re:Store",
@@ -28,7 +28,7 @@
     "Остатки": 5
   },
   {
-    "Товар": "iPhone 15 Plus bla",
+    "Товар": "iPhone 15 Plus",
     "Описание товара": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae leo ipsum. Duis eget aliquet ipsum. Sed finibus imperdiet mauris vitae interdum. Proin posuere lectus id libero tincidunt faucibus. Cras odio libero, rhoncus ut felis eget, tincidunt vulputate urna. Vestibulum dictum feugiat nisl eget bibendum. Nulla finibus maximus elit, vitae congue quam sagittis sed. Curabitur laoreet luctus ante ut faucibus. Cras sodales, leo accumsan mattis placerat, tortor mauris ultricies felis, vel suscipit enim justo quis quam. Etiam convallis non ante vel ullamcorper.",
     "Категория товара": "Смартфоны",
     "Магазин": "re:Store",
@@ -42,7 +42,7 @@
     "Остатки": 10
   },
   {
-    "Товар": "iPhone 15 bla",
+    "Товар": "iPhone 15",
     "Описание товара": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis auctor neque. Sed sagittis dui et augue pellentesque, sit amet dictum felis molestie. Sed vel neque ultrices, placerat metus in, finibus tellus. Sed in ornare sem. Aliquam ullamcorper metus sed purus faucibus, sit amet vestibulum tortor scelerisque. Aenean varius quam sit amet mattis aliquet. Vivamus nunc lectus, placerat ut dictum non, egestas nec erat. Proin bibendum nunc et dui vehicula, vitae tempus velit pharetra. Donec diam purus, sagittis quis mi eget, posuere aliquam urna.",
     "Категория товара": "Смартфоны",
     "Магазин": "re:Store",
@@ -56,7 +56,7 @@
     "Остатки": 15
   },
   {
-    "Товар": "iPhone SE bla",
+    "Товар": "iPhone SE",
     "Описание товара": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lobortis suscipit ante, porta lacinia diam sollicitudin porttitor. Donec tincidunt suscipit neque. Vestibulum a nunc tincidunt felis aliquet interdum eget ut sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque eu risus ut magna fermentum venenatis. Proin tempor, sapien non congue sodales, tortor neque sodales metus, et lobortis dolor nunc sit amet dolor. Aenean vel dignissim eros. Etiam ornare, quam at molestie pellentesque, massa purus pulvinar metus, ut euismod lectus erat et ligula.",
     "Категория товара": "Смартфоны",
     "Магазин": "re:Store",

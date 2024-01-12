@@ -71,8 +71,8 @@ class ProductAdmin(admin.ModelAdmin):
                 email = form.cleaned_data["email"]  # noqa
 
                 for file in files:
-                    file_obj = ProductImport.objects.get_or_create(filename=file.name, file=file)
-                    files_objs.append(file_obj[0])
+                    file_obj = ProductImport.objects.create(file=file)
+                    files_objs.append(file_obj)
 
                 import_products.delay(file_ids=[file_obj.id for file_obj in files_objs], email=email)
 

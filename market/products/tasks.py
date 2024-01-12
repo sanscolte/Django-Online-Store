@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import shutil
 import ssl
 
 from celery import shared_task
@@ -34,86 +35,64 @@ CACHE_TTL = getattr(settings, "CACHE_TTL", DEFAULT_TIMEOUT)
 def import_products(file_ids: list[id], email=None):  # noqa
     for file_id in file_ids:
         file_obj = ProductImport.objects.get(id=file_id)
+        file_path = file_obj.file.path
 
-        with open(os.path.join(settings.MEDIA_ROOT, file_obj.file.name), encoding="utf-8") as fp:
+        success_location = os.path.join(settings.MEDIA_ROOT, "import/success/")
+        fail_location = os.path.join(settings.MEDIA_ROOT, "import/fail/")
+
+        with open(file_path, encoding="utf-8") as fp:
             try:
                 data = json.load(fp)
             except json.decoder.JSONDecodeError:
                 raise forms.ValidationError("Ошибка при чтении файла JSON")
 
-        try:
-            for obj in data:
-                # продукт
-                try:
-                    product_name = obj["Товар"]
-                except KeyError:
-                    product_name = None
-                    raise forms.ValidationError("Наименование товара обязательно для заполнения")
-                try:
-                    product_description = obj["Описание товара"]
-                except KeyError:
-                    product_description = "None"
+        # заранее объявляем поля
+        product_name = "None"
+        product_description = "None"
+        category = "None"
+        shop_name = "None"
+        shop_description = "None"
+        phone = "None"
+        address = "None"
+        shop_email = "None"
+        offer_shop = "None"
+        offer_product = "None"
+        offer_price = "None"
+        remains = "None"
+        is_success = True
+        is_created = "Не создан"
 
-                try:
-                    category = obj["Категория товара"]
-                except KeyError:
-                    category = "None"
-                    raise forms.ValidationError("Категория товара обязательна для заполнения")
+        # переопределяем поля
+        for obj in data:
+            # обязательные поля
+            try:
+                product_name = obj["Товар"]
+                category = obj["Категория товара"]
+                shop_name = obj["Магазин"]
+                phone = obj["Телефон"]
+                address = obj["Адрес"]
+                shop_email = obj["Email"]
+                offer_shop = obj["Магазин оффера"]
+                offer_product = obj["Продукт оффера"]
+                offer_price = obj["Цена оффера"]
+                remains = obj["Остатки"]
+            except KeyError:
+                is_success = False
 
-                # магазин
-                try:
-                    shop_name = obj["Магазин"]
-                except KeyError:
-                    shop_name = "None"
-                    raise forms.ValidationError("Наименование магазина обязательно для заполнения")
-                try:
-                    shop_description = obj["Описание магазина"]
-                except KeyError:
-                    shop_description = "None"
-                try:
-                    phone = obj["Телефон"]
-                except KeyError:
-                    phone = "None"
-                    raise forms.ValidationError("Телефон магазина обязателен для заполнения")
-                try:
-                    address = obj["Адрес"]
-                except KeyError:
-                    address = "None"
-                    raise forms.ValidationError("Адрес магазина обязателен для заполнения")
-                try:
-                    shop_email = obj["Email"]
-                except KeyError:
-                    shop_email = "None"
-                    raise forms.ValidationError("Email магазина обязателен для заполнения")
+            # необязательные поля
+            try:
+                product_description = obj["Описание товара"]
+                shop_description = obj["Описание магазина"]
+            except KeyError:
+                pass
 
-                # оффер
-                try:
-                    offer_shop = obj["Магазин оффера"]
-                except KeyError:
-                    offer_shop = "None"
-                    raise forms.ValidationError("Магазин оффера обязателен для заполнения")
-                try:
-                    offer_product = obj["Продукт оффера"]
-                except KeyError:
-                    offer_product = "None"
-                    raise forms.ValidationError("Продукт оффера обязателен для заполнения")
-                try:
-                    offer_price = obj["Цена оффера"]
-                except KeyError:
-                    offer_price = "None"
-                    raise forms.ValidationError("Цена оффера обязательна для заполнения")
-                try:
-                    remains = obj["Остатки"]
-                except KeyError:
-                    remains = "None"
-                    raise forms.ValidationError("Остатки товара обязательны для заполнения")
-
+            if is_success:
                 message = (
                     f"Были успешно импортированы продукты от {shop_name}: {product_name}, "
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
-                created_category = Category.objects.get_or_create(name=category)
+                created_category = Category.objects.get_or_create(name=category)[0]
                 created_shop = Shop.objects.get_or_create(
                     name=shop_name,
                     description=shop_description,
@@ -126,55 +105,57 @@ def import_products(file_ids: list[id], email=None):  # noqa
                     category=created_category,
                     description=product_description,
                 )
-                Offer.objects.create(
+                offer = Offer.objects.get_or_create(
                     shop=created_shop,
                     product=created_product,
                     price=offer_price,
                     remains=remains,
-                )
+                )[1]
                 created_shop.products.add(created_product)
-                is_success = True
-            # os.rename(file_path, success_location)
 
-        except forms.ValidationError:
-            message = (
-                f"Были неуспешно импортированы продукты от {shop_name}: {product_name}, "
-                f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
+                if offer is True:
+                    is_created = "Создан"
+
+            else:
+                message = (
+                    f"Были неуспешно импортированы продукты от {shop_name}: {product_name}, "
+                    f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
+                )
+
+            try:
+                send_mail(
+                    subject="Импорт продуктов",
+                    message=message,
+                    recipient_list=[email],
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    fail_silently=False,
+                )
+            except ssl.SSLCertVerificationError:
+                pass
+
+            logger.debug(
+                "",
+                extra={
+                    "is_success": is_created,
+                    "product": product_name,
+                    "category": category,
+                    "shop": shop_name,
+                    "phone": phone,
+                    "address": address,
+                    "email": email,
+                    "offer_shop": offer_shop,
+                    "offer_product": offer_product,
+                    "offer_price": offer_price,
+                    "remains": remains,
+                },
             )
-            is_success = False
-            # os.rename(file_path, fail_location)
 
-        logger.debug(
-            "",
-            extra={
-                "is_success": is_success,
-                "product": product_name,
-                "category": category,
-                "shop": shop_name,
-                "phone": phone,
-                "address": address,
-                "email": email,
-                "offer_shop": offer_shop,
-                "offer_product": offer_product,
-                "offer_price": offer_price,
-                "remains": remains,
-            },
-        )
-
-        try:
-            send_mail(
-                subject="Импорт продуктов",
-                message=message,
-                recipient_list=[email],
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                fail_silently=False,
-            )
-        except ssl.SSLCertVerificationError:
-            pass
-
-    if is_success:
-        return "Products successfully imported"
-    return "Completed with an error"
+        if is_success:
+            shutil.move(file_path, success_location)
+            return "Products successfully imported"
+        else:
+            shutil.move(file_path, fail_location)
+            return "Completed with an error"
 
 
 def get_import_status():

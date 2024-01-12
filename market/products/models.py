@@ -179,5 +179,4 @@ class ComparisonList(models.Model):
 class ProductImport(models.Model):
     """Модель хранения файла импорта продукта"""
 
-    filename = models.CharField(max_length=255)
-    file = models.FileField()
+    file = models.FileField(upload_to="import/")
