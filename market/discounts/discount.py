@@ -27,6 +27,8 @@ def calculate_set(products):
 
 def calculate_cart(price):
     carts = DiscountCart.objects.all()
+    weigth_cart = 0
+    percentage_cart = 0
     for cart in carts:
         if cart.price_from <= price <= cart.price_to and cart.is_active:
             weigth_cart = cart.weigth
@@ -34,11 +36,11 @@ def calculate_cart(price):
     return weigth_cart, percentage_cart
 
 
-def calculate_products(price, products):
+def calculate_products(price, offer_product, offer_price):
     discount_products = DiscountProduct.objects.all()
     for product in discount_products:
-        if product.name in products:
-            price = price - (price * product.percentage)
+        if product.name in offer_product:
+            price = price - (offer_price * product.percentage)
     return price
 
 
@@ -47,9 +49,9 @@ def calculate_discount(offers: List[Dict[Offer, int]]):
     products = []
     for offer in offers:
         for offer_obj, quantity in offer.items():
-            products += [offer_obj.product.name] * quantity
+            products += [offer_obj.product]
             total_price += offer_obj.price * quantity
-    total_price = calculate_products(total_price, products)
+            total_price = calculate_products(total_price, offer_obj.product, offer_obj.price)
     weigth_cart, percentage_cart = calculate_cart(total_price)
     weigth_set, percentage_set = calculate_set(products)
 
