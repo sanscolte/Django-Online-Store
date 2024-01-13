@@ -19,7 +19,7 @@
             <div class="wrap">
                 <div class="Cards Cards_blog">
                     {% for discount in discounts %}
-                        {% if discount.is_active %}
+                        {% if discount.is_active() %}
                             {% for product in discount.products.all() %}
                                 <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/product.png') }}" alt="" /></a>
                                     <div class="Card-date">
@@ -41,8 +41,8 @@
                             {% endfor %}
                         {% endif %}
                     {% endfor %}
-                    {% for cart in discount_cart %}
-                        {% if cart.is_active %}
+                    {% for cart in discount_carts %}
+                        {% if cart.is_active() %}
                             <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/cart.png') }}" alt="" /></a>
                                 <div class="Card-date">
                                     <strong class="Card-date-number">{{ cart.start_date.day }}
@@ -62,7 +62,7 @@
                         {% endif %}
                     {% endfor %}
                     {% for sets in discount_sets %}
-                        {% if sets.is_active %}
+                        {% if sets.is_active() %}
                             <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/sets.png') }}" alt="" /></a>
                                 <div class="Card-date">
                                     <strong class="Card-date-number">{{ sets.start_date.day }}
