@@ -7,6 +7,7 @@
             <div class="wrap">
                 <div class="Product">
                     <h1>{{ product.name }}</h1>
+
                     <div class="product-images">
                         {% if images %}
                             <div class="Slider Slider_main">
@@ -27,6 +28,7 @@
                             <h3>У товара пока нет фотографий!</h3>
                         {% endif %}
                     </div>
+
                     <div class="Tabs Tabs_default">
                         <div class="Tabs-links">
                             <a class="Tabs-link" href="#description">
@@ -51,13 +53,37 @@
                             {% include "products/reviews.jinja2" %}
                         </div>
                     </div>
+
+                    {% if is_product_in_comparison %}
+                        <form method="post" action="{{ url('products:remove-from-list', pk=product.pk) }}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove_from_comparison">
+                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+                            <button type="submit">Удалить из списка сравнения</button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{{ url('products:add-to-list', pk=product.pk) }}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="add_to_comparison">
+                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+                            {% if comparison_count is not boolean %}
+                                <button type="submit">Добавить в список сравнения</button>
+                            {% else %}
+                                <b>В списке сравнения максимальное количество товаров!</b>
+                                <button type="submit" disabled="disabled">Добавить в список сравнения</button>
+                            {% endif %}
+                        </form>
+                    {% endif %}
+
                     <div class="discounts">
                         <h3>Скидки:</h3>
                     </div>
+
                     <div>
                         {% include 'products/seen-products.jinja2' %}
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
