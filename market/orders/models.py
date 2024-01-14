@@ -31,7 +31,7 @@ class Order(models.Model):
 
     full_name = models.CharField(max_length=50, verbose_name="полное имя")
     email = models.EmailField(verbose_name="email")
-    phone_number = models.CharField(max_length=12, unique=True, verbose_name="телефон")
+    phone_number = models.CharField(max_length=12, verbose_name="телефон")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="создан")
     delivery_type = models.CharField(
         max_length=50,
