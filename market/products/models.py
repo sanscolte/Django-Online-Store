@@ -181,11 +181,11 @@ class ComparisonList(models.Model):
 class ProductImport(models.Model):
     """Модель хранения файла импорта продукта"""
 
-    files = models.FileField(upload_to="import/")
+    file = models.FileField(upload_to="import/")
 
     def save(self, *args, **kwargs):
+        """Сохраняем файл с рандомной строчкой в начале"""
         if not self.pk:
-            for file in self.files:
-                unique_filename = str(uuid.uuid4()) + "_" + file
-                file = os.path.join(unique_filename)
-                super(ProductImport, self).save(*args, **kwargs)
+            unique_filename = str(uuid.uuid4()) + "_" + self.file.name
+            self.file.name = os.path.join(unique_filename)
+        super(ProductImport, self).save(*args, **kwargs)

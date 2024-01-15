@@ -5,7 +5,6 @@ import shutil
 import ssl
 
 from celery import shared_task
-from django import forms
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -14,6 +13,8 @@ from django.utils import timezone
 
 from products.models import Product, Category
 from shops.models import Shop, Offer
+
+from products.models import ProductImport
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -32,20 +33,18 @@ CACHE_TTL = getattr(settings, "CACHE_TTL", DEFAULT_TIMEOUT)
 
 
 @shared_task
-def import_products(files_obj: list[id], email=None):  # noqa
+def import_products(file_ids: list[id], email: str = None):  # noqa
     set_import_status("В процессе выполнения")
 
-    for file_obj in files_obj:
+    for file_id in file_ids:
+        file_obj = ProductImport.objects.get(id=file_id)
         file_path = file_obj.file.path
 
         success_location = os.path.join(settings.MEDIA_ROOT, "import/success/")
         fail_location = os.path.join(settings.MEDIA_ROOT, "import/fail/")
 
         with open(file_path, encoding="utf-8") as fp:
-            try:
-                data = json.load(fp)
-            except json.decoder.JSONDecodeError:
-                raise forms.ValidationError("Ошибка при чтении файла JSON")
+            data = json.load(fp)
 
         # заранее объявляем поля
         product_name = "None"
@@ -88,11 +87,12 @@ def import_products(files_obj: list[id], email=None):  # noqa
                 pass
 
             if is_success:
-                message = (
+                message: str = (
                     f"Были успешно импортированы продукты от {shop_name}: {product_name}, "
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
+                # Создаем экземпляры моделей
                 created_category = Category.objects.get_or_create(name=category)[0]
                 created_shop = Shop.objects.get_or_create(
                     name=shop_name,
@@ -116,16 +116,18 @@ def import_products(files_obj: list[id], email=None):  # noqa
 
                 if offer is True:
                     set_import_status("Выполнен")
-                    is_created = "Создан"
+                    is_created: str = "Создан"
                 else:
                     set_import_status("Завершён с ошибкой")
 
             else:
-                message = (
+                set_import_status("Завершён с ошибкой")
+                message: str = (
                     f"Были неуспешно импортированы продукты от {shop_name}: {product_name}, "
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
+            # Отправляем электронное письмо
             try:
                 send_mail(
                     subject="Импорт продуктов",
@@ -137,6 +139,7 @@ def import_products(files_obj: list[id], email=None):  # noqa
             except ssl.SSLCertVerificationError:
                 pass
 
+            # Логируем запись в файл
             logger.debug(
                 "",
                 extra={
@@ -154,17 +157,15 @@ def import_products(files_obj: list[id], email=None):  # noqa
                 },
             )
 
-        # time.sleep(5)
-
+        # Перемещаем файл в нужную директории в зависимости от успешности импорта
         if is_created == "Создан":
             shutil.move(file_path, success_location)
-            return "Products successfully imported"
         else:
             shutil.move(file_path, fail_location)
-            return "Completed with an error"
 
 
 def get_import_status():
+    """Функция получения статуса импорта"""
     status = cache.get("import_status")
     if status:
         return status
@@ -175,4 +176,5 @@ def get_import_status():
 
 
 def set_import_status(status):
+    """Функция установки статуса импорта"""
     cache.set("import_status", status)
