@@ -100,6 +100,18 @@ class CartServices:
         return offers_in_cart
 
     @classmethod
+    def get_shops_in_cart(cls) -> list:
+        """Возвращает список магазинов корзины."""
+
+        offer_ids = (item["offers"] for item in cls.cart.values())
+        offers_in_cart = Offer.objects.filter(id__in=offer_ids)
+        shops_in_cart = []
+        for item in offers_in_cart:
+            if item.shop not in shops_in_cart:
+                shops_in_cart.append(item.shop)
+        return shops_in_cart
+
+    @classmethod
     def clear(cls, only_session: bool = False) -> None:
         """Очистка корзины."""
 
