@@ -39,7 +39,7 @@ def calculate_cart(price):
 def calculate_products(price, offer_product, offer_price):
     discount_products = DiscountProduct.objects.all()
     for product in discount_products:
-        if product.name in offer_product:
+        if offer_product.name in product.products.all():
             price = price - (offer_price * product.percentage)
     return price
 
