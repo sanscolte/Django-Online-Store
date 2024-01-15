@@ -1,3 +1,5 @@
+import os
+import uuid
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
@@ -179,4 +181,11 @@ class ComparisonList(models.Model):
 class ProductImport(models.Model):
     """Модель хранения файла импорта продукта"""
 
-    file = models.FileField(upload_to="import/")
+    files = models.FileField(upload_to="import/")
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            for file in self.files:
+                unique_filename = str(uuid.uuid4()) + "_" + file
+                file = os.path.join(unique_filename)
+                super(ProductImport, self).save(*args, **kwargs)

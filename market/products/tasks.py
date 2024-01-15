@@ -12,7 +12,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.core.mail import send_mail
 from django.utils import timezone
 
-from products.models import Product, Category, ProductImport
+from products.models import Product, Category
 from shops.models import Shop, Offer
 
 logger = logging.getLogger(__name__)
@@ -32,9 +32,10 @@ CACHE_TTL = getattr(settings, "CACHE_TTL", DEFAULT_TIMEOUT)
 
 
 @shared_task
-def import_products(file_ids: list[id], email=None):  # noqa
-    for file_id in file_ids:
-        file_obj = ProductImport.objects.get(id=file_id)
+def import_products(files_obj: list[id], email=None):  # noqa
+    set_import_status("В процессе выполнения")
+
+    for file_obj in files_obj:
         file_path = file_obj.file.path
 
         success_location = os.path.join(settings.MEDIA_ROOT, "import/success/")
@@ -114,7 +115,10 @@ def import_products(file_ids: list[id], email=None):  # noqa
                 created_shop.products.add(created_product)
 
                 if offer is True:
+                    set_import_status("Выполнен")
                     is_created = "Создан"
+                else:
+                    set_import_status("Завершён с ошибкой")
 
             else:
                 message = (
@@ -150,7 +154,9 @@ def import_products(file_ids: list[id], email=None):  # noqa
                 },
             )
 
-        if is_success:
+        # time.sleep(5)
+
+        if is_created == "Создан":
             shutil.move(file_path, success_location)
             return "Products successfully imported"
         else:

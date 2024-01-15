@@ -15,7 +15,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.test import Client
 
-from products.models import Product, ProductsViews, ComparisonList
+from products.models import Product, ProductsViews, ComparisonList, ProductImport
 from products.services.products_views_services import ProductsViewsService
 from products.tasks import import_products
 
@@ -437,21 +437,18 @@ class ImportProductsViewTest(TestCase):
             "json_files": uploaded_file,
             "email": "test@example.com",
         }
-        response = self.client.post(url, data, follow=True)
+        response = self.client.post(url, data)
+        saved_filename = ProductImport.objects.latest("pk").file.name[7:]
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Product.objects.count(), 5)
-
-        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{filename}")))
-        self.assertEqual(response.context["email"], "test@example.com")
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{saved_filename}")))
         self.assertEqual(response.context["status"], "Выполнен")
-        self.assertRedirects(response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
-        files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_valid_file*.json"))
-        for file_to_delete in files_to_delete:
-            os.remove(file_to_delete)
+        os.remove(os.path.join(settings.MEDIA_ROOT, f"import/success/{saved_filename}"))
 
+    @patch("products.admin.import_products.delay", import_products)
     def test_invalid_file_import(self):
         filename = "test_invalid_file.json"
         file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
@@ -464,20 +461,16 @@ class ImportProductsViewTest(TestCase):
             "json_files": uploaded_file,
             "email": "test@example.com",
         }
-        response = self.client.post(url, data, follow=True)
+        response = self.client.post(url, data)
+        saved_filename = ProductImport.objects.latest("pk").file.name[7:]
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Product.objects.count(), 0)
-
-        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{filename}")))
-        self.assertEqual(response.context["email"], "test@example.com")
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{saved_filename}")))
         self.assertEqual(response.context["status"], "Завершён с ошибкой")
-        self.assertRedirects(response, url, status_code=302)
 
         # удаляем созданную копию загруженного файла
-        files_to_delete = glob.glob(os.path.join(settings.MEDIA_ROOT, "test_invalid_file*.json"))
-        for file_to_delete in files_to_delete:
-            os.remove(file_to_delete)
+        os.remove(os.path.join(settings.MEDIA_ROOT, f"import/fail/{saved_filename}"))
 
     def test_multiple_file_import(self):
         filenames = ["test_valid_file.json", "test_invalid_file.json"]
@@ -495,6 +488,7 @@ class ImportProductsViewTest(TestCase):
             "email": "test@example.com",
         }
         response = self.client.post(url, data, follow=True)
+        # saved_filename = ProductImport.objects.latest("pk").file
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Product.objects.count(), 5)
