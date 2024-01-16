@@ -95,12 +95,12 @@
                                 </div>
                             </div>
                             <div class="Cart Cart_order">
-                                {% for item in order.items.all().values_list("product") %}
+                                {% for item in order.items.all() %}
                                     <div class="Cart-product">
                                         <div class="Cart-block Cart-block_row">
                                             <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="#"><img class="Cart-img" src="assets/img/content/home/card.jpg" alt="card.jpg" /></a>
                                             </div>
-                                            <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">{{ item.product.name }}</a>
+                                            <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">{{ item.product }}</a>
                                                 <div class="Cart-desc">{{ item.product.description }}
                                                 </div>
                                             </div>
@@ -115,15 +115,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="Cart-total">
-                                        <div class="Cart-block Cart-block_total">
-                                            <strong class="Cart-title">Итого:<span class="Cart-price">200.99$</span>
-                                            </strong>
-                                        </div>
-                                        <div class="Cart-block"><a class="btn btn_primary btn_lg" href="#">Оплатить</a>
-                                        </div>
-                                    </div>
                                 {% endfor %}
+                                <div class="Cart-total">
+                                    <div class="Cart-block Cart-block_total">
+                                        <strong class="Cart-title">Итого:<span class="Cart-price">{{ order. }}$</span>
+                                        </strong>
+                                    </div>
+                                    <div class="Cart-block"><a class="btn btn_primary btn_lg" href="#">Оплатить</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

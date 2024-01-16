@@ -53,6 +53,10 @@ class Order(models.Model):
         max_length=15, choices=Status.choices, default=Status.STATUS_CREATED, verbose_name="статус"
     )
 
+    def sum_price(self):
+        prices = self.orderitems.values_list("price")
+        return sum(prices)
+
 
 class OrderItem(models.Model):
     """Модель заказов с продуктами"""

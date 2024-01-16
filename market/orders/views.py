@@ -134,8 +134,10 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
 
 class HistoryOrderListView(ListView):
     template_name = "orders/history_order.jinja2"
-    queryset = Order.objects.all().order_by("-pk")
     context_object_name = "orders"
+
+    def get_queryset(self):
+        return Order.objects.filter(email=self.request.user.email).order_by("-pk")
 
 
 class HistoryOrderDetailView(DetailView):
