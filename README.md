@@ -46,10 +46,7 @@ docker rm -f -v redis-db
 ```shell
 flake8 market
 ```
-* Линтер pylint
-```shell
-pylint --rcfile=.pylintrc market/*
-```
+
 * Линтер black
 ```shell
 black market
@@ -63,8 +60,8 @@ python manage.py runserver 0.0.0.0:8000
 
 
 ## Логин и пароль для суперпользователя
-login : demon_at@mail.ru
-password : 61903991shalaikodima
+login: demon_at@mail.ru
+password: 61903991shalaikodima
 
 # Цели проекта
 
