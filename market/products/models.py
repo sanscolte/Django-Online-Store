@@ -1,3 +1,5 @@
+import os
+import uuid
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
@@ -174,3 +176,16 @@ class ComparisonList(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)
+
+
+class ProductImport(models.Model):
+    """Модель хранения файла импорта продукта"""
+
+    file = models.FileField(upload_to="import/")
+
+    def save(self, *args, **kwargs):
+        """Сохраняем файл с рандомной строчкой в начале"""
+        if not self.pk:
+            unique_filename = str(uuid.uuid4()) + "_" + self.file.name
+            self.file.name = os.path.join(unique_filename)
+        super(ProductImport, self).save(*args, **kwargs)

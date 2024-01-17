@@ -2,13 +2,20 @@ from unittest.mock import patch
 
 from django.db.models import Avg
 from django.db.models.functions import Round
+import os
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
-from django.test import TestCase, Client
-from django.urls import reverse, reverse_lazy
+from django.test import TestCase
+from django.urls import reverse_lazy
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+from django.test import Client
 
-from products.models import Product, ProductsViews, ComparisonList
+from products.models import Product, ProductsViews, ComparisonList, ProductImport
 from products.services.products_views_services import ProductsViewsService
+from products.tasks import import_products
 
 User = get_user_model()
 
@@ -406,3 +413,113 @@ class RemoveFromComparisonListViewTest(TestCase):
         response = self.client.post(reverse("products:remove-from-list", kwargs={"pk": self.product.pk}), data)
         self.assertFalse(self.comparison_list.products.filter(pk=self.product.pk).exists())
         self.assertEqual(response.status_code, 302)
+
+
+def get_admin_change_view_url(obj: Product) -> str:
+    return reverse("admin:{}_{}_change".format(obj._meta.app_label, type(obj).__name__.lower()), args=(obj.pk,))
+
+
+class ImportProductsViewTest(TestCase):
+    """Класс тестов для представления импорта продуктов"""
+
+    @patch("products.admin.import_products.delay", import_products)
+    def test_valid_file_import(self):
+        """Тест загрузки валидного файла"""
+        filename: str = "test_valid_file.json"
+        file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
+
+        with open(file_path, "rb") as file:
+            uploaded_file = SimpleUploadedFile(filename, file.read())
+
+        url: str = "/admin/products/product/import-products/"
+        data = {
+            "json_files": uploaded_file,
+            "email": "test@example.com",
+        }
+        response = self.client.post(url, data)
+        saved_filename = ProductImport.objects.latest("pk").file.name[7:]
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 5)
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{saved_filename}")))
+        self.assertEqual(response.context["status"], "Выполнен")
+
+        # удаляем созданную копию загруженного файла
+        os.remove(os.path.join(settings.MEDIA_ROOT, f"import/success/{saved_filename}"))
+
+    @patch("products.admin.import_products.delay", import_products)
+    def test_invalid_file_import(self):
+        """Тест загрузки невалидного файла"""
+        filename: str = "test_invalid_file.json"
+        file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
+
+        with open(file_path, "rb") as file:
+            uploaded_file = SimpleUploadedFile(filename, file.read())
+
+        url: str = "/admin/products/product/import-products/"
+        data = {
+            "json_files": uploaded_file,
+            "email": "test@example.com",
+        }
+        response = self.client.post(url, data)
+        saved_filename = ProductImport.objects.latest("pk").file.name[7:]
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 0)
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{saved_filename}")))
+        self.assertEqual(response.context["status"], "Завершён с ошибкой")
+
+        # удаляем созданную копию загруженного файла
+        os.remove(os.path.join(settings.MEDIA_ROOT, f"import/fail/{saved_filename}"))
+
+    @patch("products.admin.import_products.delay", import_products)
+    def test_multiple_file_import(self):
+        """Тест загрузки нескольких файлов разом"""
+        filenames: list[str] = ["test_valid_file.json", "test_invalid_file.json"]
+        files: list = []
+
+        for filename in filenames:
+            file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
+            with open(file_path, "rb") as file:
+                uploaded_file = SimpleUploadedFile(filename, file.read())
+                files.append(uploaded_file)
+
+        url: str = "/admin/products/product/import-products/"
+        data = {
+            "json_files": files,
+            "email": "test@example.com",
+        }
+        response = self.client.post(url, data, follow=True)
+
+        latest_products = ProductImport.objects.all().order_by("-pk")[:2]
+        valid_filename = latest_products[1].file.name[7:]
+        invalid_filename = latest_products[0].file.name[7:]
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.count(), 5)
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/success/{valid_filename}")))
+        self.assertTrue(os.path.exists(os.path.join(settings.MEDIA_ROOT, f"import/fail/{invalid_filename}")))
+        self.assertEqual(response.context["status"], "Завершён с ошибкой")
+
+        # удаляем созданную копию загруженного файла
+        os.remove(os.path.join(settings.MEDIA_ROOT, f"import/success/{valid_filename}"))
+        os.remove(os.path.join(settings.MEDIA_ROOT, f"import/fail/{invalid_filename}"))
+
+    @patch("products.admin.import_products.delay", import_products)
+    def test_empty_file_import(self):
+        """Тест загрузки пустого файла"""
+        filename: str = "test_empty_file.json"
+        file_path = os.path.join(os.path.dirname(__file__), "test_files", filename)
+
+        with open(file_path, "rb") as file:
+            uploaded_file = SimpleUploadedFile(filename, file.read())
+
+        url: str = "/admin/products/product/import-products/"
+        data = {
+            "json_files": uploaded_file,
+            "email": "test@example.com",
+        }
+        response = self.client.post(url, data, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("The submitted file is empty" in str(response.context))
