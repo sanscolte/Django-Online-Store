@@ -4,6 +4,7 @@ from django.conf import settings
 
 from products.models import Product
 from shops.models import Shop, Offer
+from discounts.discount import calculate_discount
 import random
 
 
@@ -81,7 +82,17 @@ class CartServices:
     def get_total_price(cls) -> Decimal:
         """Возвращает общую стоимость товаров в корзине."""
 
-        return sum(Decimal(item["price"]) * item["quantity"] for item in cls.cart.values())
+        total_price = sum(Decimal(item["price"]) * item["quantity"] for item in cls.cart.values())
+
+        return total_price
+
+    @classmethod
+    def get_total_price_with_discount(cls) -> Decimal:
+        """Возвращает общую стоимость товаров в корзине c учетом скидки."""
+
+        total_price = calculate_discount()
+
+        return total_price
 
     @classmethod
     def get_products_in_cart(cls) -> list:
@@ -112,7 +123,7 @@ class CartServices:
         return shops_in_cart
 
     @classmethod
-    def clear(cls, only_session: bool = False) -> None:
+    def clear(cls) -> None:
         """Очистка корзины."""
 
         del cls.session[settings.CART_SESSION_ID]

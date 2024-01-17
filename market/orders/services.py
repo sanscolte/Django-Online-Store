@@ -12,7 +12,7 @@ class OrderService:
         Получение стоимости заказа с учетом выбранного типа доставки
         :return: стоимость заказа
         """
-        total_price = CartServices.get_total_price()
+        total_price = CartServices.get_total_price_with_discount()
         shops = CartServices.get_shops_in_cart()
         if self.request.session["delivery"] == "express":
             total_price += 500

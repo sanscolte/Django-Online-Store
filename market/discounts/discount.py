@@ -1,62 +1,69 @@
-from typing import List, Dict
-
-from psycopg2._psycopg import Decimal
+from django.utils import timezone
 
 from discounts.models import DiscountCart, DiscountProduct, DiscountSet
-from shops.models import Offer
+import cart.services
 
 
 def calculate_set(products):
-    flag = True
-    discount_sets = DiscountSet.objects.all()
+    """Возвращает вес скидки и скидку на набор товаров"""
+
+    discount_sets = DiscountSet.objects.filter(
+        start_date__lte=timezone.now().date(), end_date__gte=timezone.now().date()
+    )
+    flag = False
     for set in discount_sets:
         if set.is_active:
             for product in products:
                 if product.category in set.categories.all():
-                    weigth_set = set.weigth
+                    weigth_set = set.weight
                     percentage_set = set.percentage
                     flag = True
                 else:
-                    flag = False
                     break
     if not flag:
         weigth_set = 0
         percentage_set = 0
-    return percentage_set, weigth_set
+    return weigth_set, percentage_set
 
 
 def calculate_cart(price):
-    carts = DiscountCart.objects.all()
+    """Возвращает вес скидки и скидку на корзину"""
+
+    carts = DiscountCart.objects.filter(start_date__lte=timezone.now().date(), end_date__gte=timezone.now().date())
     weigth_cart = 0
     percentage_cart = 0
-    for cart in carts:
-        if cart.price_from <= price <= cart.price_to and cart.is_active:
-            weigth_cart = cart.weigth
+    for cart_discount in carts:
+        if cart_discount.price_from <= price <= cart_discount.price_to and cart_discount.is_active:
+            weigth_cart = cart.weight
             percentage_cart = cart.percentage
     return weigth_cart, percentage_cart
 
 
 def calculate_products(price, offer_product, offer_price):
-    discount_products = DiscountProduct.objects.all()
+    """Возвращает общую стоимость корзины с учетом скидки на товар"""
+
+    discount_products = DiscountProduct.objects.filter(
+        start_date__lte=timezone.now().date(), end_date__gte=timezone.now().date()
+    )
     for product in discount_products:
-        if product.name in offer_product:
-            price = price - (offer_price * product.percentage)
+        if offer_product in product.products.all():
+            carts = cart.services.CartServices.cart
+            quantity = carts[str(offer_product.pk)]["quantity"]
+            price = price - ((offer_price * quantity) * product.percentage / 100)
     return price
 
 
-def calculate_discount(offers: List[Dict[Offer, int]]):
-    total_price = Decimal("0")
-    products = []
+def calculate_discount():
+    total_price = cart.services.CartServices.get_total_price()
+    products = cart.services.CartServices.get_products_in_cart()
+    offers = cart.services.CartServices.get_offers_in_cart()
     for offer in offers:
-        for offer_obj, quantity in offer.items():
-            products += [offer_obj.product]
-            total_price += offer_obj.price * quantity
-            total_price = calculate_products(total_price, offer_obj.product, offer_obj.price)
+        total_price = calculate_products(total_price, offer.product, offer.price)
     weigth_cart, percentage_cart = calculate_cart(total_price)
     weigth_set, percentage_set = calculate_set(products)
 
     if weigth_set > weigth_cart:
-        total_price = total_price - (total_price * percentage_cart)
+        total_price = total_price - (total_price * percentage_set / 100)
     else:
-        total_price = total_price - (total_price * percentage_set)
+        total_price = total_price - (total_price * percentage_cart / 100)
     return total_price
