@@ -22,8 +22,8 @@ logger.setLevel(logging.DEBUG)
 
 file_handler = logging.FileHandler(os.path.join("logs/import/products-import.log"))
 formatter = logging.Formatter(
-    "%(asctime)s - %(is_success)s - %(product)s - %(category)s - %(shop)s - %(phone)s - "
-    "%(address)s - %(email)s - %(offer_shop)s - %(offer_product)s - %(offer_price)s - %(remains)s",
+    "%(asctime)s - %(is_success)s - %(product_name)s - %(category)s - %(shop_name)s - %(phone)s - "
+    "%(address)s - %(shop_email)s - %(offer_shop)s - %(offer_product)s - %(offer_price)s - %(remains)s",
     datefmt="%d-%b-%y %H:%M:%S",
 )
 
@@ -138,23 +138,9 @@ def import_products(file_ids: list[id], email: str = None):  # noqa
             except ssl.SSLCertVerificationError:
                 pass
 
-            # Логируем запись в файл
-            logger.debug(
-                "",
-                extra={
-                    "is_success": is_created,
-                    "product": pif.product_name,
-                    "category": pif.category,
-                    "shop": pif.shop_name,
-                    "phone": pif.phone,
-                    "address": pif.address,
-                    "email": pif.shop_email,
-                    "offer_shop": pif.offer_shop,
-                    "offer_product": pif.offer_product,
-                    "offer_price": pif.offer_price,
-                    "remains": pif.remains,
-                },
-            )
+            log_data = pif.model_dump(exclude={"product_description", "shop_description"})
+            log_data["is_success"] = is_created
+            logger.debug("", extra=log_data)
 
         # Перемещаем файл в нужную директории в зависимости от успешности импорта
         if is_created == "Создан":
