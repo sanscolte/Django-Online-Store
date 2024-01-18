@@ -34,8 +34,8 @@ def calculate_cart(price):
     percentage_cart = 0
     for cart_discount in carts:
         if cart_discount.price_from <= price <= cart_discount.price_to and cart_discount.is_active:
-            weigth_cart = cart.weight
-            percentage_cart = cart.percentage
+            weigth_cart = cart_discount.weight
+            percentage_cart = cart_discount.percentage
     return weigth_cart, percentage_cart
 
 
