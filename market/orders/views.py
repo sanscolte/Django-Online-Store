@@ -95,6 +95,7 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         cart = CartServices(self.request)
+        order_service = OrderService(self.request)
         order = Order.objects.create(
             phone_number=request.user.phone_number,
             full_name=request.user.full_name,
@@ -103,6 +104,7 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
             city=request.session["city"],
             address=request.session["address"],
             payment_type=request.session["payment"],
+            total_price=order_service.get_total_price(),
         )
         for item in cart:
             OrderItem.objects.create(
