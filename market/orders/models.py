@@ -52,6 +52,7 @@ class Order(models.Model):
     status = models.CharField(
         max_length=15, choices=Status.choices, default=Status.STATUS_CREATED, verbose_name="статус"
     )
+    total_price = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="итоговая цена")
 
 
 class OrderItem(models.Model):
