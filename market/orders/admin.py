@@ -20,6 +20,7 @@ class OrderAdmin(admin.ModelAdmin):
         "city",
         "payment_type",
         "status",
+        "total_price",
     ]
     list_filter = ["created_at"]
     inlines = [OrderItemInline]
