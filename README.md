@@ -62,6 +62,12 @@ python manage.py runserver 0.0.0.0:8000
 ## Логин и пароль для суперпользователя
 login: demon_at@mail.ru
 password: 61903991shalaikodima
+## Логин и пароль для покупателя
+login: buyer@example.com
+password: 61903991shalaikodima
+## Логин и пароль для продавца
+login: salesman@example.com
+password: 61903991shalaikodima
 
 # Цели проекта
 
