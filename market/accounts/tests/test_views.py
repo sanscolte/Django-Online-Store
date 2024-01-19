@@ -5,7 +5,11 @@ from django.urls import reverse
 class MyRegistrationViewTest(TestCase):
     """Класс для тестирования страницы регистрации пользователя"""
 
-    fixtures = ["fixtures/01-users.json"]
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/01-users-permissions.json",
+        "fixtures/02-groups.json",
+    ]
 
     def test_registration_page_exist_at_desired_location(self):
         response = self.client.get(reverse("accounts:registration"))
@@ -38,7 +42,11 @@ class MyRegistrationViewTest(TestCase):
 class ProfileViewTest(TestCase):
     """Класс для тестирования страницы изменения пользователя"""
 
-    fixtures = ["fixtures/01-users.json"]
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/01-users-permissions.json",
+        "fixtures/02-groups.json",
+    ]
 
     def test_profile_page_exist_at_desired_location(self):
         self.client.login(email="demon_at@mail.ru", password="61903991shalaikodima")
@@ -73,7 +81,11 @@ class ProfileViewTest(TestCase):
 class PasswordResetViewViewTest(TestCase):
     """Класс для тестирования страницы изменения пароля пользователя"""
 
-    fixtures = ["fixtures/01-users.json"]
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/01-users-permissions.json",
+        "fixtures/02-groups.json",
+    ]
 
     def test_reset_password_page_exist_at_desired_location(self):
         response = self.client.get(reverse("accounts:password_reset"))
@@ -102,7 +114,11 @@ class MyLoginViewTest(TestCase):
 class AccountViewTest(TestCase):
     """Класс для тестирования личного кабинета пользователя"""
 
-    fixtures = ["fixtures/01-users.json"]
+    fixtures = [
+        "fixtures/01-users.json",
+        "fixtures/01-users-permissions.json",
+        "fixtures/02-groups.json",
+    ]
 
     def test_account_page_exist_at_desired_location(self):
         self.client.login(email="demon_at@mail.ru", password="61903991shalaikodima")
