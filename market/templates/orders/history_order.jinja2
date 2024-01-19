@@ -49,7 +49,7 @@
                                             <div class="Order-info">
                                                 <div class="Order-infoType">Общая стоимость:
                                                 </div>
-                                                <div class="Order-infoContent"><span class="Order-price">200.99$</span>
+                                                <div class="Order-infoContent"><span class="Order-price">{{ order.total_price }}$</span>
                                                 </div>
                                             </div>
                                             {% if order.status == "paid" %}
