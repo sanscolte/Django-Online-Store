@@ -12,7 +12,7 @@ User = get_user_model()
 class ReviewsService:
     """Сервис для работы с отзывами"""
 
-    def __init__(self, request: HttpRequest, product: Product):
+    def __init__(self, request: HttpRequest, product: Product) -> None:
         self.request = request
         self.product = product
 

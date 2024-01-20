@@ -1,3 +1,7 @@
+from _decimal import Decimal
+
+from django.http import HttpRequest
+
 from cart.services import CartServices
 from .constants import standard_order_price, express_order_price
 
@@ -5,10 +9,10 @@ from .constants import standard_order_price, express_order_price
 class OrderService:
     """Сервис для работы с заказами"""
 
-    def __init__(self, request):
+    def __init__(self, request: HttpRequest) -> None:
         self.request = request
 
-    def get_total_price(self):
+    def get_total_price(self) -> Decimal:
         """
         Получение стоимости заказа с учетом выбранного типа доставки
         :return: стоимость заказа

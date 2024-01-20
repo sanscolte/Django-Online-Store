@@ -1,3 +1,4 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
@@ -19,7 +20,7 @@ class CartDetail(TemplateView):
 
 
 @require_POST
-def cart_add(request, pk):
+def cart_add(request: HttpRequest, pk: int) -> HttpResponse:
     """Добавление товара в корзину"""
 
     cart = CartServices(request)
@@ -31,7 +32,7 @@ def cart_add(request, pk):
     return redirect("cart:cart_detail")
 
 
-def cart_remove(request, pk):
+def cart_remove(request: HttpRequest, pk: int) -> HttpResponse:
     """Удаление товара в корзины"""
 
     cart = CartServices(request)

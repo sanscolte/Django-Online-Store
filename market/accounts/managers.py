@@ -1,3 +1,5 @@
+from typing import Any, Optional
+
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -7,7 +9,7 @@ class CustomUserManager(BaseUserManager):
     для аутентификации вместо имен пользователей.
     """
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email: str, password: str, **extra_fields: dict) -> str:
         """
         Создает и сохраняет пользователя с указанным адресом электронной почты и паролем.
         """
@@ -19,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email: str, password: str, **extra_fields: dict) -> Optional[Any]:
         """
         Создает и сохраняет администратора с указанным адресом электронной почты и паролем.
         """
