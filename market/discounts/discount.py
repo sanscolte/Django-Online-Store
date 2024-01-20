@@ -43,7 +43,7 @@ def calculate_cart(price: Decimal) -> tuple:
     return weigth_cart, percentage_cart
 
 
-def calculate_products(price: Decimal, offer_product: Offer[Product], offer_price: Offer) -> Decimal:
+def calculate_products(price: Decimal, offer_product: Product, offer_price: Offer) -> Decimal:
     """Возвращает общую стоимость корзины с учетом скидки на товар"""
 
     discount_products = DiscountProduct.objects.filter(
