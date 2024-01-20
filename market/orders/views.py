@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from accounts.views import MyRegisterView
 from orders.forms import OrderStepTwoForm, OrderStepThreeForm
@@ -132,3 +132,19 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
         context["payment"] = self.request.session["payment"]
         context["total_price"] = order_service.get_total_price()
         return context
+
+
+class HistoryOrderListView(ListView, LoginRequiredMixin):
+    template_name = "orders/history_order.jinja2"
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        return Order.objects.filter(email=self.request.user.email).order_by("-pk")
+
+
+class HistoryOrderDetailView(DetailView, LoginRequiredMixin):
+    template_name = "orders/order_detail.jinja2"
+    context_object_name = "order"
+
+    def get_queryset(self):
+        return Order.objects.filter(email=self.request.user.email)
