@@ -1,4 +1,5 @@
 from _decimal import Decimal
+from typing import Tuple
 
 from django.utils import timezone
 
@@ -8,7 +9,7 @@ from products.models import Product
 from shops.models import Offer
 
 
-def calculate_set(products: list) -> tuple:
+def calculate_set(products: list) -> Tuple[Decimal, int]:
     """Возвращает вес скидки и скидку на набор товаров"""
 
     discount_sets = DiscountSet.objects.filter(
@@ -30,7 +31,7 @@ def calculate_set(products: list) -> tuple:
     return weigth_set, percentage_set
 
 
-def calculate_cart(price: Decimal) -> tuple:
+def calculate_cart(price: Decimal) -> Tuple[Decimal, int]:
     """Возвращает вес скидки и скидку на корзину"""
 
     carts = DiscountCart.objects.filter(start_date__lte=timezone.now().date(), end_date__gte=timezone.now().date())

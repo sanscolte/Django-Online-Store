@@ -160,6 +160,6 @@ def get_import_status() -> str:
         return status
 
 
-def set_import_status(status) -> None:
+def set_import_status(status: str) -> None:
     """Функция установки статуса импорта"""
     cache.set("import_status", status, timeout=settings.CACHE_TTL)
