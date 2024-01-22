@@ -9,7 +9,7 @@ User = get_user_model()
 class ProductsViewsService:
     """Сервис для работы с историей просмотров продуктов"""
 
-    def __init__(self, product: Product, user: User):
+    def __init__(self, product: Product, user: User) -> None:
         self.product = product
         self.user = user
 

@@ -63,7 +63,7 @@ class ProductImportFile(BaseModel):
 
 
 @shared_task
-def import_products(file_ids: list[id], email: str = None):  # noqa
+def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
     set_import_status("В процессе выполнения")
 
     for file_id in file_ids:
@@ -149,7 +149,7 @@ def import_products(file_ids: list[id], email: str = None):  # noqa
             shutil.move(file_path, fail_location)
 
 
-def get_import_status():
+def get_import_status() -> str:
     """Функция получения статуса импорта"""
     status = cache.get("import_status")
     if status:
@@ -160,6 +160,6 @@ def get_import_status():
         return status
 
 
-def set_import_status(status):
+def set_import_status(status: str) -> None:
     """Функция установки статуса импорта"""
     cache.set("import_status", status, timeout=settings.CACHE_TTL)

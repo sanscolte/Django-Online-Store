@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.conf import settings
+from django.http import HttpRequest
 
 from products.models import Product
 from shops.models import Shop, Offer
@@ -11,7 +12,7 @@ import random
 class CartServices:
     _instance = None
 
-    def __new__(cls, request, *args, **kwargs):
+    def __new__(cls, request: HttpRequest, *args, **kwargs):
         """Создает корзину"""
 
         cls.session = request.session

@@ -1,10 +1,15 @@
+from _decimal import Decimal
+from typing import Tuple
+
 from django.utils import timezone
 
 from discounts.models import DiscountCart, DiscountProduct, DiscountSet
 import cart.services
+from products.models import Product
+from shops.models import Offer
 
 
-def calculate_set(products):
+def calculate_set(products: list) -> Tuple[Decimal, int]:
     """Возвращает вес скидки и скидку на набор товаров"""
 
     discount_sets = DiscountSet.objects.filter(
@@ -26,7 +31,7 @@ def calculate_set(products):
     return weigth_set, percentage_set
 
 
-def calculate_cart(price):
+def calculate_cart(price: Decimal) -> Tuple[Decimal, int]:
     """Возвращает вес скидки и скидку на корзину"""
 
     carts = DiscountCart.objects.filter(start_date__lte=timezone.now().date(), end_date__gte=timezone.now().date())
@@ -39,7 +44,7 @@ def calculate_cart(price):
     return weigth_cart, percentage_cart
 
 
-def calculate_products(price, offer_product, offer_price):
+def calculate_products(price: Decimal, offer_product: Product, offer_price: Offer) -> Decimal:
     """Возвращает общую стоимость корзины с учетом скидки на товар"""
 
     discount_products = DiscountProduct.objects.filter(
@@ -53,7 +58,7 @@ def calculate_products(price, offer_product, offer_price):
     return price
 
 
-def calculate_discount():
+def calculate_discount() -> Decimal:
     total_price = cart.services.CartServices.get_total_price()
     products = cart.services.CartServices.get_products_in_cart()
     offers = cart.services.CartServices.get_offers_in_cart()
