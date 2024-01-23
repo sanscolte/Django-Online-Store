@@ -36,7 +36,11 @@ CACHE_TTL = getattr(settings, "CACHE_TTL", DEFAULT_TIMEOUT)
 class ProductImportFile(BaseModel):
     """Класс, заранее объявляющий необходимые поля для файла импорта"""
 
-    product_name: str = Field("None", alias="Товар")
+    product_name: str = Field(
+        "None", alias="Товар"
+    )  # FIXME (здесь и далее по полям модели) строка "None" некорректное начальное значение.
+    # Надо обойтись без начального значения. Если поле необязательно, то типизиуруй через Optional[str]
+    # Пример product_name: Optional[str] = Field(alias="Товар")
     product_description: str = Field("None", alias="Описание товара")
     category: str = Field("None", alias="Категория товара")
     shop_name: str = Field("None", alias="Магазин")
@@ -46,7 +50,8 @@ class ProductImportFile(BaseModel):
     shop_email: str = Field("None", alias="Email")
     offer_shop: str = Field("None", alias="Магазин оффера")
     offer_product: str = Field("None", alias="Продукт оффера")
-    offer_price: int = Field("None", alias="Цена оффера")
+    offer_price: int = Field("None", alias="Цена оффера")  # FIXME пример неудачного присвоения начального значения
+    # поле типизировано как целочисленное, а начальное значение строка!
     remains: int = Field("None", alias="Остатки")
 
     class Config:

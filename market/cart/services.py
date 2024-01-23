@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.conf import settings
+from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
 
 from products.models import Product
@@ -15,7 +16,7 @@ class CartServices:
     def __new__(cls, request: HttpRequest, *args, **kwargs):
         """Создает корзину"""
 
-        cls.session = request.session
+        cls.session: SessionBase = request.session
         cart = cls.session.get(settings.CART_SESSION_ID)
         if not cart:
             cart = cls.session[settings.CART_SESSION_ID] = {}

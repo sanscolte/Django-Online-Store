@@ -135,6 +135,8 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
 
 
 class HistoryOrderListView(ListView, LoginRequiredMixin):
+    # TODO добавить докстринг
+
     template_name = "orders/history_order.jinja2"
     context_object_name = "orders"
 
@@ -143,6 +145,7 @@ class HistoryOrderListView(ListView, LoginRequiredMixin):
 
 
 class HistoryOrderDetailView(DetailView, LoginRequiredMixin):
+    # TODO добавить докстринг
     template_name = "orders/order_detail.jinja2"
     context_object_name = "order"
 

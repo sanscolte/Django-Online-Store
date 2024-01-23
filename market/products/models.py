@@ -14,10 +14,12 @@ from django.db.models import signals
 
 
 def save_product(**kwargs):
+    # TODO добавить докстринг
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 def delete_product(**kwargs):
+    # TODO добавить докстринг
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
@@ -177,6 +179,8 @@ class ComparisonList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)
 
+    # TODO добавить строковое представление и класс Meta
+
 
 class ProductImport(models.Model):
     """Модель хранения файла импорта продукта"""
@@ -189,3 +193,5 @@ class ProductImport(models.Model):
             unique_filename = str(uuid.uuid4()) + "_" + self.file.name
             self.file.name = os.path.join(unique_filename)
         super(ProductImport, self).save(*args, **kwargs)
+
+    # TODO добавить строковое представление и класс Meta

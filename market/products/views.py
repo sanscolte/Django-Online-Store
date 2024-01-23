@@ -30,6 +30,7 @@ from cart.services import CartServices
 
 @method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class ProductListView(FilterView):
+    # TODO docstring
     template_name = "products/catalog.jinja2"
     context_object_name = "products"
     paginate_by = settings.PAGINATE_PRODUCTS_BY
