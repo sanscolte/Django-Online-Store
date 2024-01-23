@@ -15,6 +15,7 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 
+from settings.models import SiteSetting
 from .models import Product, ProductDetail, ProductImage, ProductsViews, ComparisonList
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .filters import ProductFilter
@@ -28,7 +29,9 @@ from cart.forms import CartAddProductForm
 from cart.services import CartServices
 
 
-@method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
+@method_decorator(
+    cache_page(SiteSetting.objects.first().product_list_cache_time, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch"
+)
 class ProductListView(FilterView):
     template_name = "products/catalog.jinja2"
     context_object_name = "products"
@@ -163,7 +166,9 @@ class ProductDetailView(DetailView, BaseComparisonView):
         context = super().get_context_data(**kwargs)
         cache_key = self.get_cache_key(self.object.pk)
         context["product_details"] = cache.get_or_set(
-            cache_key, ProductDetail.objects.filter(product=self.object), settings.CACHE_TIME_DETAIL_PRODUCT_PAGE
+            cache_key,
+            ProductDetail.objects.filter(product=self.object),
+            SiteSetting.objects.first().product_cache_time * 86400,
         )
 
         review_service = ReviewsService(self.request, self.get_object())

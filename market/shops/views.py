@@ -3,10 +3,10 @@ from django.shortcuts import render  # noqa F401
 
 from django.views.generic import TemplateView, View
 
+from settings.models import SiteSetting
 from .models import Shop
 
 import random
-from config.settings import CACHE_TIME
 from products.models import Banner, Category
 
 
@@ -18,8 +18,10 @@ class IndexPageView(TemplateView):
 
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
-        context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=3)
-        context["cache_time"] = CACHE_TIME
+        context["banners"] = random.choices(
+            Banner.objects.filter(is_active=True), k=SiteSetting.objects.first().banners_count
+        )
+        context["banner_cache_time"] = SiteSetting.objects.first().banner_cache_time
         return context
 
 

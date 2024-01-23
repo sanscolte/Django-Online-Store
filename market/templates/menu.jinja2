@@ -1,7 +1,7 @@
 <div class="Header-slider">
     <div class="Slider Slider_main">
       <div class="Slider-box">
-        {% cache cache_time banners_objects %}
+        {% cache banner_cache_time banners_objects %}
             {% for banner in banners %}
                 <div class="Slider-item">
                   <div class="Slider-content">
