@@ -4,6 +4,8 @@ from .models import Review, ProductDetail, ProductImage
 
 
 class ReviewForm(forms.ModelForm):
+    """Класс формы отзыва"""
+
     class Meta:
         model = Review
         fields = ("text",)
@@ -51,5 +53,7 @@ class MultipleFileField(forms.FileField):
 
 
 class ProductImportForm(forms.Form):
+    """Класс формы импорта продуктов"""
+
     email = forms.EmailField(label="Email для обратной связи", required=False)
     json_files = MultipleFileField(label="Файлы для импорта", required=True)
