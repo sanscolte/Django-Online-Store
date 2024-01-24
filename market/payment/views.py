@@ -1,10 +1,18 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView
+from rest_framework.viewsets import ModelViewSet
 
 from orders.models import Order
+from payment.models import BankTransaction
+from payment.serializers import BankTransactionSerializer
 from payment.mixins import PaymentMixin
 from payment.tasks import pay
+
+
+class BankTransactionViewSet(ModelViewSet):
+    queryset = BankTransaction.objects.all()
+    serializer_class = BankTransactionSerializer
 
 
 class PaymentWithCardView(PaymentMixin, TemplateView):

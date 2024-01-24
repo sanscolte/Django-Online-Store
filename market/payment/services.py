@@ -6,5 +6,5 @@ class PaymentService:
         self.card_number = str(card_number)
         self.total_price = total_price
 
-    def pay(self) -> str:
-        print("yay!")
+    def pay(self):
+        ...

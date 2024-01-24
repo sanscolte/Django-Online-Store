@@ -12,7 +12,7 @@ class PaymentMixin(FormMixin):
     form_class = PaymentForm
     http_method_names = ["get", "post"]
 
-    def post(self, *args, **kwargs):
+    def post(self):
         form = self.form_class(self.request.POST)
         if form.is_valid():
             self.request.session["card_number"] = form.cleaned_data["card_number"]
