@@ -106,7 +106,6 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
             payment_type=request.session["payment"],
             total_price=order_service.get_total_price(),
         )
-        request.session["order_id"] = order.id
         for item in cart:
             OrderItem.objects.create(
                 order=order,
@@ -115,9 +114,9 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
                 quantity=item["quantity"],
             )
         if request.session["payment"] == "card":
-            return HttpResponseRedirect(reverse("payment:payment_with_card"))
+            return HttpResponseRedirect(reverse("shops:home"))
         elif request.session["payment"] == "random":
-            return HttpResponseRedirect(reverse("payment:payment_someone"))
+            return HttpResponseRedirect(reverse("shops:home"))
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
