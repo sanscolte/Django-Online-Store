@@ -1,9 +1,12 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render  # noqa F401
+from django.shortcuts import render, redirect  # noqa F401
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from django.views.generic import TemplateView, View
 
 from discounts.models import DiscountProduct
+from products.constants import KEY_FOR_CACHE_PRODUCTS
 from .models import Shop, Offer
 
 import random
@@ -11,6 +14,7 @@ from config.settings import CACHE_TIME
 from products.models import Banner
 
 
+@method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class IndexPageView(TemplateView):
     """Отоброжает главную страницу"""
 
