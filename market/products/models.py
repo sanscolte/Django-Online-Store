@@ -14,12 +14,12 @@ from django.db.models import signals
 
 
 def save_product(**kwargs):
-    # TODO добавить докстринг
+    """Удаление кэша при получение сигнала об изменении или создании продукта"""
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 def delete_product(**kwargs):
-    # TODO добавить докстринг
+    """Удаление кэша при получение сигнала об удалении продукта"""
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 

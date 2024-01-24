@@ -59,7 +59,7 @@ def calculate_products(price: Decimal, offer_product: Product, offer_price: Offe
 
 
 def calculate_discount() -> Decimal:
-    # TODO добавить докстринг
+    """Возвращает общую корзину с учетом всех скидок"""
     total_price = cart.services.CartServices.get_total_price()
     products = cart.services.CartServices.get_products_in_cart()
     offers = cart.services.CartServices.get_offers_in_cart()

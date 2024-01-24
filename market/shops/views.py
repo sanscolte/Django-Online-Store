@@ -3,23 +3,27 @@ from django.shortcuts import render  # noqa F401
 
 from django.views.generic import TemplateView, View
 
-from .models import Shop
+from discounts.models import DiscountProduct
+from .models import Shop, Offer
 
 import random
 from config.settings import CACHE_TIME
-from products.models import Banner, Category
+from products.models import Banner
 
 
 class IndexPageView(TemplateView):
+    """Отоброжает главную страницу"""
+
     template_name = "shops/index.jinja2"
 
     def get_context_data(self, **kwargs):
         """Добавление баннеров и времени кэша в контекст шаблона"""
 
         context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
         context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=3)
         context["cache_time"] = CACHE_TIME
+        context["discount_product"] = random.choice(DiscountProduct.objects.all())
+        context["filtered_offers"] = Offer.objects.filter(remains__lte=50)
         return context
 
 
