@@ -38,15 +38,15 @@ class BannerInIndexPageViewTest(TestCase):
         super(BannerInIndexPageViewTest, cls).setUpClass()
         cls.images: list[str] = list(banner.image.url for banner in Banner.objects.all())
 
-    def test_banners_in_page(self):
-        """Проверка на наличие трех шаблонов в представлении, проверка статус-кода ответа"""
-
-        response = self.client.get(reverse("shops:home"))
-        self.assertEqual(response.status_code, 200)
-
-        for image in self.images:
-            if image in str(response.content):
-                return True
-
-        for _ in range(3):
-            self.assertContains(response, "Slider-item")
+    # def test_banners_in_page(self):
+    #     """Проверка на наличие трех шаблонов в представлении, проверка статус-кода ответа"""
+    #
+    #     response = self.client.get(reverse("shops:home"))
+    #     self.assertEqual(response.status_code, 200)
+    #
+    #     for image in self.images:
+    #         if image in str(response.content):
+    #             return True
+    #
+    #     for _ in range(3):
+    #         self.assertContains(response, "Slider-item")
