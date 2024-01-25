@@ -7,6 +7,10 @@ from .utils import shop_preivew_directory_path
 class Shop(models.Model):
     """Магазин"""
 
+    class Meta:
+        verbose_name = _("Магазин")
+        verbose_name_plural = _("Магазины")
+
     name = models.CharField(max_length=512, verbose_name=_("название"))
     products = models.ManyToManyField(
         "products.Product",
@@ -39,6 +43,8 @@ class Offer(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint("shop", "product", name="unique_product_in_shop")]
+        verbose_name = _("Предложение магазина")
+        verbose_name_plural = _("Предложения магазина")
 
     def __str__(self):
         return f"Offer(pk={self.pk}, shop={self.shop.name})"
