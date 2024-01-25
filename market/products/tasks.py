@@ -37,8 +37,6 @@ class ProductImportFile(BaseModel):
     """Класс, заранее объявляющий необходимые поля для файла импорта"""
 
     product_name: str = Field("None", alias="Товар")
-    # Надо обойтись без начального значения. Если поле необязательно, то типизиуруй через Optional[str]
-    # Пример product_name: Optional[str] = Field(alias="Товар")
     product_description: str = Field("None", alias="Описание товара")
     category: str = Field("None", alias="Категория товара")
     shop_name: str = Field("None", alias="Магазин")
@@ -49,7 +47,6 @@ class ProductImportFile(BaseModel):
     offer_shop: str = Field("None", alias="Магазин оффера")
     offer_product: str = Field("None", alias="Продукт оффера")
     offer_price: int = Field("None", alias="Цена оффера")
-    # поле типизировано как целочисленное, а начальное значение строка!
     remains: int = Field("None", alias="Остатки")
 
     class Config:
@@ -94,7 +91,6 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
-                # Создаем экземпляры моделей
                 created_category = Category.objects.get_or_create(name=pif.category)[0]
                 created_shop = Shop.objects.get_or_create(
                     name=pif.shop_name,
@@ -129,7 +125,6 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
-            # Отправляем электронное письмо
             try:
                 send_mail(
                     subject="Импорт продуктов",
@@ -145,7 +140,6 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
             log_data["is_success"] = is_created
             logger.debug("", extra=log_data)
 
-        # Перемещаем файл в нужную директории в зависимости от успешности импорта
         if is_created == "Создан":
             shutil.move(file_path, success_location)
         else:

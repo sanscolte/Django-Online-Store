@@ -19,9 +19,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(
-        self, email: str, password: str, **extra_fields: dict
-    ):  # FIXME поставить тайпинг возвращаемого значения
+    def create_superuser(self, email: str, password: str, **extra_fields: dict):
         """
         Создает и сохраняет администратора с указанным адресом электронной почты и паролем.
         """
