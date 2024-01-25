@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-25 23:07+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\accounts\forms.py:112
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: .\accounts\models.py:14 .\products\models.py:167 .\products\models.py:184
+msgid "Пользователь"
+msgstr "User"
+
+#: .\accounts\models.py:15
+msgid "Пользователи"
+msgstr "Users"
+
+#: .\accounts\models.py:17
+msgid "Email адрес"
+msgstr "Email address"
+
+#: .\accounts\models.py:18
+msgid "Полное имя"
+msgstr "Full name"
+
+#: .\accounts\models.py:19
+msgid "Аватар"
+msgstr "Avatar"
+
+#: .\accounts\models.py:20
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\accounts\models.py:24
+msgid "Дата регистрации"
+msgstr "Date of registration"
+
+#: .\config\settings.py:164
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:165
+msgid "Russian"
+msgstr "Russian"
+
+#: .\discounts\models.py:13
+msgid "наименование события"
+msgstr "event name"
+
+#: .\discounts\models.py:14
+msgid "процент скидки"
+msgstr "discount percentage"
+
+#: .\discounts\models.py:15
+msgid "начало действия"
+msgstr "start of action"
+
+#: .\discounts\models.py:16
+msgid "окончание действия"
+msgstr "end of action"
+
+#: .\discounts\models.py:35
+msgid "Скидка для продукта"
+msgstr "Discount for product"
+
+#: .\discounts\models.py:36
+msgid "Скидки для продуктов"
+msgstr "Discounts for products"
+
+#: .\discounts\models.py:46 .\discounts\models.py:61
+msgid "вес скидки"
+msgstr "weight of discount"
+
+#: .\discounts\models.py:51
+msgid "Скидка для набора"
+msgstr "Discount for set"
+
+#: .\discounts\models.py:52
+msgid "Скидки на наборов"
+msgstr "Discounts for sets"
+
+#: .\discounts\models.py:64
+msgid "диапазон цены от"
+msgstr "price range from"
+
+#: .\discounts\models.py:65
+msgid "диапазон цены до"
+msgstr "price range to"
+
+#: .\discounts\models.py:68
+msgid "Скидка для корзины"
+msgstr "Discount for cart"
+
+#: .\discounts\models.py:69
+msgid "Скидки для корзины"
+msgstr "Discounts for cart"
+
+#: .\orders\models.py:34
+msgid "Заказ"
+msgstr "Order"
+
+#: .\orders\models.py:35
+msgid "Заказы"
+msgstr "Orders"
+
+#: .\orders\models.py:37
+msgid "полное имя"
+msgstr "full name"
+
+#: .\orders\models.py:38 .\shops\models.py:27
+msgid "email"
+msgstr "email"
+
+#: .\orders\models.py:39 .\shops\models.py:25
+msgid "телефон"
+msgstr "phone"
+
+#: .\orders\models.py:40
+msgid "создан"
+msgstr "created"
+
+#: .\orders\models.py:44
+msgid "доставка"
+msgstr "delivery"
+
+#: .\orders\models.py:48 .\shops\models.py:26
+msgid "адрес"
+msgstr "adderss"
+
+#: .\orders\models.py:49
+msgid "город"
+msgstr "city"
+
+#: .\orders\models.py:55
+msgid "оплата"
+msgstr "payment"
+
+#: .\orders\models.py:58
+msgid "статус"
+msgstr "status"
+
+#: .\orders\models.py:60
+msgid "итоговая цена"
+msgstr "total price"
+
+#: .\orders\models.py:67 .\orders\models.py:68
+msgid "Продукты в Заказе"
+msgstr "Products in Order"
+
+#: .\orders\models.py:70
+msgid "заказ"
+msgstr "order"
+
+#: .\orders\models.py:72
+msgid "продукт"
+msgstr "product"
+
+#: .\orders\models.py:74 .\shops\models.py:41
+msgid "цена"
+msgstr "price"
+
+#: .\orders\models.py:75
+msgid "количество"
+msgstr "quantity"
+
+#: .\products\models.py:30
+msgid "Категория"
+msgstr "Category"
+
+#: .\products\models.py:31
+msgid "Категории"
+msgstr "Categories"
+
+#: .\products\models.py:33 .\products\models.py:56 .\products\models.py:97
+msgid "наименование"
+msgstr "name"
+
+#: .\products\models.py:34 .\products\models.py:57 .\shops\models.py:21
+msgid "описание"
+msgstr "description"
+
+#: .\products\models.py:37
+msgid "индекс сортировки"
+msgstr "sort index"
+
+#: .\products\models.py:53 .\products\models.py:166 .\products\models.py:187
+msgid "Продукт"
+msgstr "Product"
+
+#: .\products\models.py:54
+msgid "Продукты"
+msgstr "Products"
+
+#: .\products\models.py:60
+msgid "характеристики"
+msgstr "characteristics"
+
+#: .\products\models.py:107
+msgid "характеристика"
+msgstr "characteristic"
+
+#: .\products\models.py:108
+msgid "значение"
+msgstr "value"
+
+#: .\products\models.py:127
+msgid "Фтография продукта"
+msgstr "Image product"
+
+#: .\products\models.py:128
+msgid "Фотографии продуктов"
+msgstr "Images product"
+
+#: .\products\models.py:131 .\products\models.py:151
+msgid "изображение"
+msgstr "image"
+
+#: .\products\models.py:147
+msgid "Баннер"
+msgstr "Banner"
+
+#: .\products\models.py:148
+msgid "Баннеры"
+msgstr "Banners"
+
+#: .\products\models.py:160 .\products\models.py:168
+msgid "Отзыв"
+msgstr "Review"
+
+#: .\products\models.py:161
+msgid "Отзывы"
+msgstr "Reviews"
+
+#: .\shops\models.py:11
+msgid "Магазин"
+msgstr "Shop"
+
+#: .\shops\models.py:12
+msgid "Магазины"
+msgstr "Shops"
+
+#: .\shops\models.py:14
+msgid "название"
+msgstr "name"
+
+#: .\shops\models.py:19
+msgid "товары в магазине"
+msgstr "product in shop"
+
+#: .\shops\models.py:23
+msgid "изображение товара"
+msgstr "image product"
+
+#: .\shops\models.py:42
+msgid "остатки"
+msgstr "leftovers"
+
+#: .\shops\models.py:46
+msgid "Предложение магазина"
+msgstr "Offer"
+
+#: .\shops\models.py:47
+msgid "Предложения магазина"
+msgstr "Offers"
