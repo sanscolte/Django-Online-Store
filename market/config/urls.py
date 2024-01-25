@@ -18,8 +18,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("", include("accounts.urls")),
     path("", include("shops.urls")),
@@ -27,7 +28,7 @@ urlpatterns = [
     path("discounts/", include("discounts.urls")),
     path("cart/", include("cart.urls", namespace="cart")),
     path("order/", include("orders.urls")),
-]
+)
 
 if settings.DEBUG:
     urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
