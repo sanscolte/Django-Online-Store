@@ -8,6 +8,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class DiscountBase(models.Model):
+    """Базовая модель скидок"""
+
     name = models.CharField(max_length=100, verbose_name="наименование события")
     percentage = models.PositiveIntegerField(default=0, verbose_name="процент скидки")
     start_date = models.DateField()
@@ -25,6 +27,8 @@ class DiscountBase(models.Model):
 
 
 class DiscountProduct(DiscountBase):
+    """Скидка на продукт"""
+
     products = models.ManyToManyField(Product, related_name="discount_products")
 
     class Meta:
@@ -33,6 +37,8 @@ class DiscountProduct(DiscountBase):
 
 
 class DiscountSet(DiscountBase):
+    """Скидка на набор"""
+
     categories = models.ManyToManyField(Category, related_name="discount_sets")
     weight = models.DecimalField(
         max_digits=3,
@@ -47,6 +53,8 @@ class DiscountSet(DiscountBase):
 
 
 class DiscountCart(DiscountBase):
+    """Скидка на корзину"""
+
     weight = models.DecimalField(
         max_digits=3,
         decimal_places=2,

@@ -14,10 +14,12 @@ from django.db.models import signals
 
 
 def save_product(**kwargs):
+    """Удаление кэша при получение сигнала об изменении или создании продукта"""
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 def delete_product(**kwargs):
+    """Удаление кэша при получение сигнала об удалении продукта"""
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
@@ -176,6 +178,8 @@ class ComparisonList(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)
+
+    # TODO добавить строковое представление и класс Meta
 
 
 class ProductImport(models.Model):
