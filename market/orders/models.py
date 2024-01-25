@@ -54,8 +54,6 @@ class Order(models.Model):
     )
     total_price = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="итоговая цена")
 
-    # TODO реализовать строковое представление и class meta для определения verbose и verbose_plural к модели
-
 
 class OrderItem(models.Model):
     """Модель заказов с продуктами"""
@@ -64,5 +62,3 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name="order_items", on_delete=models.CASCADE, verbose_name="продукт")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="цена")
     quantity = models.PositiveIntegerField(default=1, verbose_name="количество")
-
-    # TODO реализовать строковое представление и class meta для определения verbose и verbose_plural к модели

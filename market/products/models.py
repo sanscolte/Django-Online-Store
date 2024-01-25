@@ -193,5 +193,3 @@ class ProductImport(models.Model):
             unique_filename = str(uuid.uuid4()) + "_" + self.file.name
             self.file.name = os.path.join(unique_filename)
         super(ProductImport, self).save(*args, **kwargs)
-
-    # TODO добавить строковое представление и класс Meta

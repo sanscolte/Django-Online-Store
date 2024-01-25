@@ -29,7 +29,7 @@ urlpatterns = [
     path(
         "password-reset/confirm/<uidb64>/<token>/",
         MyPasswordResetConfirmView.as_view(),
-        name="password_reset_confirm",  # FIXME поставить тайпинг параметров урла
+        name="password_reset_confirm",
     ),
     path("password-reset/complete/", MyPasswordResetCompleteView.as_view(), name="password_reset_complete"),
 ]
