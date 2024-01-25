@@ -1,5 +1,3 @@
-from typing import Any, Optional
-
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -21,7 +19,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email: str, password: str, **extra_fields: dict) -> Optional[Any]:
+    def create_superuser(self, email: str, password: str, **extra_fields: dict):
         """
         Создает и сохраняет администратора с указанным адресом электронной почты и паролем.
         """

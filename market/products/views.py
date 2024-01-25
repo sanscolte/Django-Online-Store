@@ -29,10 +29,20 @@ from cart.forms import CartAddProductForm
 from cart.services import CartServices
 
 
-@method_decorator(
-    cache_page(SiteSetting.objects.first().product_list_cache_time, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch"
-)
+def get_products_list_cache_time() -> int:
+    """Lazy-функция для получения времени действия кэша каталога продуктов"""
+
+    try:
+        timeout = SiteSetting.objects.first().product_list_cache_time
+    except ValueError:
+        timeout = 300
+    return timeout
+
+
+@method_decorator(cache_page(get_products_list_cache_time(), key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class ProductListView(FilterView):
+    """Страница каталога товаров со средней ценой"""
+
     template_name = "products/catalog.jinja2"
     context_object_name = "products"
     paginate_by = settings.PAGINATE_PRODUCTS_BY
@@ -63,6 +73,22 @@ class ProductListView(FilterView):
                 context["query"][k] = v
 
         return context
+
+    # def get(self, request, *args, **kwargs):
+    #     cache_key = KEY_FOR_CACHE_PRODUCTS
+    #     cached_result = cache.get(cache_key)
+    #
+    #     if cached_result is not None:
+    #         return cached_result
+    #
+    #     queryset = self.get_queryset()
+    #
+    #     context = self.get_context_data(object_list=queryset)
+    #     response = self.render_to_response(context)
+    #
+    #     cache.set(cache_key, queryset, timeout=SiteSetting.objects.first().product_list_cache_time)
+    #
+    #     return response
 
     def post(self, request: HttpRequest, **kwargs):
         cart_form = CartAddProductForm(request.POST)
@@ -162,13 +188,22 @@ class ProductDetailView(DetailView, BaseComparisonView):
     def clear_cache_for_product_detail(product_id):
         cache.delete(ProductDetailView.get_cache_key(product_id))
 
+    def get_product_cache_time(self) -> int:
+        """Lazy-функция для получения времени действия кэша характеристик продукта"""
+
+        try:
+            timeout = SiteSetting.objects.first().product_cache_time
+        except ValueError:
+            timeout = 1
+        return timeout
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cache_key = self.get_cache_key(self.object.pk)
         context["product_details"] = cache.get_or_set(
             cache_key,
             ProductDetail.objects.filter(product=self.object),
-            SiteSetting.objects.first().product_cache_time * 86400,
+            self.get_product_cache_time() * 86400,
         )
 
         review_service = ReviewsService(self.request, self.get_object())

@@ -1,0 +1,12 @@
+<form class="ProductCard-cart" method="post">{% csrf_token %}
+    <div class="Card-hover"><button class="btn btn_primary" type="submit" name="btnform1"><img class="btn-icon" src="{{ static('img/icons/card/cart.svg') }}" alt="cart.svg"/></button>
+        <div class="ProductCard-cartElement ProductCard-cartElement_amount">
+        <div class="Amount Amount_product">
+            <button class="Amount-remove" type="button"></button>
+            {{ cart_form.quantity }}
+            <button class="Amount-add" type="button"></button>
+            <input type="hidden" class="product_name" id="product_name" name="product_name" value="{{ offer.product.name }}">
+        </div>
+    </div>
+    </div>
+</form>

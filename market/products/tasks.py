@@ -91,7 +91,6 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
-                # Создаем экземпляры моделей
                 created_category = Category.objects.get_or_create(name=pif.category)[0]
                 created_shop = Shop.objects.get_or_create(
                     name=pif.shop_name,
@@ -126,7 +125,6 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
                     f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
                 )
 
-            # Отправляем электронное письмо
             try:
                 send_mail(
                     subject="Импорт продуктов",
@@ -142,7 +140,6 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
             log_data["is_success"] = is_created
             logger.debug("", extra=log_data)
 
-        # Перемещаем файл в нужную директории в зависимости от успешности импорта
         if is_created == "Создан":
             shutil.move(file_path, success_location)
         else:
