@@ -61,7 +61,7 @@ class IndexPageView(TemplateView):
 
         try:
             timeout = SiteSetting.objects.first().banner_cache_time
-        except ValueError:
+        except AttributeError:
             timeout = 600
         return timeout
 
@@ -70,7 +70,7 @@ class IndexPageView(TemplateView):
 
         try:
             count = SiteSetting.objects.first().banners_count
-        except ValueError:
+        except AttributeError:
             count = 3
         return count
 

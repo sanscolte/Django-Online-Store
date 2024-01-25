@@ -24,6 +24,6 @@ class SettingsForm(forms.ModelForm):
 class ClearCacheForm(forms.Form):
     """Форма очистки кэша сайта"""
 
-    clear_all_cache = forms.BooleanField(required=False, initial=True, widget=forms.HiddenInput)
-    clear_product_detail_cache = forms.BooleanField(required=False, initial=True, widget=forms.HiddenInput)
-    clear_product_list_cache = forms.BooleanField(required=False, initial=True, widget=forms.HiddenInput)
+    clear_all_cache = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+    clear_product_detail_cache = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+    clear_product_list_cache = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)

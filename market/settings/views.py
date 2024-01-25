@@ -30,14 +30,17 @@ class SettingsView(ListView):
             settings_form.save()
 
         if clear_cache_form.is_valid():
-            if "clear_all_cache" in request.POST:
-                self.clear_all_cache()
-            elif "clear_product_detail_cache" in self.request.POST:
-                self.clear_cache_for_some_pages("product_detail")
-            elif "clear_product_list_cache" in self.request.POST:
-                self.clear_cache_for_some_pages("products")
+            self.handle_cache_clear(request, clear_cache_form)
 
         return self.get(request, context=settings_form, *args, **kwargs)
+
+    def handle_cache_clear(self, request, clear_cache_form):
+        if clear_cache_form.cleaned_data.get("clear_all_cache"):
+            self.clear_all_cache()
+        elif clear_cache_form.cleaned_data.get("clear_product_detail_cache"):
+            self.clear_cache_for_some_pages("product_detail")
+        elif clear_cache_form.cleaned_data.get("clear_product_list_cache"):
+            self.clear_cache_for_some_pages("products")
 
     def clear_all_cache(self):
         """Очистка кэша всего сайта"""

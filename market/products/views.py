@@ -34,7 +34,7 @@ def get_products_list_cache_time() -> int:
 
     try:
         timeout = SiteSetting.objects.first().product_list_cache_time
-    except ValueError:
+    except AttributeError:
         timeout = 300
     return timeout
 
@@ -73,22 +73,6 @@ class ProductListView(FilterView):
                 context["query"][k] = v
 
         return context
-
-    # def get(self, request, *args, **kwargs):
-    #     cache_key = KEY_FOR_CACHE_PRODUCTS
-    #     cached_result = cache.get(cache_key)
-    #
-    #     if cached_result is not None:
-    #         return cached_result
-    #
-    #     queryset = self.get_queryset()
-    #
-    #     context = self.get_context_data(object_list=queryset)
-    #     response = self.render_to_response(context)
-    #
-    #     cache.set(cache_key, queryset, timeout=SiteSetting.objects.first().product_list_cache_time)
-    #
-    #     return response
 
     def post(self, request: HttpRequest, **kwargs):
         cart_form = CartAddProductForm(request.POST)
@@ -193,7 +177,7 @@ class ProductDetailView(DetailView, BaseComparisonView):
 
         try:
             timeout = SiteSetting.objects.first().product_cache_time
-        except ValueError:
+        except AttributeError:
             timeout = 1
         return timeout
 
