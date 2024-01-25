@@ -26,9 +26,13 @@ class BannerInIndexPageViewTest(TestCase):
     """Класс тестов представления домашней страницы"""
 
     fixtures = [
+        "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
+        "fixtures/08-offers.json",
+        "fixtures/11-product-images.json",
         "fixtures/15-banners.json",
+        "fixtures/21-discount-products.json",
     ]
 
     @classmethod

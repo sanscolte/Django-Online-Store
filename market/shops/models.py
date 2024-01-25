@@ -22,8 +22,8 @@ class Shop(models.Model):
     address = models.CharField(max_length=512, verbose_name=_("адрес"))
     email = models.EmailField(verbose_name=_("email"))
 
-    # def __str__(self):
-    #     return f"Shop(pk={self.pk}, name={self.name})"
+    def __repr__(self):
+        return f"Shop(pk={self.pk}, name={self.name})"
 
     def __str__(self) -> str:
         return f"{self.name}"
