@@ -43,7 +43,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     form_class = MyUserChangeForm
     template_name = "accounts/profile.jinja2"
-    login_url = "/login/"
+    login_url = "/ru/login/"
 
     def get_success_url(self):
         return reverse("accounts:profile")

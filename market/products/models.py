@@ -26,6 +26,10 @@ def delete_product(**kwargs):
 class Category(models.Model):
     """Категория"""
 
+    class Meta:
+        verbose_name = _("Категория")
+        verbose_name_plural = _("Категории")
+
     name = models.CharField(max_length=512, verbose_name=_("наименование"), unique=True)
     description = models.TextField(verbose_name=_("описание"), blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
@@ -44,6 +48,10 @@ class Category(models.Model):
 
 class Product(models.Model):
     """Продукт"""
+
+    class Meta:
+        verbose_name = _("Продукт")
+        verbose_name_plural = _("Продукты")
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
     description = models.TextField(verbose_name=_("описание"), blank=True)
@@ -115,6 +123,10 @@ def product_image_directory_path(instance: "ProductImage", filename: str) -> str
 class ProductImage(models.Model):
     """Фотографии продукта"""
 
+    class Meta:
+        verbose_name = _("Фтография продукта")
+        verbose_name_plural = _("Фотографии продуктов")
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_images")
     image = models.ImageField(upload_to=product_image_directory_path, verbose_name=_("изображение"), default=1)
     sort_image = models.IntegerField()
@@ -131,8 +143,12 @@ def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
 class Banner(models.Model):
     """Модель баннера"""
 
+    class Meta:
+        verbose_name = _("Баннер")
+        verbose_name_plural = _("Баннеры")
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="banners")
-    image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name="изображение")
+    image = models.ImageField(upload_to=banner_preview_directory_path, verbose_name=_("изображение"))
     is_active = models.BooleanField(default=True)
 
 
@@ -141,15 +157,15 @@ class Review(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        verbose_name = "Отзыв"
-        verbose_name_plural = "Отзывы"
+        verbose_name = _("Отзыв")
+        verbose_name_plural = _("Отзывы")
 
     def __str__(self) -> str:
         return f"{self.user} ({self.created_at}): {self.text}"
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт")
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Пользователь")
-    text = models.TextField(blank=True, max_length=3000, verbose_name="Отзыв")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews", verbose_name=_("Продукт"))
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=_("Пользователь"))
+    text = models.TextField(blank=True, max_length=3000, verbose_name=_("Отзыв"))
     created_at = models.DateTimeField(default=timezone.now)
 
 
@@ -165,10 +181,10 @@ class ProductsViews(models.Model):
         return f"{self.user} ({self.created_at}): {self.product}"
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="products_views", verbose_name="Пользователь"
+        User, on_delete=models.CASCADE, related_name="products_views", verbose_name=_("Пользователь")
     )  # noqa
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="products_views", verbose_name="Продукт"
+        Product, on_delete=models.CASCADE, related_name="products_views", verbose_name=_("Продукт")
     )
     created_at = models.DateTimeField(default=timezone.now)
 

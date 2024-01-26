@@ -58,6 +58,12 @@ black market
 python manage.py runserver 0.0.0.0:8000
 ```
 
+## Как запустить настройки i18n
+Запуск i18n производится в активированном локальном окружении из папки `market/`
+```shell
+python manage.py compilemessages
+```
+
 
 ## Логин и пароль для суперпользователя
 login: demon_at@mail.ru

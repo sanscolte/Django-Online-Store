@@ -57,7 +57,7 @@ class ProfileViewTest(TestCase):
     def test_profile_page_redirect_if_user_no_login(self):
         response = self.client.get(reverse("accounts:profile"))
         self.assertRedirects(
-            response=response, expected_url="/login/?next=/profile/", status_code=302, target_status_code=200
+            response=response, expected_url="/ru/login/?next=/ru/profile/", status_code=302, target_status_code=200
         )
 
     def test_profile_page_successfully(self):

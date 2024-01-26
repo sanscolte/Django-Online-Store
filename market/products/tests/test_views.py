@@ -447,7 +447,7 @@ class ImportProductsViewTest(TestCase):
         with open(file_path, "rb") as file:
             uploaded_file = SimpleUploadedFile(filename, file.read())
 
-        url: str = "/admin/products/product/import-products/"
+        url: str = "/ru/admin/products/product/import-products/"
         data = {
             "json_files": uploaded_file,
             "email": "test@example.com",
@@ -472,7 +472,7 @@ class ImportProductsViewTest(TestCase):
         with open(file_path, "rb") as file:
             uploaded_file = SimpleUploadedFile(filename, file.read())
 
-        url: str = "/admin/products/product/import-products/"
+        url: str = "/ru/admin/products/product/import-products/"
         data = {
             "json_files": uploaded_file,
             "email": "test@example.com",
@@ -500,7 +500,7 @@ class ImportProductsViewTest(TestCase):
                 uploaded_file = SimpleUploadedFile(filename, file.read())
                 files.append(uploaded_file)
 
-        url: str = "/admin/products/product/import-products/"
+        url: str = "/ru/admin/products/product/import-products/"
         data = {
             "json_files": files,
             "email": "test@example.com",
@@ -530,7 +530,7 @@ class ImportProductsViewTest(TestCase):
         with open(file_path, "rb") as file:
             uploaded_file = SimpleUploadedFile(filename, file.read())
 
-        url: str = "/admin/products/product/import-products/"
+        url: str = "/en/admin/products/product/import-products/"
         data = {
             "json_files": uploaded_file,
             "email": "test@example.com",
