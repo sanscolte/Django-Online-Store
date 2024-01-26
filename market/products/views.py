@@ -1,5 +1,6 @@
 from typing import Any, Dict
 
+from django.db import ProgrammingError
 from django.db.models import Avg, Subquery, OuterRef, CharField, Value, Count
 from django.db.models.functions import Round, Concat
 from django.core.cache import cache
@@ -34,8 +35,8 @@ def get_products_list_cache_time() -> int:
 
     try:
         timeout = SiteSetting.objects.first().product_list_cache_time
-    except AttributeError:
-        timeout = 300
+    except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+        timeout = settings.PRODUCT_LIST_CACHE_TIME
     return timeout
 
 
@@ -177,8 +178,8 @@ class ProductDetailView(DetailView, BaseComparisonView):
 
         try:
             timeout = SiteSetting.objects.first().product_cache_time
-        except AttributeError:
-            timeout = 1
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            timeout = settings.CACHE_TIME_DETAIL_PRODUCT_PAGE / 86400
         return timeout
 
     def get_context_data(self, **kwargs):

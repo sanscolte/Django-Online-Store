@@ -1,7 +1,9 @@
+from django.db import ProgrammingError
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect  # noqa F401
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.conf import settings
 
 from django.views.generic import TemplateView, View
 
@@ -16,7 +18,17 @@ import random
 from products.models import Banner, Product, Category
 
 
-@method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
+def get_products_list_cache_time() -> int:
+    """Lazy-функция для получения времени действия кэша каталога продуктов"""
+
+    try:
+        timeout = SiteSetting.objects.first().product_list_cache_time
+    except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+        timeout = settings.PRODUCT_LIST_CACHE_TIME
+    return timeout
+
+
+@method_decorator(cache_page(get_products_list_cache_time(), key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class IndexPageView(TemplateView):
     """Отоброжает главную страницу"""
 
@@ -61,8 +73,8 @@ class IndexPageView(TemplateView):
 
         try:
             timeout = SiteSetting.objects.first().banner_cache_time
-        except AttributeError:
-            timeout = 600
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            timeout = settings.BANNER_CACHE_TIME
         return timeout
 
     def get_banners_count(self) -> int:
@@ -70,8 +82,8 @@ class IndexPageView(TemplateView):
 
         try:
             count = SiteSetting.objects.first().banners_count
-        except AttributeError:
-            count = 3
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            count = settings.BANNERS_COUNT
         return count
 
 
