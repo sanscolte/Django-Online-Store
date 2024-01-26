@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "orders",
     "django_celery_beat",
     "django_celery_results",
+    "settings",
 ]
 
 MIDDLEWARE = [
@@ -189,7 +190,7 @@ FIXTURE_DIRS = ["fixtures"]
 
 PAGINATE_PRODUCTS_BY = 6
 
-CACHE_TIME = 60 * 10
+BANNER_CACHE_TIME = 60 * 10
 
 CACHE_TIME_DETAIL_PRODUCT_PAGE = 60 * 60 * 24  # кэширование характеристик товара на сутки
 
@@ -224,3 +225,13 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_DEFAULT_QUEUE = "default"
 
 CACHE_TTL = 10
+
+# Site settings
+MIN_ORDER_PRICE_FOR_FREE_SHIPPING = 2000.00
+STANDARD_ORDER_PRICE = 200.00
+EXPRESS_ORDER_PRICE = 500.00
+BANNERS_COUNT = 3
+SHOW_DAYS_OFFER = True  # need
+TOP_ITEMS_COUNT = 8  # need
+LIMITED_EDITION_COUNT = 16  # need
+PRODUCT_LIST_CACHE_TIME = 60 * 5

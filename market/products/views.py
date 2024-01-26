@@ -1,5 +1,6 @@
 from typing import Any, Dict
 
+from django.db import ProgrammingError
 from django.db.models import Avg, Subquery, OuterRef, CharField, Value, Count
 from django.db.models.functions import Round, Concat
 from django.core.cache import cache
@@ -15,6 +16,7 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 
+from settings.models import SiteSetting
 from .models import Product, ProductDetail, ProductImage, ProductsViews, ComparisonList
 from .constants import KEY_FOR_CACHE_PRODUCTS
 from .filters import ProductFilter
@@ -28,7 +30,17 @@ from cart.forms import CartAddProductForm
 from cart.services import CartServices
 
 
-@method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
+def get_products_list_cache_time() -> int:
+    """Lazy-функция для получения времени действия кэша каталога продуктов"""
+
+    try:
+        timeout = SiteSetting.objects.first().product_list_cache_time
+    except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+        timeout = settings.PRODUCT_LIST_CACHE_TIME
+    return timeout
+
+
+@method_decorator(cache_page(get_products_list_cache_time(), key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class ProductListView(FilterView):
     """Страница каталога товаров со средней ценой"""
 
@@ -161,11 +173,22 @@ class ProductDetailView(DetailView, BaseComparisonView):
     def clear_cache_for_product_detail(product_id):
         cache.delete(ProductDetailView.get_cache_key(product_id))
 
+    def get_product_cache_time(self) -> int:
+        """Lazy-функция для получения времени действия кэша характеристик продукта"""
+
+        try:
+            timeout = SiteSetting.objects.first().product_cache_time
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            timeout = settings.CACHE_TIME_DETAIL_PRODUCT_PAGE / 86400
+        return timeout
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cache_key = self.get_cache_key(self.object.pk)
         context["product_details"] = cache.get_or_set(
-            cache_key, ProductDetail.objects.filter(product=self.object), settings.CACHE_TIME_DETAIL_PRODUCT_PAGE
+            cache_key,
+            ProductDetail.objects.filter(product=self.object),
+            self.get_product_cache_time() * 86400,
         )
 
         review_service = ReviewsService(self.request, self.get_object())

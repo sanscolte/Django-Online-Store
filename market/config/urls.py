@@ -28,6 +28,7 @@ urlpatterns = i18n_patterns(
     path("discounts/", include("discounts.urls")),
     path("cart/", include("cart.urls", namespace="cart")),
     path("order/", include("orders.urls")),
+    path("settings/", include("settings.urls")),
 )
 
 if settings.DEBUG:
