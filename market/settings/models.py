@@ -3,6 +3,7 @@ from django.db import models
 
 from django.conf import settings
 from settings.singleton_model import SingletonModel
+from django.utils.translation import gettext_lazy as _
 
 
 class SiteSetting(SingletonModel):
@@ -44,8 +45,8 @@ class SiteSetting(SingletonModel):
     )
 
     def __str__(self) -> str:
-        return "site settings"
+        return _("Настройки сайта")
 
     class Meta:
-        verbose_name_plural = "settings"
-        verbose_name = "setting"
+        verbose_name_plural = _("настройки")
+        verbose_name = _("настройка")
