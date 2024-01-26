@@ -3,7 +3,7 @@ from _decimal import Decimal
 from django.http import HttpRequest
 
 from cart.services import CartServices
-from .constants import standard_order_price, express_order_price
+from settings.models import SiteSetting
 
 
 class OrderService:
@@ -20,8 +20,8 @@ class OrderService:
         total_price = CartServices.get_total_price_with_discount()
         shops = CartServices.get_shops_in_cart()
         if self.request.session["delivery"] == "express":
-            total_price += express_order_price
+            total_price += SiteSetting.objects.first().express_order_price
         else:
-            if total_price < 2000 or len(shops) > 1:
-                total_price += standard_order_price
+            if total_price < SiteSetting.objects.first().min_order_price_for_free_shipping or len(shops) > 1:
+                total_price += SiteSetting.objects.first().standard_order_price
         return total_price

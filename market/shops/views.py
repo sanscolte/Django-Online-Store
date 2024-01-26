@@ -1,7 +1,9 @@
+from django.db import ProgrammingError
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect  # noqa F401
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.conf import settings
 
 from django.views.generic import TemplateView, View
 
@@ -10,13 +12,23 @@ from cart.services import CartServices
 from discounts.models import DiscountProduct
 from products.constants import KEY_FOR_CACHE_PRODUCTS
 from .models import Shop, Offer
+from settings.models import SiteSetting
 
 import random
-from config.settings import CACHE_TIME
-from products.models import Banner, Product
+from products.models import Banner, Product, Category
 
 
-@method_decorator(cache_page(60 * 5, key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
+def get_products_list_cache_time() -> int:
+    """Lazy-функция для получения времени действия кэша каталога продуктов"""
+
+    try:
+        timeout = SiteSetting.objects.first().product_list_cache_time
+    except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+        timeout = settings.PRODUCT_LIST_CACHE_TIME
+    return timeout
+
+
+@method_decorator(cache_page(get_products_list_cache_time(), key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class IndexPageView(TemplateView):
     """Отоброжает главную страницу"""
 
@@ -26,11 +38,12 @@ class IndexPageView(TemplateView):
         """Добавление баннеров и времени кэша в контекст шаблона"""
 
         context = super().get_context_data(**kwargs)
-        context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=3)
-        context["cache_time"] = CACHE_TIME
         context["discount_product"] = random.choice(DiscountProduct.objects.all())
         context["filtered_offers"] = Offer.objects.filter(remains__lte=50)
         context["cart_form"] = CartAddProductForm(initial={"quantity": 1, "update": False})
+        context["categories"] = Category.objects.all()
+        context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=self.get_banners_count())
+        context["banner_cache_time"] = self.get_banner_cache_time()
         return context
 
     def post(self, request: HttpRequest, **kwargs):
@@ -54,6 +67,24 @@ class IndexPageView(TemplateView):
                 update_quantity=True,
             )
         return redirect("shops:home")
+
+    def get_banner_cache_time(self) -> int:
+        """Lazy-функция для получения времени действия кэша баннеров"""
+
+        try:
+            timeout = SiteSetting.objects.first().banner_cache_time
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            timeout = settings.BANNER_CACHE_TIME
+        return timeout
+
+    def get_banners_count(self) -> int:
+        """Lazy-функция для получения количества баннеров"""
+
+        try:
+            count = SiteSetting.objects.first().banners_count
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            count = settings.BANNERS_COUNT
+        return count
 
 
 class ShopDetailView(View):
