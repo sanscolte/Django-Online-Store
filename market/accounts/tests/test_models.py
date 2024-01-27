@@ -8,7 +8,7 @@ class UserFixturesTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def test_fixtures_len(self):

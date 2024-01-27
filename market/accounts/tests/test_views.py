@@ -8,7 +8,7 @@ class MyRegistrationViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def test_registration_page_exist_at_desired_location(self):
@@ -45,7 +45,7 @@ class ProfileViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def test_profile_page_exist_at_desired_location(self):
@@ -84,7 +84,7 @@ class PasswordResetViewViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def test_reset_password_page_exist_at_desired_location(self):
@@ -117,7 +117,7 @@ class AccountViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def test_account_page_exist_at_desired_location(self):

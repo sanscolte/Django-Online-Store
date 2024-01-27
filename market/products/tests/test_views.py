@@ -126,7 +126,7 @@ class ProductDetailReviewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -185,7 +185,7 @@ class ProductDetailViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
     ]
@@ -210,7 +210,7 @@ class ProductsViewsServiceTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -251,7 +251,7 @@ class HistoryProductsViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
     ]
@@ -283,7 +283,7 @@ class BaseComparisonViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -345,7 +345,7 @@ class ComparisonListViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -376,7 +376,7 @@ class AddToComparisonListViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def setUp(self):
@@ -405,7 +405,7 @@ class RemoveFromComparisonListViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def setUp(self):
