@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Type
 
 from django.db import ProgrammingError
 from django.db.models import Avg, Subquery, OuterRef, CharField, Value, Count
@@ -6,7 +6,7 @@ from django.db.models.functions import Round, Concat
 from django.core.cache import cache
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from django.http import HttpRequest, HttpResponseNotFound
+from django.http import HttpRequest, HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404  # noqa F401
 from django.views import View
 
@@ -16,6 +16,7 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 
+from accounts.models import User
 from settings.models import SiteSetting
 from .models import Product, ProductDetail, ProductImage, ProductsViews, ComparisonList
 from .constants import KEY_FOR_CACHE_PRODUCTS
@@ -92,7 +93,11 @@ class ProductListView(FilterView):
 
 
 class BaseComparisonView(View):
-    def get_comparison_list(self, request):
+    """Базовое представление списка сравнения продуктов"""
+
+    def get_comparison_list(self, request: HttpRequest) -> "ComparisonList":
+        """Функция для получения списка сравнения"""
+
         comparison_list_id = request.session.get("comparison_list_id")
 
         if comparison_list_id:
@@ -103,17 +108,23 @@ class BaseComparisonView(View):
 
         return comparison_list
 
-    def get_comparison_count(self, request, limit=3):
+    def get_comparison_count(self, request: HttpRequest, limit=3) -> int | bool:
+        """Функция для получения количества продуктов в списке сравнения"""
+
         user_comparison_list = self.get_comparison_list(request)
         count = user_comparison_list.products.count()
         return count if count < limit else False
 
-    def is_product_in_comparison(self, user, product_id):
+    def is_product_in_comparison(self, user: "User", product_id: int) -> int:
+        """Функция для проверки наличия продукта в списке сравнения"""
+
         user_comparison_list = self.get_comparison_list(self.request)
         return product_id in user_comparison_list.products.values_list("id", flat=True)
 
 
 class ComparisonListView(ListView, BaseComparisonView):
+    """Представление списка сравнения продуктов"""
+
     model = ComparisonList
     template_name = "products/comparison-products.jinja2"
 
@@ -156,21 +167,29 @@ class ComparisonListView(ListView, BaseComparisonView):
 
 
 @receiver([post_save, post_delete], sender=ProductDetail)
-def clear_product_detail_cache(sender, instance, **kwargs):
+def clear_product_detail_cache(sender: Type[ProductDetail], instance: ProductDetail, **kwargs) -> None:
+    """Функция очистки кэша характеристик продукта при получении сигналов post_save или post_delete"""
+
     ProductDetailView.clear_cache_for_product_detail(instance.product.pk)
 
 
 class ProductDetailView(DetailView, BaseComparisonView):
+    """Представление страницы характеристик продукта"""
+
     model = Product
     template_name = "products/product-details.jinja2"
     context_object_name = "product"
 
     @staticmethod
-    def get_cache_key(product_id):
+    def get_cache_key(product_id: int) -> str:
+        """Функция для получения ключа кэша"""
+
         return f"product_detail_{str(product_id)}"
 
     @staticmethod
-    def clear_cache_for_product_detail(product_id):
+    def clear_cache_for_product_detail(product_id: int) -> None:
+        """Функция для очистки кэша по ключу"""
+
         cache.delete(ProductDetailView.get_cache_key(product_id))
 
     def get_product_cache_time(self) -> int:
@@ -225,7 +244,9 @@ class ProductDetailView(DetailView, BaseComparisonView):
         else:
             return HttpResponseNotFound("Ошибка!")
 
-    def handle_review(self, request):
+    def handle_review(self, request: HttpRequest) -> HttpResponse:
+        """Функция для обработки формы добавления отзыва в POST-методе"""
+
         review_form = ReviewForm(request.POST)
 
         if review_form.is_valid():
@@ -236,7 +257,9 @@ class ProductDetailView(DetailView, BaseComparisonView):
 
         return HttpResponseNotFound("Ошибка!")
 
-    def handle_cart(self, request):
+    def handle_cart(self, request: HttpRequest) -> HttpResponse:
+        """Функция для обработки форма добавления товара в корзину в POST-методе"""
+
         cart_form = CartAddProductForm(request.POST)
 
         if cart_form.is_valid():
@@ -255,6 +278,8 @@ class ProductDetailView(DetailView, BaseComparisonView):
 
 
 class AddToComparisonListView(ProductDetailView):
+    """Представление добавления продукта в список сравнения продуктов"""
+
     def post(self, request, **kwargs):
         product_id = request.POST.get("product_id")
         product = get_object_or_404(Product, id=product_id)
@@ -265,6 +290,8 @@ class AddToComparisonListView(ProductDetailView):
 
 
 class RemoveFromComparisonListView(ProductDetailView):
+    """Представление удаления продукта из списка сравнения продуктов"""
+
     def post(self, request, **kwargs):
         product_id = request.POST.get("product_id")
         product = get_object_or_404(Product, id=product_id)

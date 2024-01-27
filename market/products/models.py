@@ -14,17 +14,17 @@ from django.db.models import signals
 
 
 def save_product(**kwargs):
-    """Удаление кэша при получение сигнала об изменении или создании продукта"""
+    """Удаление кэша при получении сигнала об изменении или создании продукта"""
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 def delete_product(**kwargs):
-    """Удаление кэша при получение сигнала об удалении продукта"""
+    """Удаление кэша при получении сигнала об удалении продукта"""
     cache.delete(KEY_FOR_CACHE_PRODUCTS)
 
 
 class Category(models.Model):
-    """Категория"""
+    """Модель категории товара"""
 
     class Meta:
         verbose_name = _("Категория")
@@ -47,7 +47,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    """Продукт"""
+    """Модель продукта"""
 
     class Meta:
         verbose_name = _("Продукт")
@@ -92,23 +92,32 @@ signals.post_delete.connect(receiver=delete_product, sender=Product)
 
 
 class Detail(models.Model):
-    """Свойство продукта"""
+    """Модель характеристики продукта"""
 
     name = models.CharField(max_length=512, verbose_name=_("наименование"))
 
     def __str__(self) -> str:
         return f"{self.name}"
 
+    class Meta:
+        verbose_name = _("Характеристика")
+        verbose_name_plural = _("Характеристики")
+
 
 class ProductDetail(models.Model):
-    """Значение свойства продукта"""
+    """Модель значения характеристики продукта"""
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     detail = models.ForeignKey(Detail, on_delete=models.CASCADE, verbose_name=_("характеристика"), default=0)
     value = models.CharField(max_length=128, verbose_name=_("значение"))
 
+    def __str__(self) -> str:
+        return f"{self.detail.name} товара {self.product.name}"
+
     class Meta:
         constraints = [models.UniqueConstraint("product", "detail", name="unique_detail_for_product")]
+        verbose_name = _("Характеристика продукта")
+        verbose_name_plural = _("Характеристики продукта")
 
 
 def product_image_directory_path(instance: "ProductImage", filename: str) -> str:
@@ -121,11 +130,14 @@ def product_image_directory_path(instance: "ProductImage", filename: str) -> str
 
 
 class ProductImage(models.Model):
-    """Фотографии продукта"""
+    """Модель фотографий продукта"""
 
     class Meta:
-        verbose_name = _("Фтография продукта")
+        verbose_name = _("Фотография продукта")
         verbose_name_plural = _("Фотографии продуктов")
+
+    def __str__(self) -> str:
+        return f"Фотографии товара {self.product.name}"
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_images")
     image = models.ImageField(upload_to=product_image_directory_path, verbose_name=_("изображение"), default=1)
@@ -134,6 +146,7 @@ class ProductImage(models.Model):
 
 def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
     """Функция создания уникального пути к баннеру"""
+
     return "banners/{product}/{filename}".format(
         product=instance.product.name,
         filename=filename,
@@ -190,12 +203,17 @@ class ProductsViews(models.Model):
 
 
 class ComparisonList(models.Model):
-    """Модель сравнения продуктов"""
+    """Модель списка сравнения продуктов"""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)
 
-    # TODO добавить строковое представление и класс Meta
+    class Meta:
+        verbose_name = _("Список сравнения")
+        verbose_name_plural = _("Списки сравнения")
+
+    def __str__(self) -> str:
+        return f"Список сравнения пользователя {self.user.name}"
 
 
 class ProductImport(models.Model):

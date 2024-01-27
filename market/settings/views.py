@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.http import HttpRequest
 from django.views.generic import ListView
 
 from settings.forms import SettingsForm, ClearCacheForm
@@ -34,7 +35,9 @@ class SettingsView(ListView):
 
         return self.get(request, context=settings_form, *args, **kwargs)
 
-    def handle_cache_clear(self, request, clear_cache_form):
+    def handle_cache_clear(self, request: HttpRequest, clear_cache_form: "ClearCacheForm") -> None:
+        """Функция для обработки формы очистки кэша"""
+
         if clear_cache_form.cleaned_data.get("clear_all_cache"):
             self.clear_all_cache()
         elif clear_cache_form.cleaned_data.get("clear_product_detail_cache"):
@@ -42,13 +45,13 @@ class SettingsView(ListView):
         elif clear_cache_form.cleaned_data.get("clear_product_list_cache"):
             self.clear_cache_for_some_pages("products")
 
-    def clear_all_cache(self):
-        """Очистка кэша всего сайта"""
+    def clear_all_cache(self) -> None:
+        """Функция для очистки кэша всего сайта"""
 
         cache.clear()
 
-    def clear_cache_for_some_pages(self, part_key):
-        """Очистка кэша для определённых страниц сайта"""
+    def clear_cache_for_some_pages(self, part_key: str) -> None:
+        """Функция для очистки кэша определённых страниц сайта по части ключа кэша"""
 
         keys_to_delete = [
             key[3:].decode("utf-8") for key in cache._cache.get_client().scan_iter(match=f"*{part_key}*")
@@ -56,8 +59,8 @@ class SettingsView(ListView):
         for key in keys_to_delete:
             cache.delete(key)
 
-    def get_settings_dict(self):
-        """Получение словаря настроек сайта"""
+    def get_settings_dict(self) -> dict:
+        """Функция для получения словаря настроек сайта"""
 
         temp_settings = SiteSetting.objects.first()
         settings_dict = {}
