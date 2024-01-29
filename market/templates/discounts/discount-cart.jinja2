@@ -22,18 +22,18 @@
                     </div>
 
                     <div class="product-images">
-                        <img src="{{ static('img/content/sale/cart.png') }}" alt="Изображение товара">
+                        <img src="{{ static('img/content/sale/cart.png') }}" alt="{{ _('Изображение товара') }}">
                     </div>
                     <div class="Tabs Tabs_default">
                         <div class="Tabs-links">
                             <a class="Tabs-link" href="#description">
-                                <span>Описание</span>
+                                <span>{{ _('Описание') }}</span>
                             </a>
                         </div>
                         <div class="Tabs-wrap">
                             <div class="Tabs-block" id="description">
-                                <h3>Событие: {{ discount_cart.name }}</h3>
-                                <h3>Процент скидки: {{ discount_cart.percentage }}</h3>
+                                <h3>{{ _('Событие') }}: {{ discount_cart.name }}</h3>
+                                <h3>{{ _('Процент скидки') }}: {{ discount_cart.percentage }}</h3>
                             </div>
                         </div>
                     </div>
