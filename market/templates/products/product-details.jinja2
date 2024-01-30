@@ -15,7 +15,7 @@
                                     {% for image in images %}
                                         <div class="Slider-item">
                                             <div class="Slider-content Profile-img">
-                                                <img src="{{ image.image.url }}" alt="Изображение товара">
+                                                <img src="{{ image.image.url }}" alt="{{ _('Изображение товара') }}">
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -25,23 +25,23 @@
                                 </div>
                             </div>
                         {% else %}
-                            <h3>У товара пока нет фотографий!</h3>
+                            <h3>{{ _('У товара пока нет фотографий') }}!</h3>
                         {% endif %}
                     </div>
 
                     <div class="Tabs Tabs_default">
                         <div class="Tabs-links">
                             <a class="Tabs-link" href="#description">
-                                <span>Описание</span>
+                                <span>{{ _('Описание') }}</span>
                             </a>
                             <a class="Tabs-link" href="#offers">
-                                <span>Предложения</span>
+                                <span>{{ _('Предложения') }}</span>
                             </a>
                             <a class="Tabs-link" href="#details">
-                                <span>Характеристики</span>
+                                <span>{{ _('Характеристики') }}</span>
                             </a>
                             <a class="Tabs-link" href="#reviews">
-                                <span>Отзывы ({{ reviews_count }})</span>
+                                <span>{{ _('Отзывы') }} ({{ reviews_count }})</span>
                             </a>
                         </div>
                         <div class="Tabs-wrap">
@@ -59,7 +59,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="action" value="remove_from_comparison">
                             <input type="hidden" name="product_id" value="{{ product.pk }}">
-                            <button type="submit">Удалить из списка сравнения</button>
+                            <button type="submit">{{ _('Удалить из списка сравнения') }}</button>
                         </form>
                     {% else %}
                         <form method="post" action="{{ url('products:add-to-list', pk=product.pk) }}">
@@ -67,16 +67,16 @@
                             <input type="hidden" name="action" value="add_to_comparison">
                             <input type="hidden" name="product_id" value="{{ product.pk }}">
                             {% if comparison_count is not boolean %}
-                                <button type="submit">Добавить в список сравнения</button>
+                                <button type="submit">{{ _('Добавить в список сравнения') }}</button>
                             {% else %}
-                                <b>В списке сравнения максимальное количество товаров!</b>
-                                <button type="submit" disabled="disabled">Добавить в список сравнения</button>
+                                <b>{{ _('В списке сравнения максимальное количество товаров') }}!</b>
+                                <button type="submit" disabled="disabled">{{ _('Добавить в список сравнения') }}</button>
                             {% endif %}
                         </form>
                     {% endif %}
 
                     <div class="discounts">
-                        <h3>Скидки:</h3>
+                        <h3>{{ _('Скидки') }}:</h3>
                     </div>
 
                     <div>

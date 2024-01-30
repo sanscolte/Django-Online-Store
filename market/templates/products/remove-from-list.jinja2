@@ -6,9 +6,9 @@
         <div class="Section">
             <div class="wrap">
                 <div class="Product">
-                    <p>{{ product.name }} удалён из списка сравнения!</p>
+                    <p>{{ product.name }} {{ _('удалён из списка сравнения') }}!</p>
                 </div>
-                <button href="{{ product.get_absolute_url() }}">Назад к товару</button>
+                <button href="{{ product.get_absolute_url() }}">{{ _('Назад к товару') }}</button>
             </div>
         </div>
     </div>
