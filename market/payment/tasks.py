@@ -1,9 +1,13 @@
 from celery import shared_task
+
+from payment.models import BankTransaction
 from payment.services import PaymentService
 
 
 @shared_task
-def pay(order_id, card_number, total_price):
+def pay():
     """Задача оплаты заказа"""
-    payment = PaymentService(order_id, card_number, total_price)
-    return payment.pay()
+
+    for transaction in BankTransaction.objects.filter(is_success=None):
+        payment = PaymentService(transaction.order, transaction.card_number, transaction.total_price)
+        payment.pay()
