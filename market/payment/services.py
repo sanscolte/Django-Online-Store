@@ -19,6 +19,8 @@ class PaymentService:
             # transaction.save()
 
             # TODO сделать уменьшение остатков в модели Offer
+            # for item in OrderItem.objects.filter(order=self.order):
+            #     item.offer.remains -= item.quantity
 
             return f"Оплата заказа №{self.order_id} с карты {self.card_number} на сумму ${self.total_price}"
         else:
