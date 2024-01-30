@@ -1,5 +1,4 @@
 from celery import shared_task
-
 from payment.services import PaymentService
 
 

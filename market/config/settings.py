@@ -18,6 +18,9 @@ from dotenv import dotenv_values
 
 import dj_database_url
 
+from config.celery import app  # noqa
+from payment.tasks import pay  # noqa
+
 config = dotenv_values(os.path.join("..", ".env"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -212,5 +215,19 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_DEFAULT_QUEUE = "default"
+
+# CELERY BEAT
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BEAT_SCHEDULE = {
+    "update_payment_status": {
+        "task": "payment.tasks.pay",
+        "schedule": timedelta(minutes=2),
+        "args": (),
+    },
+}
+
+# @app.on_after_configure.connect
+# def setup_periodic_tasks(sender, **kwargs):
+#     sender.add_periodic_task(120, pay.s())
 
 CACHE_TTL = 10
