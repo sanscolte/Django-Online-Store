@@ -116,7 +116,7 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-                                {% if order.status != "paid" %}
+                                {% if order.status == "created" %}
                                     <div class="Cart-total">
                                         <div class="Cart-block Cart-block_total">
                                             <strong class="Cart-title">Итого:<span class="Cart-price">{{ order.total_price }}$</span>
