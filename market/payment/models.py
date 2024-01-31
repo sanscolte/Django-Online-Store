@@ -16,4 +16,4 @@ class BankTransaction(models.Model):
     is_success = models.BooleanField(null=True)
 
     def __str__(self):
-        return f"{self.is_success} - {self.order_id} - {self.card_number}"
+        return f"{self.is_success} - {self.total_price} - {self.order.id} - {self.card_number}"

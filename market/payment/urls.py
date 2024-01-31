@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from payment.views import (
     PaymentWithCardView,
+    PaymentFromSomeonesAccount,
     ProgressPaymentView,
     BankTransactionViewSet,
 )
@@ -13,7 +14,8 @@ routers = DefaultRouter()
 routers.register(r"banktransactions", BankTransactionViewSet)
 
 urlpatterns = [
-    path("payment/", include(routers.urls)),
+    path("api/", include(routers.urls)),
     path("with-card/", PaymentWithCardView.as_view(), name="payment_with_card"),
+    path("someone-account/", PaymentFromSomeonesAccount.as_view(), name="payment_someone"),
     path("progress/", ProgressPaymentView.as_view(), name="progress_payment"),
 ]

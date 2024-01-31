@@ -11,17 +11,27 @@ from payment.tasks import pay
 
 
 class BankTransactionViewSet(ModelViewSet):
+    """API для создания модели оплаты"""
+
     queryset = BankTransaction.objects.all()
     serializer_class = BankTransactionSerializer
 
 
 class PaymentWithCardView(PaymentMixin, TemplateView):
-    """Отображение шаблона оплаты заказа с карты"""
+    """Представление оплаты заказа с карты"""
 
     template_name = "payment/payment_with_card.jinja2"
 
 
+class PaymentFromSomeonesAccount(PaymentMixin, TemplateView):
+    """Представление оплаты с чужого счета"""
+
+    template_name = "payment/payment_someone.jinja2"
+
+
 class ProgressPaymentView(TemplateView):
+    """Представление прогресса оплаты заказа"""
+
     template_name = "payment/progress_payment.jinja2"
 
     def get(self, request, *args, **kwargs):

@@ -5,4 +5,4 @@ from payment.models import BankTransaction
 class BankTransactionSerializer(ModelSerializer):
     class Meta:
         model = BankTransaction
-        fields = "__all__"
+        fields = "order", "card_number", "total_price"
