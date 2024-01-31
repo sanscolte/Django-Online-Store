@@ -3,10 +3,10 @@
         {% if offers %}
             {% for offer in offers %}
                 <div>
-                    <img src='{{ offer.shop.image.url }}' alt='Изображение магазина'>
-                    <h4>Магазин: {{ offer.shop }}</h4>
-                    <p>Цена: {{ offer.price }}</p>
-                    <b>Товаров осталось: {{ offer.remains }}</b>
+                    <img src='{{ offer.shop.image.url }}' alt='{{ _('Изображение магазина') }}>
+                    <h4>{{ _('Магазин') }}: {{ offer.shop }}</h4>
+                    <p>{{ _('Цена') }}: {{ offer.price }}</p>
+                    <b>{{ _('Товаров осталось') }}: {{ offer.remains }}</b>
                     <form class="ProductCard-cart" method="post">{% csrf_token %}
                         <div class="ProductCard-cartElement ProductCard-cartElement_amount">
                             <div class="Amount Amount_product">
@@ -17,13 +17,13 @@
                             </div>
                         </div>
                         <input type="hidden" name="action" value="add_to_cart">
-                        <div class="ProductCard-cartElement"><button class="btn btn_primary" type="submit" name="btnform1"><img class="btn-icon" src="{{ static('img/icons/card/cart_white.svg')}}" alt="cart_white.svg"/><span class="btn-content">В корзину</span></button>
+                        <div class="ProductCard-cartElement"><button class="btn btn_primary" type="submit" name="btnform1"><img class="btn-icon" src="{{ static('img/icons/card/cart_white.svg')}}" alt="cart_white.svg"/><span class="btn-content">{{ _('В корзину') }}</span></button>
                         </div>
                     </form>
                 </div>
             {% endfor %}
         {% else %}
-            <h3>Пока нет предложений от продавцов!</h3>
+            <h3>{{ _('Пока нет предложений от продавцов') }}!</h3>
         {% endif %}
     </div>
 </div>

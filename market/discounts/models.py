@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 from products.models import Product, Category
 
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -10,10 +10,10 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class DiscountBase(models.Model):
     """Базовая модель скидок"""
 
-    name = models.CharField(max_length=100, verbose_name="наименование события")
-    percentage = models.PositiveIntegerField(default=0, verbose_name="процент скидки")
-    start_date = models.DateField()
-    end_date = models.DateField()
+    name = models.CharField(max_length=100, verbose_name=_("наименование события"))
+    percentage = models.PositiveIntegerField(default=0, verbose_name=_("процент скидки"))
+    start_date = models.DateField(verbose_name=_("начало действия"))
+    end_date = models.DateField(verbose_name=_("окончание действия"))
 
     class Meta:
         abstract = True
@@ -32,8 +32,8 @@ class DiscountProduct(DiscountBase):
     products = models.ManyToManyField(Product, related_name="discount_products")
 
     class Meta:
-        verbose_name = "Скидка для продукта"
-        verbose_name_plural = "Скидки для продуктов"
+        verbose_name = _("Скидка для продукта")
+        verbose_name_plural = _("Скидки для продуктов")
 
 
 class DiscountSet(DiscountBase):
@@ -43,13 +43,13 @@ class DiscountSet(DiscountBase):
     weight = models.DecimalField(
         max_digits=3,
         decimal_places=2,
-        verbose_name="вес скидки",
+        verbose_name=_("вес скидки"),
         validators=[MinValueValidator(0.01), MaxValueValidator(1.00)],
     )
 
     class Meta:
-        verbose_name = "Скидка для набора"
-        verbose_name_plural = "Скидки на наборов"
+        verbose_name = _("Скидка для набора")
+        verbose_name_plural = _("Скидки на наборов")
 
 
 class DiscountCart(DiscountBase):
@@ -58,12 +58,12 @@ class DiscountCart(DiscountBase):
     weight = models.DecimalField(
         max_digits=3,
         decimal_places=2,
-        verbose_name="вес скидки",
+        verbose_name=_("вес скидки"),
         validators=[MinValueValidator(0.01), MaxValueValidator(1.00)],
     )
-    price_from = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="диапазон цены от")
-    price_to = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="диапазон цены до")
+    price_from = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("диапазон цены от"))
+    price_to = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("диапазон цены до"))
 
     class Meta:
-        verbose_name = "Скидка для корзины"
-        verbose_name_plural = "Скидки для корзины"
+        verbose_name = _("Скидка для корзины")
+        verbose_name_plural = _("Скидки для корзины")

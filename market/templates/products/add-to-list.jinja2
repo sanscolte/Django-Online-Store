@@ -7,13 +7,13 @@
             <div class="wrap">
                 <div class="Product">
                     {% if get_comparison_count %}
-                        <p>{{ product.name }} добавлен в список сравнения!</p>
+                        <p>{{ product.name }} {{ _('добавлен в список сравнения') }}!</p>
                     {% else %}
-                        <p>{{ product.name }} не добавлен в список сравнения!</p>
-                        <p>Достигнуто максимальное число товаров в списке сравнения</p>
+                        <p>{{ product.name }} {{ _('не добавлен в список сравнения') }}!</p>
+                        <p>{{ _('Достигнуто максимальное число товаров в списке сравнения') }}</p>
                     {% endif %}
                 </div>
-            <button href="{{ product.get_absolute_url() }}">Назад к товару</button>
+            <button href="{{ product.get_absolute_url() }}">{{ _('Назад к товару') }}</button>
             </div>
         </div>
     </div>

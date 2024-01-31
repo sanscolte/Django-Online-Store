@@ -15,11 +15,9 @@ from pathlib import Path
 
 from celery.schedules import crontab  # noqa
 from dotenv import dotenv_values
+from django.utils.translation import gettext_lazy as _
 
 import dj_database_url
-
-from config.celery import app  # noqa
-from payment.tasks import pay  # noqa
 
 config = dotenv_values(os.path.join("..", ".env"))
 
@@ -62,6 +60,8 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "payment",
+    "rest_framework",
+    "settings",
 ]
 
 MIDDLEWARE = [
@@ -73,6 +73,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -150,13 +151,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = False
+
+USE_L10N = True
+
+LOCALE_PATHS = [BASE_DIR / "locale/"]
+
+LANGUAGES = [
+    ("en", _("English")),
+    ("ru", _("Russian")),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -182,7 +192,7 @@ FIXTURE_DIRS = ["fixtures"]
 
 PAGINATE_PRODUCTS_BY = 6
 
-CACHE_TIME = 60 * 10
+BANNER_CACHE_TIME = 60 * 10
 
 CACHE_TIME_DETAIL_PRODUCT_PAGE = 60 * 60 * 24  # кэширование характеристик товара на сутки
 
@@ -226,8 +236,14 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# @app.on_after_configure.connect
-# def setup_periodic_tasks(sender, **kwargs):
-#     sender.add_periodic_task(120, pay.s())
-
 CACHE_TTL = 10
+
+# Site settings
+MIN_ORDER_PRICE_FOR_FREE_SHIPPING = 2000.00
+STANDARD_ORDER_PRICE = 200.00
+EXPRESS_ORDER_PRICE = 500.00
+BANNERS_COUNT = 3
+SHOW_DAYS_OFFER = True  # need
+TOP_ITEMS_COUNT = 8  # need
+LIMITED_EDITION_COUNT = 16  # need
+PRODUCT_LIST_CACHE_TIME = 60 * 5
