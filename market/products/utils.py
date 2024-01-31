@@ -23,5 +23,4 @@ def send_email(receiver: str, message: str) -> None:
         text = MIMEText(message)
         email.attach(text)
 
-        server.connect()
         server.sendmail(settings.DEFAULT_FROM_EMAIL, receiver, email.as_string())
