@@ -23,12 +23,6 @@ class PaymentWithCardView(PaymentMixin, TemplateView):
     template_name = "payment/payment_with_card.jinja2"
 
 
-class PaymentFromSomeonesAccount(PaymentMixin, TemplateView):
-    """Представление оплаты с чужого счета"""
-
-    template_name = "payment/payment_someone.jinja2"
-
-
 class ProgressPaymentView(TemplateView):
     """Представление прогресса оплаты заказа"""
 

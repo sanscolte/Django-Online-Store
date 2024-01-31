@@ -22,7 +22,7 @@ class BankTransactionAPITest(TestCase):
 
     def test_post_bank_transaction(self):
         """Тест создания нового экземпляра модели оплаты заказа"""
-        url: str = "/payment/api/banktransactions/"
+        url: str = "/ru/payment/api/banktransactions/"
         data: Dict[str, Union[int, str, float]] = {
             "order": self.order.pk,
             "card_number": "1111 1111",
@@ -41,7 +41,7 @@ class BankTransactionAPITest(TestCase):
         BankTransaction.objects.create(order=self.order, card_number="2222 2222", total_price=100.00)
         BankTransaction.objects.create(order=self.new_order, card_number="3333 3333", total_price=200.00)
 
-        url: str = "/payment/api/banktransactions/"
+        url: str = "/ru/payment/api/banktransactions/"
         response: Response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -53,7 +53,7 @@ class BankTransactionAPITest(TestCase):
             order=self.order, card_number="4444 4444", total_price=500.00
         )
 
-        url: str = f"/payment/api/banktransactions/{bank_transaction.id}/"
+        url: str = f"/ru/payment/api/banktransactions/{bank_transaction.id}/"
         response: Response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -67,7 +67,7 @@ class BankTransactionAPITest(TestCase):
             order=self.order, card_number="5555 5555", total_price=100.00
         )
 
-        url: str = f"/payment/api/banktransactions/{bank_transaction.id}/"
+        url: str = f"/ru/payment/api/banktransactions/{bank_transaction.id}/"
         data: Dict[str, Union[int, str, float]] = {
             "order": self.new_order.pk,
             "card_number": "5555 5555",
@@ -86,7 +86,7 @@ class BankTransactionAPITest(TestCase):
             order=self.order, card_number="6666 6666", total_price=100.00
         )
 
-        url: str = f"/payment/api/banktransactions/{bank_transaction.id}/"
+        url: str = f"/ru/payment/api/banktransactions/{bank_transaction.id}/"
         response: Response = self.client.delete(url)
 
         self.assertEqual(response.status_code, 204)

@@ -115,8 +115,6 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
             )
         if request.session["payment"] == "card":
             return HttpResponseRedirect(reverse("shops:home"))
-        elif request.session["payment"] == "random":
-            return HttpResponseRedirect(reverse("payment:payment_someone"))
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
