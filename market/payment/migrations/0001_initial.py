@@ -7,10 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
     initial = True
 
-    dependencies = [
-        ("orders", "0002_order_total_price"),
-    ]
-
     operations = [
         migrations.CreateModel(
             name="BankTransaction",
