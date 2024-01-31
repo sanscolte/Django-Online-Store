@@ -2,17 +2,16 @@ import json
 import logging
 import os
 import shutil
-import ssl
 
 from celery import shared_task
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.core.mail import send_mail
 from django.utils import timezone
 from pydantic import BaseModel, Field
 
 from products.models import Product, Category
+from products.utils import send_email
 from shops.models import Shop, Offer
 
 from products.models import ProductImport
@@ -65,6 +64,7 @@ class ProductImportFile(BaseModel):
 @shared_task
 def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
     set_import_status("В процессе выполнения")
+    message = ""
 
     for file_id in file_ids:
         file_obj = ProductImport.objects.get(id=file_id)
@@ -86,9 +86,8 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
                 is_success = False
 
             if is_success:
-                message: str = (
-                    f"Были успешно импортированы продукты от {pif.shop_name}: {pif.product_name}, "
-                    f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
+                message += (
+                    f'Успешный импорт продуктов {timezone.now().strftime("%d-%b-%y %H:%M:%S")} от {pif.shop_name}\n'
                 )
 
                 created_category = Category.objects.get_or_create(name=pif.category)[0]
@@ -120,21 +119,9 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
 
             else:
                 set_import_status("Завершён с ошибкой")
-                message: str = (
-                    f"Были неуспешно импортированы продукты от {pif.shop_name}: {pif.product_name}, "
-                    f'{timezone.now().strftime("%d-%b-%y %H:%M:%S")}'
+                message += (
+                    f'Неуспешный импорт продуктов {timezone.now().strftime("%d-%b-%y %H:%M:%S")} от {pif.shop_name}\n'
                 )
-
-            try:
-                send_mail(
-                    subject="Импорт продуктов",
-                    message=message,
-                    recipient_list=[email],
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    fail_silently=False,
-                )
-            except ssl.SSLCertVerificationError:
-                pass
 
             log_data = pif.model_dump(exclude={"product_description", "shop_description"})
             log_data["is_success"] = is_created
@@ -144,6 +131,8 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
             shutil.move(file_path, success_location)
         else:
             shutil.move(file_path, fail_location)
+
+    send_email(email, message)
 
 
 def get_import_status() -> str:
