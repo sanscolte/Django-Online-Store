@@ -11,16 +11,17 @@ def send_email(receiver: str, message: str) -> None:
     :param receiver: Email пользователя
     :param message: Сообщение
     """
-    with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
-        server.starttls()
-        server.login(settings.DEFAULT_FROM_EMAIL, settings.EMAIL_HOST_PASSWORD)
+    server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+    server.starttls()
+    server.login(settings.DEFAULT_FROM_EMAIL, settings.EMAIL_HOST_PASSWORD)
 
-        email = MIMEMultipart()
-        email["Subject"] = "Импорт продуктов"
-        email["From"] = settings.DEFAULT_FROM_EMAIL
-        email["To"] = receiver
+    email = MIMEMultipart()
+    email["Subject"] = "Импорт продуктов"
+    email["From"] = settings.DEFAULT_FROM_EMAIL
+    email["To"] = receiver
 
-        text = MIMEText(message)
-        email.attach(text)
+    text = MIMEText(message)
+    email.attach(text)
 
-        server.sendmail(settings.DEFAULT_FROM_EMAIL, receiver, email.as_string())
+    server.sendmail(settings.DEFAULT_FROM_EMAIL, receiver, email.as_string())
+    server.quit()
