@@ -4,7 +4,7 @@
 
     <div class="wrapper">
         <div class="header">
-            <h3 class="sign-in">Регистрация</h3>
+            <h3 class="sign-in">{{ _('Регистрация') }}</h3>
         </div>
         <div class="clear"></div>
             <form class="form Profile-form" enctype="multipart/form-data" method="post">
@@ -64,8 +64,8 @@
                          {% endfor %}
                      {% endif %}
                  </div>
-                 <input type="submit" value="Зарегистрироваться">
-                 <a class="registr" href="{{ url('accounts:login') }}">Вход
+                 <input type="submit" value="{{ _('Зарегистрироваться') }}">
+                 <a class="registr" href="{{ url('accounts:login') }}">{{ _('Вход') }}
                  </a>
                  <div class="clear"></div>
             </form>

@@ -30,7 +30,7 @@
                 <div class="Section-column">
                     <div class="Section-columnSection Section-columnSection_mark">
                       <header class="Section-columnHeader">
-                        <strong class="Section-columnTitle">ОГРАНИЧЕННЫЕ ПРЕДЛОЖЕНИЯ
+                        <strong class="Section-columnTitle">{{ _('ОГРАНИЧЕННЫЕ ПРЕДЛОЖЕНИЯ') }}
                         </strong>
                       </header>
                       <div class="Card"><a class="Card-picture" href="{{ url('products:product-detail', pk=discount_product.products.all().first().pk) }}"><img src="{{ discount_product.products.all().first().product_images.first().image.url }}" alt="card.jpg"/></a>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="Section-content">
                     <header class="Section-header">
-                        <h2 class="Section-title">Популярные товары
+                        <h2 class="Section-title">{{ _('Популярные товары') }}
                         </h2>
                     </header>
                     <div class="Cards">
@@ -118,7 +118,7 @@
                 <div class="Section-content">
                     <div class="Slider Slider_carousel">
                         <header class="Section-header Section-header_close">
-                            <h2 class="Section-title">Ограниченный тираж
+                            <h2 class="Section-title">{{ _('Ограниченный тираж') }}
                             </h2>
                             <div class="Section-control">
                                 <div class="Slider-navigate">
