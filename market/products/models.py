@@ -133,7 +133,12 @@ class ProductImage(models.Model):
 
 
 def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
-    """Функция создания уникального пути к баннеру"""
+    """
+    Функция создания уникального пути к баннеру
+    :param instance: Баннер
+    :param filename: Имя файла
+    :return: путь до файла
+    """
     return "banners/{product}/{filename}".format(
         product=instance.product.name,
         filename=filename,

@@ -6,7 +6,15 @@ from payment.utils import card_number_is_valid
 
 
 class PaymentService:
-    """Сервис оплаты заказа"""
+    """
+    Сервис оплаты заказа
+
+    Args:
+        order (Order): экземпляр заказа
+        card_number (str): номер карты
+        total_price (Decimal): общая стоимость заказа
+        transaction (BankTransaction): экземпляр BankTransaction, с которым работаем
+    """
 
     def __init__(self, order: Order, card_number: str, total_price: Decimal, transaction: BankTransaction):
         self.order = order

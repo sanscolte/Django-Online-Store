@@ -82,7 +82,7 @@ class BankTransactionAPITest(TestCase):
 
     def test_delete_bank_transaction(self):
         """Тест удаления экземпляра"""
-        bank_transaction = BankTransaction.objects.create(
+        bank_transaction: BankTransaction = BankTransaction.objects.create(
             order=self.order, card_number="6666 6666", total_price=100.00
         )
 
