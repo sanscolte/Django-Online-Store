@@ -3,7 +3,7 @@
 {% block content %}
     <body class="Site">
         <div class="settings">
-            <h3>Настройка сайта:</h3>
+            <h3>{{ _('Настройка сайта') }}:</h3>
             <form method="post" action="{{ url('settings:site-settings') }}">
                 {% csrf_token %}
                 {% for key, value in settings_dict.items() %}
@@ -24,24 +24,24 @@
                     </div>
                 {% endfor %}
                 <input type="hidden" name="submit_settings">
-                <button type="submit">Сохранить изменения</button>
+                <button type="submit">{{ _('Сохранить изменения') }}</button>
             </form>
         </div>
         <div class="cache">
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="clear_all_cache" value="True">
-                <button type="submit">Сбросить кэш всего сайта</button>
+                <button type="submit">{{ _('Сбросить кэш всего сайта') }}</button>
             </form>
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="clear_product_detail_cache" value="True">
-                <button type="submit">Сбросить кэш детальных страниц продуктов</button>
+                <button type="submit">{{ _('Сбросить кэш детальных страниц продуктов') }}</button>
             </form>
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="clear_product_list_cache" value="True">
-                <button type="submit">Сбросить кэш страницы списка продуктов</button>
+                <button type="submit">{{ _('Сбросить кэш страницы списка продуктов') }}</button>
             </form>
         </div>
     </body>
