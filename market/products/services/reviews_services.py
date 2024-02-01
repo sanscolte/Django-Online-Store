@@ -22,9 +22,9 @@ class ReviewsService:
         :return: пагинатор; номер следующей страницы; флаг, есть ли следующая страницы
         """
 
-        reviews = Review.objects.filter(product=self.product).order_by("product_id")
+        reviews: Review = Review.objects.filter(product=self.product).order_by("product_id")
         paginator = Paginator(reviews, settings.PAGINATE_REVIEWS_BY)
-        page = self.request.GET.get("page")
+        page: str = self.request.GET.get("page")
 
         try:
             reviews = paginator.page(page)
@@ -48,5 +48,5 @@ class ReviewsService:
         :return: число отзывов
         """
 
-        reviews_count = Review.objects.filter(product=self.product).count()
+        reviews_count: int = Review.objects.filter(product=self.product).count()
         return reviews_count

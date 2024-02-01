@@ -147,6 +147,12 @@ class ProductImage(models.Model):
 def banner_preview_directory_path(instance: "Banner", filename: str) -> str:
     """Функция создания уникального пути к баннеру"""
 
+    """
+    Функция создания уникального пути к баннеру
+    :param instance: Баннер
+    :param filename: Имя файла
+    :return: путь до файла
+    """
     return "banners/{product}/{filename}".format(
         product=instance.product.name,
         filename=filename,
@@ -219,6 +225,10 @@ class ComparisonList(models.Model):
 class ProductImport(models.Model):
     """Модель хранения файла импорта продукта"""
 
+    class Meta:
+        verbose_name = "Импорт продукта"
+        verbose_name_plural = "Импорт продуктов"
+
     file = models.FileField(upload_to="import/")
 
     def save(self, *args, **kwargs):
@@ -227,3 +237,6 @@ class ProductImport(models.Model):
             unique_filename = str(uuid.uuid4()) + "_" + self.file.name
             self.file.name = os.path.join(unique_filename)
         super(ProductImport, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.file}"

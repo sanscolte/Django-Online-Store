@@ -7,6 +7,10 @@ variables:
   POSTGRES_USER: skillbox
   POSTGRES_PASSWORD: secret
   POSTGRES_HOST_AUTH_METHOD: trust
+  EMAIL_HOST: "smtp.yandex.ru"
+  EMAIL_PORT: 587
+  EMAIL_HOST_USER: "meganoshops@yandex.ru"
+  EMAIL_HOST_PASSWORD: "lmxgiyelbswrujgz"
 
 services:
   - name: redis:latest

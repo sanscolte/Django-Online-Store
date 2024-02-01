@@ -450,7 +450,6 @@ class ImportProductsViewTest(TestCase):
         url: str = "/ru/admin/products/product/import-products/"
         data = {
             "json_files": uploaded_file,
-            "email": "test@example.com",
         }
         response = self.client.post(url, data)
         saved_filename = ProductImport.objects.latest("pk").file.name[7:]
@@ -475,7 +474,6 @@ class ImportProductsViewTest(TestCase):
         url: str = "/ru/admin/products/product/import-products/"
         data = {
             "json_files": uploaded_file,
-            "email": "test@example.com",
         }
         response = self.client.post(url, data)
         saved_filename = ProductImport.objects.latest("pk").file.name[7:]
@@ -503,7 +501,6 @@ class ImportProductsViewTest(TestCase):
         url: str = "/ru/admin/products/product/import-products/"
         data = {
             "json_files": files,
-            "email": "test@example.com",
         }
         response = self.client.post(url, data, follow=True)
 
@@ -533,7 +530,6 @@ class ImportProductsViewTest(TestCase):
         url: str = "/en/admin/products/product/import-products/"
         data = {
             "json_files": uploaded_file,
-            "email": "test@example.com",
         }
         response = self.client.post(url, data, follow=True)
 
