@@ -1,5 +1,4 @@
 from decimal import Decimal
-from typing import Union
 
 from django.conf import settings
 from django.contrib.sessions.backends.base import SessionBase
@@ -54,20 +53,6 @@ class CartServices:
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
-
-    def update_products_in_cart(self) -> Union[Product, bool]:
-        """
-        Проверяет, не уйдет ли в минус кол-во товара на складе после оплаты.
-        Если все ОК, то возвращает True, иначе возвращает товар, который не удалось обновить
-        :return: True или товар
-        """
-        for item in self.cart.values():
-            expected_quantity = item["product"].quantity - item["quantity"]
-            if expected_quantity < 0:
-                return item["product"]
-            item["product"].quantity -= item["quantity"]
-            item["product"].save()
-        return True
 
     def __iter__(self):
         """Проходим по товарам корзины и получаем соответствующие объекты.

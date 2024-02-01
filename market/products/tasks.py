@@ -132,7 +132,8 @@ def import_products(file_ids: list[id], email: str = None) -> None:  # noqa
         else:
             shutil.move(file_path, fail_location)
 
-    send_email(email, message)
+    if email:
+        send_email(email, message)
 
 
 def get_import_status() -> str:
