@@ -16,6 +16,7 @@ class SettingsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["settings_dict"] = self.get_settings_dict()
+        context["user"] = self.request.user
         return context
 
     def get(self, request, *args, **kwargs):

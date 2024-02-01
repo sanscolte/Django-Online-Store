@@ -136,34 +136,31 @@ class ComparisonListView(ListView, BaseComparisonView):
         products_views = ProductsViews.objects.filter(product__in=comparison_products)
         unique_details = ProductDetail.objects.filter(product__in=comparison_products)
 
-        context["products_in_comparison"] = comparison_products
-        context["comparison_count"] = self.get_comparison_count(self.request)
-        context["products_views"] = products_views
+        comparison_dict = {product.id: product for product in comparison_products}
+        new_comparison_list = [comparison_dict[product_view.product.id] for product_view in products_views]
+
+        context["products_in_comparison"] = new_comparison_list
         context["product_details_in_comparison"] = unique_details
-        context["first_row_for_template"] = []
-
-        for i_product in products_views:
-            context["first_row_for_template"].append(i_product.product)
-
-        unique_details_dict = {}
-
-        for detail_first in unique_details:
-            detail_values_list = []
-            detail_key = detail_first.detail.name
-            for i_product in products_views:
-                value = "---"
-                for detail_second in unique_details:
-                    if (
-                        detail_second.detail.name == detail_key
-                        and detail_second.product.name == i_product.product.name
-                    ):
-                        value = detail_second.value
-                detail_values_list.append(value)
-            unique_details_dict[detail_key] = detail_values_list
-
-        context["data_for_template"] = unique_details_dict
+        context["images"] = ProductImage.objects.filter(product__in=comparison_products)
+        context["offers"] = Offer.objects.filter(product__in=comparison_products)
+        context["cart_form"] = CartAddProductForm(initial={"quantity": 1, "update": False})
 
         return context
+
+    def post(self, request: HttpRequest, **kwargs):
+        cart_form = CartAddProductForm(request.POST)
+        if cart_form.is_valid():
+            product_name = request.POST["product_name"]
+            product = Product.objects.get(name=product_name)
+            quantity = cart_form.cleaned_data["quantity"]
+            cart_services = CartServices(request)
+            cart_services.add(
+                product=product,
+                shop=None,
+                quantity=quantity,
+                update_quantity=True,
+            )
+        return redirect("products:comparison-list")
 
 
 @receiver([post_save, post_delete], sender=ProductDetail)
