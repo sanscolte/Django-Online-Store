@@ -1,5 +1,5 @@
 from django.db import models
-from products.models import Product
+from shops.models import Offer
 from django.utils.translation import gettext_lazy as _
 
 
@@ -68,8 +68,8 @@ class OrderItem(models.Model):
         verbose_name_plural = _("Продукты в Заказе")
 
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE, verbose_name=_("заказ"))
-    product = models.ForeignKey(
-        Product, related_name="order_items", on_delete=models.CASCADE, verbose_name=_("продукт")
+    offer = models.ForeignKey(
+        Offer, related_name="order_items", on_delete=models.CASCADE, verbose_name=_("предложение")
     )
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("цена"))
     quantity = models.PositiveIntegerField(default=1, verbose_name=_("количество"))
