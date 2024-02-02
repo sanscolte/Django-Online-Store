@@ -97,21 +97,6 @@
                                 </div>
                             </div>
                         {% endfor %}
-{#                        {% for offer in filtered_offers[5:7] %}#}
-{#                            <div class="Card hide_md"><a class="Card-picture" href="{{ url('products:product-detail', pk=offer.product.pk) }}"><img src="{{ offer.product.product_images.first().image.url }}" alt="card.jpg" /></a>#}
-{#                                <div class="Card-content">#}
-{#                                    <strong class="Card-title"><a href="{{ url('products:product-detail', pk=offer.product.pk) }}">{{ offer.product.name }}</a>#}
-{#                                    </strong>#}
-{#                                    <div class="Card-description">#}
-{#                                        <div class="Card-cost"><span class="Card-price">${{ offer.product.min_price[0] }}</span>#}
-{#                                        </div>#}
-{#                                        <div class="Card-category">{{ offer.product.category.name }}#}
-{#                                        </div>#}
-{#                                        {% include "shops/cart-service.jinja2" %}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
                     </div>
                 </div>
             </div>

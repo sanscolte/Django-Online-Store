@@ -26,7 +26,7 @@
                                             <div class="ProductCard-cartElement">
                                                 <button class="btn btn_primary" type="submit" name="btnform1" href="#modal_open">
                                                     <img class="btn-icon" src="{{ static('img/icons/card/cart_white.svg')}}" alt="cart_white.svg"/>
-                                                    <span class="btn-content">В корзину</span>
+                                                    <span class="btn-content">{{ _('В корзину') }}</span>
                                                 </button>
                                             </div>
                                         </form>
@@ -35,7 +35,7 @@
                                 <div class="row-block">
                                     <div class="Order-info Order-info_pay">
                                         <div class="Order-infoType">
-                                            Товаров осталось:
+                                            {{ _('Товаров осталось') }}:
                                         </div>
                                         <div class="Order-infoContent">
                                             {{ offer.remains }}
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="Order-info">
                                         <div class="Order-infoType">
-                                            Стоимость:
+                                            {{ _('Стоимость') }}:
                                         </div>
                                         <div class="Order-infoContent">
                                             <span class="Order-price">{{ offer.price }}</span>
