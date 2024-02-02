@@ -93,9 +93,9 @@ class IndexPageView(TemplateView):
         """Lazy-функция для получения значения отображения предложения дня"""
 
         try:
-            days_offer = SiteSetting.objects.first().show_days_offer
+            days_offer = SiteSetting.objects.first().days_offer
         except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
-            days_offer = settings.SHOW_DAYS_OFFER
+            days_offer = settings.DAYS_OFFER
         return days_offer
 
     def get_top_items_count(self) -> int:
