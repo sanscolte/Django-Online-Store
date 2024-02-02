@@ -1,3 +1,5 @@
+from typing import Dict
+
 from accounts.models import User
 from django.test import TestCase
 from products.models import (
@@ -119,24 +121,19 @@ class BannerModelTest(TestCase):
     @classmethod
     def setUpClass(cls):
         """Создание продукта и баннера с ним"""
-
-        cls.product = Product.objects.create(
-            name="Тестовый продукт",
-        )
+        cls.product = Product.objects.create(name="Тестовый продукт")
         cls.banner = Banner.objects.create(product=cls.product, image="...static/img/content/home/slider.png")
 
     @classmethod
     def tearDownClass(cls):
         """Удаление сущности продукта и баннера"""
-
         cls.product.delete()
         cls.banner.delete()
 
     def test_verbose_name(self):
         """Тестирование валидности имени поля модели"""
-
         banner = self.banner
-        field_verboses = {
+        field_verboses: Dict[str, str] = {
             "image": "изображение",
         }
 
@@ -151,12 +148,11 @@ class ReviewModelTest(TestCase):
     @classmethod
     def setUpClass(cls):
         """Создание пользователя, продукта и отзыва к нему"""
-
-        cls.user = User.objects.create_user(email="user@email.ru", password="qwerty")
-        cls.product = Product.objects.create(
+        cls.user: User = User.objects.create_user(email="user@email.ru", password="qwerty")
+        cls.product: Product = Product.objects.create(
             name="Тестовый продукт",
         )
-        cls.review = Review.objects.create(
+        cls.review: Review = Review.objects.create(
             product=cls.product,
             user=cls.user,
             text="Тестовый отзыв",
@@ -165,20 +161,17 @@ class ReviewModelTest(TestCase):
     @classmethod
     def tearDownClass(cls):
         """Удаление сущности пользователя, продукта и отзыва"""
-
         cls.user.delete()
         cls.product.delete()
         cls.review.delete()
 
     def setUp(self):
         """Логин пользователя"""
-
         self.client.force_login(self.user)
 
     def test_verbose_name(self):
         """Тестирование валидности имени поля модели"""
-
-        field_verboses = {
+        field_verboses: Dict[str, str] = {
             "product": "Продукт",
             "user": "Пользователь",
             "text": "Отзыв",
@@ -190,8 +183,7 @@ class ReviewModelTest(TestCase):
 
     def test_text_max_length(self):
         """Тестирование максимально доступной длины поля text"""
-
-        max_length = Review._meta.get_field("text").max_length
+        max_length: int = Review._meta.get_field("text").max_length
         self.assertEqual(max_length, 3000)
 
 

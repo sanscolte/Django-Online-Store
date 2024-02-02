@@ -8,4 +8,4 @@ class OrderFixturesTest(TestCase):
     fixtures = ["fixtures/23-orders.json"]
 
     def test_fixtures_len(self):
-        self.assertEqual(Order.objects.count(), 3)
+        self.assertEqual(Order.objects.count(), 10)

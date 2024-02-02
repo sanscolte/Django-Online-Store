@@ -155,3 +155,4 @@ cython_debug/
 
 media/
 .DS_Store
+market/logs/import/products-import.log

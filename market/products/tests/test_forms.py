@@ -8,6 +8,7 @@ class ReviewFormTest(TestCase):
     """Класс тестов для формы Review"""
 
     def test_valid_form(self):
+        """Тестирование валидной формы"""
         data: dict[str, int] = {"text": "test review", "rating": 5}
         form = ReviewForm(data=data)
         self.assertTrue(form.is_valid())

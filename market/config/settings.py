@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     "orders",
     "django_celery_beat",
     "django_celery_results",
+    "payment",
+    "rest_framework",
     "settings",
 ]
 
@@ -94,6 +96,7 @@ TEMPLATES = [
                 # "context_processors.shop_views_context.load_settings",
                 "django.contrib.messages.context_processors.messages",
                 "cart.context_processors.cart_price",
+                "shops.context_processors.categories_obj",
             ],
         },
     },
@@ -223,6 +226,16 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_DEFAULT_QUEUE = "default"
+
+# CELERY BEAT
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BEAT_SCHEDULE = {
+    "update_payment_status": {
+        "task": "payment.tasks.pay",
+        "schedule": timedelta(minutes=2),
+        "args": (),
+    },
+}
 
 CACHE_TTL = 10
 
