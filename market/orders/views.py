@@ -8,6 +8,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from accounts.views import MyRegisterView
 from orders.forms import OrderStepTwoForm, OrderStepThreeForm
 from orders.models import Order, OrderItem
+from shops.models import Offer
 from orders.services import OrderService
 from cart.services import CartServices
 from products.models import ProductImage
@@ -109,7 +110,7 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
         for item in cart:
             OrderItem.objects.create(
                 order=order,
-                product=item["product"],
+                offer=Offer.objects.get(id=int(item["offers"])),
                 price=item["price"],
                 quantity=item["quantity"],
             )
