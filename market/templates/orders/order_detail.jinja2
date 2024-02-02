@@ -98,10 +98,10 @@
                                 {% for item in order.items.all() %}
                                     <div class="Cart-product">
                                         <div class="Cart-block Cart-block_row">
-                                            <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{{ url('products:product-detail', pk=item.product.pk) }}"><img class="Cart-img" src="{{ item.product.product_images.first().image.url }}" alt="" /></a>
+                                            <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{{ url('products:product-detail', pk=item.offer.product.pk) }}"><img class="Cart-img" src="{{ item.offer.product.product_images.first().image.url }}" alt="" /></a>
                                             </div>
-                                            <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{{ url('products:product-detail', pk=item.product.pk) }}">{{ item.product }}</a>
-                                                <div class="Cart-desc">{{ item.product.description }}
+                                            <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{{ url('products:product-detail', pk=item.offer.product.pk) }}">{{ item.offer.product }}</a>
+                                                <div class="Cart-desc">{{ item.offer.product.description }}
                                                 </div>
                                             </div>
                                             <div class="Cart-block Cart-block_price">
