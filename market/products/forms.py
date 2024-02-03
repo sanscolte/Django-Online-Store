@@ -23,12 +23,16 @@ class ReviewForm(forms.ModelForm):
 
 
 class ProductDetailForm(forms.ModelForm):
+    """Форма характеристик продукта"""
+
     class Meta:
         model = ProductDetail
         fields = "detail", "value"
 
 
 class ProductImageForm(forms.ModelForm):
+    """Форма фотографий продукта"""
+
     class Meta:
         model = ProductImage
         fields = "image", "sort_image"

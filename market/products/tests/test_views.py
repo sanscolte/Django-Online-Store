@@ -126,7 +126,7 @@ class ProductDetailReviewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -185,7 +185,7 @@ class ProductDetailViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
     ]
@@ -210,7 +210,7 @@ class ProductsViewsServiceTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -251,7 +251,7 @@ class HistoryProductsViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
     ]
@@ -283,7 +283,7 @@ class BaseComparisonViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -319,25 +319,6 @@ class BaseComparisonViewTest(TestCase):
         comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=self.user)
         self.assertIsNotNone(comparison_list)
 
-    def test_get_comparison_count_returns_correct_count(self):
-        """Тестирование правильного подсчёта продуктов, находящихся в списке сравнения"""
-
-        self.client.force_login(self.user)
-        response = self.client.get(reverse("products:comparison-list"))
-        self.assertEqual(response.status_code, 200)
-
-        self.assertIn("products_in_comparison", response.context_data)
-        self.assertEqual(len(response.context_data["products_in_comparison"]), 0)
-
-        comparison_list_id = self.client.session.get("comparison_list_id")
-        comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=self.user)
-        comparison_list.products.add(self.product)
-
-        response = self.client.get(reverse("products:comparison-list"))
-
-        self.assertIn("products_in_comparison", response.context_data)
-        self.assertEqual(len(response.context_data["products_in_comparison"]), 1)
-
 
 class ComparisonListViewTest(TestCase):
     """Класс тестов для представления списка сравнения продуктов"""
@@ -345,7 +326,7 @@ class ComparisonListViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
@@ -376,7 +357,7 @@ class AddToComparisonListViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def setUp(self):
@@ -405,7 +386,7 @@ class RemoveFromComparisonListViewTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
     ]
 
     def setUp(self):

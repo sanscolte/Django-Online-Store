@@ -28,6 +28,7 @@
             </form>
         </div>
         <div class="cache">
+            <h3>{{ _('Сброс кэша сайта') }}:</h3>
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="clear_all_cache" value="True">
