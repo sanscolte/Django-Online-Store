@@ -7,7 +7,7 @@
                         <div class="Order-personal">
                             <div class="row">
                                 <div class="row-block">
-                                    <img src="{{ offer.shop.image.url }}" alt="Логотип магазина">
+                                    <img src="{{ offer.shop.image.url }}" alt="{{ _('Изображение магазина') }}">
                                     <a href="{{ url('shops:shops_detail', pk=offer.shop.pk) }}" class="Order-title">
                                         {{ offer.shop.name }}
                                     </a>
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="Order-info">
                                         <div class="Order-infoType">
-                                            {{ _('Стоимость') }}:
+                                            {{ _('Цена') }}:
                                         </div>
                                         <div class="Order-infoContent">
                                             <span class="Order-price">{{ offer.price }}</span>
@@ -56,7 +56,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <h3>Пока нет предложений от продавцов!</h3>
+            <h3>{{ _('Пока нет предложений от продавцов') }}!</h3>
         {% endif %}
     </div>
 </div>

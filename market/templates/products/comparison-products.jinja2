@@ -9,7 +9,7 @@
             }
 
             .highlighted {
-                background-color: yellow;
+                background-image: linear-gradient(to right, #b8f5d8, #9fc4f9);
             }
         </style>
             <div class="wrap">
@@ -26,7 +26,7 @@
                                             <div class="ProductCard-photo">
                                                 {% for image in images %}
                                                     {% if product.pk == image.product.pk %}
-                                                        <img src="{{ image.image.url }}" alt="Изображение товара" width="50px">
+                                                        <img src="{{ image.image.url }}" alt="{{ _('Изображение товара') }}" width="50px">
                                                         {% break %}
                                                     {% endif %}
                                                 {% endfor %}
@@ -87,8 +87,8 @@
                             {% endfor %}
                         {% else %}
                             <h3>
-                                В списке сравнения нет ни одного товара! Добавьте свой первый товар из
-                                <a href="{{ url('products:product-list') }}">каталога</a>.
+                                {{ _('В списке сравнения нет ни одного товара! Добавьте свой первый товар из') }}
+                                <a href="{{ url('products:product-list') }}">{{ _('каталога') }}</a>.
                             </h3>
                         {% endif %}
                     </div>

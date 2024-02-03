@@ -10,18 +10,18 @@
                             {% if images %}
                                 <div class="ProductCard-look">
                                     <div class="ProductCard-photo">
-                                        <img src="{{ images[0].image.url }}" alt="Изображение товара">
+                                        <img src="{{ images[0].image.url }}" alt="{{ _('Изображение товара') }}">
                                     </div>
                                     <div class="ProductCard-picts">
                                         {% for image in images %}
                                             <a class="ProductCard-pict" href="{{ image.image.url }}">
-                                                <img src="{{ image.image.url }}" alt="Изображение товара">
+                                                <img src="{{ image.image.url }}" alt="{{ _('Изображение товара') }}">
                                             </a>
                                         {% endfor %}
                                     </div>
                                 </div>
                             {% else %}
-                                <h3>У товара пока нет фотографий!</h3>
+                                <h3>{{ _('У товара пока нет фотографий') }}!</h3>
                             {% endif %}
                             <div class="ProductCard-desc">
                                 <div class="ProductCard-header">
@@ -35,7 +35,7 @@
                                                 </div>
                                             {% else %}
                                                 <div class="ProductCard-price">
-                                                    Нет доступных предложений
+                                                    {{ _('Пока нет предложений от продавцов') }}
                                                 </div>
                                             {% endif %}
                                         </div>
@@ -61,7 +61,7 @@
                                                     {{ _('Добавить в список сравнения') }}
                                                 </button>
                                             {% else %}
-                                                <b>В списке сравнения максимальное количество товаров!</b>
+                                                <b>{{ _('В списке сравнения максимальное количество товаров') }}!</b>
                                             {% endif %}
                                         </form>
                                     {% endif %}
