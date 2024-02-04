@@ -174,7 +174,7 @@ msgid "заказ"
 msgstr ""
 
 #: .\orders\models.py:72
-msgid "продукт"
+msgid "предложение"
 msgstr ""
 
 #: .\orders\models.py:74 .\shops\models.py:41

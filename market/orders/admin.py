@@ -4,7 +4,7 @@ from .models import Order, OrderItem
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
-    raw_id_fields = ["product"]
+    raw_id_fields = ["offer"]
 
 
 @admin.register(Order)
