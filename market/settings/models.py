@@ -45,8 +45,8 @@ class SiteSetting(SingletonModel):
     )
 
     def __str__(self) -> str:
-        return _("Настройки сайта")
+        return "Настройки сайта"
 
     class Meta:
-        verbose_name_plural = _("настройки")
-        verbose_name = _("настройка")
+        verbose_name_plural = _("Настройки")
+        verbose_name = _("Настройка")

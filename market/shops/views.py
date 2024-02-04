@@ -44,6 +44,9 @@ class IndexPageView(TemplateView):
         context["categories"] = Category.objects.all()
         context["banners"] = random.choices(Banner.objects.filter(is_active=True), k=self.get_banners_count())
         context["banner_cache_time"] = self.get_banner_cache_time()
+        context["show_days_offer"] = self.get_show_days_offer()
+        context["top_items_count"] = self.get_top_items_count()
+        context["limited_edition_count"] = self.get_limited_edition_count()
         return context
 
     def post(self, request: HttpRequest, **kwargs):
@@ -84,6 +87,33 @@ class IndexPageView(TemplateView):
             count = SiteSetting.objects.first().banners_count
         except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
             count = settings.BANNERS_COUNT
+        return count
+
+    def get_show_days_offer(self) -> bool:
+        """Lazy-функция для получения значения отображения предложения дня"""
+
+        try:
+            days_offer = SiteSetting.objects.first().days_offer
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            days_offer = settings.DAYS_OFFER
+        return days_offer
+
+    def get_top_items_count(self) -> int:
+        """Lazy-функция для получения количества популярных товаров"""
+
+        try:
+            count = SiteSetting.objects.first().top_items_count
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            count = settings.TOP_ITEMS_COUNT
+        return count
+
+    def get_limited_edition_count(self) -> int:
+        """Lazy-функция для получения количества ограниченных тиражей"""
+
+        try:
+            count = SiteSetting.objects.first().limited_edition_count
+        except (AttributeError, SiteSetting.DoesNotExist, ProgrammingError):
+            count = settings.LIMITED_EDITION_COUNT
         return count
 
 

@@ -204,7 +204,7 @@ class ProductsViewsTest(TestCase):
     fixtures = [
         "01-users.json",
         "01-users-permissions.json",
-        "02-groups.json",
+        "01-groups.json",
         "05-categories.json",
         "06-products.json",
         "19-products-views.json",
@@ -235,7 +235,7 @@ class ComparisonListTest(TestCase):
     fixtures = [
         "fixtures/01-users.json",
         "fixtures/01-users-permissions.json",
-        "fixtures/02-groups.json",
+        "fixtures/01-groups.json",
         "fixtures/04-shops.json",
         "fixtures/05-categories.json",
         "fixtures/06-products.json",
