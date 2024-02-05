@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from orders.models import Order, Status, OrderItem  # noqa
+from orders.models import Order, Status, OrderItem
 from payment.models import BankTransaction
 from payment.utils import card_number_is_valid
 
@@ -35,8 +35,9 @@ class PaymentService:
             self.transaction.is_success = True
             self.transaction.save()
 
-            # for item in OrderItem.objects.filter(order=self.order):
-            #     item.offer.remains -= item.quantity
+            for item in OrderItem.objects.filter(order=self.order):
+                item.offer.remains -= item.quantity
+                item.offer.save()
 
             return f"Оплата заказа №{self.order.id} с карты {self.card_number} на сумму ${self.total_price}"
 
