@@ -12,8 +12,6 @@ from django.views import View
 
 from django.views.generic import ListView, DetailView
 from django.conf import settings
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
 from django_filters.views import FilterView
 
 from accounts.models import User
@@ -41,7 +39,6 @@ def get_products_list_cache_time() -> int:
     return timeout
 
 
-@method_decorator(cache_page(get_products_list_cache_time(), key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class ProductListView(FilterView):
     """Страница каталога товаров со средней ценой"""
 
@@ -51,6 +48,9 @@ class ProductListView(FilterView):
     filterset_class = ProductFilter
 
     def get_queryset(self):
+        queryset = cache.get(KEY_FOR_CACHE_PRODUCTS)
+        if queryset is not None:
+            return queryset
         images = ProductImage.objects.filter(product=OuterRef("pk")).order_by("sort_image")
         queryset = (
             Product.objects.annotate(reviews_count=Count("reviews"))
@@ -64,6 +64,7 @@ class ProductListView(FilterView):
             )
             .order_by("date_of_publication")
         )
+        cache.set(KEY_FOR_CACHE_PRODUCTS, queryset)
         return queryset
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
