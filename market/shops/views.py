@@ -1,8 +1,6 @@
 from django.db import ProgrammingError
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect  # noqa F401
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 from django.conf import settings
 
 from django.views.generic import TemplateView, View
@@ -10,7 +8,6 @@ from django.views.generic import TemplateView, View
 from cart.forms import CartAddProductForm
 from cart.services import CartServices
 from discounts.models import DiscountProduct
-from products.constants import KEY_FOR_CACHE_PRODUCTS
 from .models import Shop, Offer
 from settings.models import SiteSetting
 
@@ -28,7 +25,6 @@ def get_products_list_cache_time() -> int:
     return timeout
 
 
-@method_decorator(cache_page(get_products_list_cache_time(), key_prefix=KEY_FOR_CACHE_PRODUCTS), name="dispatch")
 class IndexPageView(TemplateView):
     """Отоброжает главную страницу"""
 
