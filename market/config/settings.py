@@ -232,7 +232,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_BEAT_SCHEDULE = {
     "update_payment_status": {
         "task": "payment.tasks.pay",
-        "schedule": timedelta(minutes=2),
+        "schedule": timedelta(seconds=15),
         "args": (),
     },
 }
