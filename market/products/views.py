@@ -102,9 +102,12 @@ class BaseComparisonView(View):
         comparison_list_id = request.session.get("comparison_list_id")
 
         if comparison_list_id:
-            comparison_list = ComparisonList.objects.get(id=comparison_list_id, user=request.user)
+            comparison_list = ComparisonList.objects.get(id=comparison_list_id)
         else:
-            comparison_list = ComparisonList.objects.create(user=request.user)
+            if request.user.is_authenticated:
+                comparison_list = ComparisonList.objects.create(user=request.user)
+            else:
+                comparison_list = ComparisonList.objects.create(anonymous_user=True)
             request.session["comparison_list_id"] = comparison_list.id
 
         return comparison_list
