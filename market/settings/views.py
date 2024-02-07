@@ -1,6 +1,7 @@
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.views.generic import ListView
+from django.contrib import messages
 
 from settings.forms import SettingsForm, ClearCacheForm
 from settings.models import SiteSetting
@@ -15,8 +16,10 @@ class SettingsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["settings_dict"] = self.get_settings_dict()
         context["user"] = self.request.user
+        settings_form = SettingsForm(instance=SiteSetting.objects.first())
+        context["settings_form"] = settings_form
+
         return context
 
     def get(self, request, *args, **kwargs):
@@ -28,10 +31,24 @@ class SettingsView(ListView):
         settings_form = SettingsForm(request.POST, instance=current_settings)
         clear_cache_form = ClearCacheForm(request.POST)
 
-        if settings_form.is_valid():
-            settings_form.save()
+        action_cache = False
+        for key in request.POST:
+            if key.startswith("clear") and key.endswith("cache"):
+                action_cache = True
+                break
 
-        if clear_cache_form.is_valid():
+        if settings_form.is_valid():
+            cache.clear()
+            settings_form.save()
+            messages.success(request, "Настройки успешно сохранены.")
+        elif not settings_form.is_valid() and not action_cache:
+            error_messages = []
+            for field, errors in settings_form.errors.items():
+                error_messages.append(f"{field}: {', '.join(errors)}")
+            error_message = "\n".join(error_messages)
+            messages.error(request, "Пожалуйста, исправьте ошибки в форме настроек.")
+            messages.error(request, error_message)
+        elif clear_cache_form.is_valid():
             self.handle_cache_clear(request, clear_cache_form)
 
         return self.get(request, context=settings_form, *args, **kwargs)
@@ -50,6 +67,7 @@ class SettingsView(ListView):
         """Функция для очистки кэша всего сайта"""
 
         cache.clear()
+        messages.success(self.request, "Кэш всего сайта успешно очищен.")
 
     def clear_cache_for_some_pages(self, part_key: str) -> None:
         """Функция для очистки кэша определённых страниц сайта по части ключа кэша"""
@@ -59,13 +77,4 @@ class SettingsView(ListView):
         ]
         for key in keys_to_delete:
             cache.delete(key)
-
-    def get_settings_dict(self) -> dict:
-        """Функция для получения словаря настроек сайта"""
-
-        temp_settings = SiteSetting.objects.first()
-        settings_dict = {}
-        for field in SiteSetting._meta.fields:
-            settings_dict[field.name] = [getattr(temp_settings, field.name), str(type(field))]
-        del settings_dict["id"], settings_dict["name"]
-        return settings_dict
+        messages.success(self.request, "Кэш отдельных страниц успешно очищен.")
