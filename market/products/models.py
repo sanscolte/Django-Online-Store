@@ -211,7 +211,8 @@ class ProductsViews(models.Model):
 class ComparisonList(models.Model):
     """Модель списка сравнения продуктов"""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    anonymous_user = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     products = models.ManyToManyField(Product, related_name="comparison_list", blank=True)
 
     class Meta:

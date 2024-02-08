@@ -115,7 +115,9 @@ class OrderStepFourView(LoginRequiredMixin, TemplateView):
                 quantity=item["quantity"],
             )
         if request.session["payment"] == "card":
-            return HttpResponseRedirect(reverse("shops:home"))
+            url = reverse("payment:payment_with_card")
+            return HttpResponseRedirect(f"{url}?order={order.pk}&total_price={order.total_price}")
+
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
