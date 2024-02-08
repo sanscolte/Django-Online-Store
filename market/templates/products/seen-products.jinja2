@@ -4,7 +4,7 @@
         <ul>
             {% for products_view in products_views %}
                 <li>
-                    {{ products_view.product.name }}
+                    <a href="{{ url('products:product-detail', pk=products_view.product.pk) }}">{{ products_view.product.name }}</a>
                 </li>
             {% endfor %}
         </ul>
