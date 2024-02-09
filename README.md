@@ -72,6 +72,17 @@ python manage.py makemessages -l en --extension jinja2 --extension py
 python manage.py compilemessages
 ```
 
+## Запуск Celery
+Запуск производится в активированном локальном окружении из папки `market/`
+Celery-Worker:
+```shell
+celery -A market.config worker -l info
+```
+Celery-Beat:
+```shell
+celery -A market.config beat -l info
+```
+
 
 ## Логин и пароль для суперпользователя
 login: demon_at@mail.ru
