@@ -1,0 +1,99 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <div class="Middle Middle_top">
+        <div class="Middle-top">
+            <div class="wrap">
+                <div class="Middle-header">
+
+                    <ul class="breadcrumbs Middle-breadcrumbs">
+                        <li class="breadcrumbs-item"><a href="index.html">{{ _('Главная') }}</a>
+                        </li>
+                        <li class="breadcrumbs-item breadcrumbs-item_current"><span>{{ _('Блог') }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="Section">
+            <div class="wrap">
+                <div class="Cards Cards_blog">
+                    {% for discount in discounts %}
+                        {% if discount.is_active() %}
+                            {% for product in discount.products.all() %}
+                                <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/product.png') }}" alt="" /></a>
+                                    <div class="Card-date">
+                                        <strong class="Card-date-number">{{ discount.start_date.day }}
+                                        </strong><span class="Card-date-month">{{ discount.start_date.strftime('%B')[:3] }}</span>
+                                    </div>
+                                    <div class="Card-date Card-date_to">
+                                        <strong class="Card-date-number">{{ discount.end_date.day }}
+                                        </strong><span class="Card-date-month">{{ discount.end_date.strftime('%B')[:3] }}</span>
+                                    </div>
+
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="{{ url('discounts:discount-product', pk=discount.pk) }}">{{ product.name }}</a>
+                                        </strong>
+                                        <div class="Card-description">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    {% for cart in discount_carts %}
+                        {% if cart.is_active() %}
+                            <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/cart.png') }}" alt="" /></a>
+                                <div class="Card-date">
+                                    <strong class="Card-date-number">{{ cart.start_date.day }}
+                                    </strong><span class="Card-date-month">{{ cart.start_date.strftime('%B')[:3] }}</span>
+                                </div>
+                                <div class="Card-date Card-date_to">
+                                    <strong class="Card-date-number">{{ cart.end_date.day }}
+                                    </strong><span class="Card-date-month">{{ cart.end_date.strftime('%B')[:3] }}</span>
+                                </div>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="{{ url('discounts:discount-cart', pk=cart.pk) }}">Cart</a>
+                                        </strong>
+                                        <div class="Card-description">
+                                        </div>
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% for sets in discount_sets %}
+                        {% if sets.is_active() %}
+                            <div class="Card"><a class="Card-picture"><img src="{{ static('img/content/sale/sets.png') }}" alt="" /></a>
+                                <div class="Card-date">
+                                    <strong class="Card-date-number">{{ sets.start_date.day }}
+                                    </strong><span class="Card-date-month">{{ sets.start_date.strftime('%B')[:3] }}</span>
+                                </div>
+                                <div class="Card-date Card-date_to">
+                                    <strong class="Card-date-number">{{ sets.end_date.day }}
+                                    </strong><span class="Card-date-month">{{ sets.end_date.strftime('%B')[:3] }}</span>
+                                </div>
+                                <div class="Card-content">
+                                    <strong class="Card-title"><a href="{{ url('discounts:discount-set', pk=sets.pk) }}">{{ sets.categories.all()[0].name }} и {{ sets.categories.all()[1].name }}</a>
+                                    </strong>
+                                    <div class="Card-description">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Pagination">
+    <div class="Pagination-ins">
+        {% for p in paginator.page_range %}
+           {% if page_obj.number == p %}
+                <a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">{{ p }}</span></a>
+           {% else %}
+                <a class="Pagination-element" href="?page={{ p }}"><span class="Pagination-text">{{ p }}</span></a>
+           {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

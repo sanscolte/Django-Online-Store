@@ -1,0 +1,152 @@
+[
+  {
+    "model": "discounts.discountset",
+    "pk": 1,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 5,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.06",
+      "categories": [
+        10,
+        12
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 2,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 10,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.12",
+      "categories": [
+        10,
+        11
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 3,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 15,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.13",
+      "categories": [
+        9,
+        12
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 4,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 20,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.22",
+      "categories": [
+        1,
+        3
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 5,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 25,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.23",
+      "categories": [
+        2,
+        5
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 6,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 30,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.31",
+      "categories": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 7,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 35,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.38",
+      "categories": [
+        4,
+        6
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 8,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 40,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.38",
+      "categories": [
+        9,
+        7
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 9,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 45,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.43",
+      "categories": [
+        2,
+        11
+      ]
+    }
+  },
+  {
+    "model": "discounts.discountset",
+    "pk": 10,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 50,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.52",
+      "categories": [
+        1,
+        12
+      ]
+    }
+  }
+]

@@ -1,0 +1,121 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+        <div class="Middle">
+        <style>
+            .highlight-on-hover {
+                cursor: pointer;
+            }
+
+            .highlighted {
+                background-image: linear-gradient(to right, #b8f5d8, #9fc4f9);
+            }
+        </style>
+            <div class="wrap">
+                <div class="Product">
+                    <div class="ProductCard">
+                        {% if products_in_comparison|length %}
+                            {% for product in products_in_comparison %}
+                                <div class="ProductCard-desc">
+                                    <div class="ProductCard-header">
+                                        <a href="{{ product.get_absolute_url() }}" target="_blank">
+                                            <h2 class="ProductCard-title">{{ product.name }}</h2>
+                                        </a>
+                                        <div class="ProductCard-look">
+                                            <div class="ProductCard-photo">
+                                                {% for image in images %}
+                                                    {% if product.pk == image.product.pk %}
+                                                        <img src="{{ image.image.url }}" alt="{{ _('Изображение товара') }}" width="50px">
+                                                        {% break %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="Tabs Tabs_default">
+                                            <div class="Tabs-wrap">
+                                                <div class="Tabs-block" id="description">
+                                                    <div class="table">
+                                                        <table>
+                                                            <tbody>
+                                                                {% for detail in product_details_in_comparison %}
+                                                                    {% if detail.product.pk == product.pk %}
+                                                                        <tr class="highlight-on-hover" data-text-to-highlight="{{ detail.detail.name }}">
+                                                                            <td><b>{{ detail.detail.name }}</b></td>
+                                                                            <td>{{ detail.value }}</td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ProductCard-info">
+                                        <div class="ProductCard-cost">
+                                            {% set product_offers = offers|selectattr('product.pk', '==', product.pk)|list %}
+                                            {% set min_price = product_offers|map(attribute='price')|min %}
+                                            {% set offer_min_price = product_offers|selectattr('price', '==', min_price)|list %}
+                                            {% if min_price is defined %}
+                                                <div class="ProductCard-price">от {{ min_price }}₽</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="ProductCard-cart">
+                                        <form class="ProductCard-cart" method="post">
+                                            {% csrf_token %}
+                                            <div class="ProductCard-cartElement ProductCard-cartElement_amount">
+                                                <div class="Amount Amount_product">
+                                                    <button class="Amount-remove" type="button"></button>
+                                                    {{ cart_form.quantity }}
+                                                    <button class="Amount-add" type="button"></button>
+                                                    <input type="hidden" class="product_name" id="product_name" name="product_name" value="{{ product.name }}">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="action" value="add_to_cart">
+                                            <div class="ProductCard-cartElement">
+                                                <button class="btn btn_primary" type="submit" name="btnform1" href="#modal_open">
+                                                    <img class="btn-icon" src="{{ static('img/icons/card/cart_white.svg')}}" alt="cart_white.svg"/>
+                                                    <span class="btn-content">{{ _('В корзину') }}</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h3>
+                                {{ _('В списке сравнения нет ни одного товара! Добавьте свой первый товар из') }}
+                                <a href="{{ url('products:product-list') }}">{{ _('каталога') }}</a>.
+                            </h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elementsToHighlight = document.querySelectorAll('.highlight-on-hover');
+
+                elementsToHighlight.forEach(function(element) {
+                    element.addEventListener('mouseenter', function() {
+                        var textToHighlight = element.getAttribute('data-text-to-highlight');
+                        elementsToHighlight.forEach(function(innerElement) {
+                            if (innerElement.getAttribute('data-text-to-highlight') === textToHighlight) {
+                                innerElement.classList.add('highlighted');
+                            }
+                        });
+                    });
+                    element.addEventListener('mouseleave', function() {
+                        elementsToHighlight.forEach(function(innerElement) {
+                            innerElement.classList.remove('highlighted');
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+{% endblock %}

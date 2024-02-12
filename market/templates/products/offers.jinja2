@@ -1,0 +1,62 @@
+<div class="Tabs-block" id="offers">
+    <div class="Section-content">
+        {% if offers %}
+            <div class="Orders">
+                {% for offer in offers %}
+                    <div class="Order Order_anons">
+                        <div class="Order-personal">
+                            <div class="row">
+                                <div class="row-block">
+                                    <img src="{{ offer.shop.image.url }}" alt="{{ _('Изображение магазина') }}">
+                                    <a href="{{ url('shops:shops_detail', pk=offer.shop.pk) }}" class="Order-title">
+                                        {{ offer.shop.name }}
+                                    </a>
+                                    <div class="ProductCard-cartElement" style="margin-top: 10px;">
+                                        <form class="ProductCard-cart" method="post">
+                                            {% csrf_token %}
+                                            <div class="ProductCard-cartElement ProductCard-cartElement_amount">
+                                                <div class="Amount Amount_product">
+                                                    <button class="Amount-remove" type="button"></button>
+                                                    {{ cart_form.quantity }}
+                                                    <button class="Amount-add" type="button"></button>
+                                                    <input type="hidden" class="shop_name" id="shop_name" name="shop_name" value="{{ offer.shop.name }}">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="action" value="add_to_cart">
+                                            <div class="ProductCard-cartElement">
+                                                <button class="btn btn_primary" type="submit" name="btnform1" href="#modal_open">
+                                                    <img class="btn-icon" src="{{ static('img/icons/card/cart_white.svg')}}" alt="cart_white.svg"/>
+                                                    <span class="btn-content">{{ _('В корзину') }}</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row-block">
+                                    <div class="Order-info Order-info_pay">
+                                        <div class="Order-infoType">
+                                            {{ _('Товаров осталось') }}:
+                                        </div>
+                                        <div class="Order-infoContent">
+                                            {{ offer.remains }}
+                                        </div>
+                                    </div>
+                                    <div class="Order-info">
+                                        <div class="Order-infoType">
+                                            {{ _('Цена') }}:
+                                        </div>
+                                        <div class="Order-infoContent">
+                                            <span class="Order-price">{{ offer.price }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h3>{{ _('Пока нет предложений от продавцов') }}!</h3>
+        {% endif %}
+    </div>
+</div>

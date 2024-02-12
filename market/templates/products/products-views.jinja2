@@ -1,0 +1,16 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <div class="Middle Middle_top">
+        <div class="Section Section_column Section_columnLeft">
+            <div class="wrap">
+                {% include "navigation.jinja2" %}
+                <div class="Section-content">
+                    <div class="seen-products">
+                        {% include 'products/seen-products.jinja2' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

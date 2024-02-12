@@ -1,0 +1,56 @@
+[
+  {
+    "model": "products.review",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "user": 1,
+      "text": "first"
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "user": 1,
+      "text": "second"
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 3,
+    "fields": {
+      "product": 1,
+      "user": 1,
+      "text": "third"
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 4,
+    "fields": {
+      "product": 2,
+      "user": 1,
+      "text": "the worst phone"
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 5,
+    "fields": {
+      "product": 2,
+      "user": 1,
+      "text": "cringe"
+    }
+  },
+  {
+    "model": "products.review",
+    "pk": 6,
+    "fields": {
+      "product": 1,
+      "user": 1,
+      "text": "the best phone"
+    }
+  }
+]

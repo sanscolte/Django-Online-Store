@@ -1,0 +1,49 @@
+{% extends "base.jinja2" %}
+
+{% block title %}
+    {{ _('Корзина') }}
+{% endblock %}
+
+{% block content %}
+<div class="Middle Middle_top">
+    <div class="Middle-top">
+        <div class="wrap">
+            <div class="Middle-header">
+                <h1 class="Middle-title">{{ _('Корзина') }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="Section">
+        <div class="wrap">
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <form class="form" id="cart_form" method="post" action="{{ url('cart:cart_add', product.id) }}">
+                        {% include "cart/cart_session_item.jinja2" %}
+                    </form>
+                {% endwith %}
+            {% endfor %}
+            {% with total_price = cart.get_total_price() %}
+                <div class="Cart-total">
+                    {% if total_price > 0 %}
+                    <div class="Cart-block Cart-block_total">
+                        <strong class="Cart-title">{{ _('Итого') }}:
+                        </strong><span class="Cart-price">{{ total_price }} р.</span>
+                    </div>
+                    <div class="Cart-block">
+                        <button class="btn btn_success btn_lg"
+                                type="button"
+                                onclick="window.location.href = '{{ url('orders:order-step-1')}}';">
+                            {{ _('Оформить заказ') }}
+                        </button>
+                    </div>
+                    {% else %}
+                        <strong class="Cart-title">{{ _('Ваша корзина пуста. Перейдите в') }}
+                        <a href="{{ url('shops:home') }}">{{ _('каталог') }}</a>,
+                        {{ _('чтобы совершить покупки') }}</strong>
+                    {% endif %}
+                </div>
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}

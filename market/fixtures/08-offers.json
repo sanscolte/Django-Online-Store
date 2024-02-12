@@ -1,0 +1,812 @@
+[
+{
+  "model": "shops.offer",
+  "pk": 1,
+  "fields": {
+    "shop": 35,
+    "product": 2,
+    "price": "125.00",
+    "remains": 26
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 2,
+  "fields": {
+    "shop": 35,
+    "product": 21,
+    "price": "456.00",
+    "remains": 88
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 3,
+  "fields": {
+    "shop": 34,
+    "product": 1,
+    "price": "29999.00",
+    "remains": 72
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 4,
+  "fields": {
+    "shop": 34,
+    "product": 2,
+    "price": "19999.00",
+    "remains": 59
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 5,
+  "fields": {
+    "shop": 34,
+    "product": 3,
+    "price": "3999.00",
+    "remains": 56
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 6,
+  "fields": {
+    "shop": 34,
+    "product": 4,
+    "price": "12399.00",
+    "remains": 62
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 7,
+  "fields": {
+    "shop": 34,
+    "product": 5,
+    "price": "5999.00",
+    "remains": 9
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 8,
+  "fields": {
+    "shop": 34,
+    "product": 6,
+    "price": "29999.00",
+    "remains": 22
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 9,
+  "fields": {
+    "shop": 38,
+    "product": 26,
+    "price": "41999.00",
+    "remains": 92
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 10,
+  "fields": {
+    "shop": 40,
+    "product": 26,
+    "price": "35999.00",
+    "remains": 37
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 11,
+  "fields": {
+    "shop": 39,
+    "product": 7,
+    "price": "28599.00",
+    "remains": 2
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 12,
+  "fields": {
+    "shop": 37,
+    "product": 8,
+    "price": "37999.00",
+    "remains": 55
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 13,
+  "fields": {
+    "shop": 38,
+    "product": 9,
+    "price": "19899.00",
+    "remains": 24
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 14,
+  "fields": {
+    "shop": 41,
+    "product": 9,
+    "price": "19999.00",
+    "remains": 26
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 15,
+  "fields": {
+    "shop": 35,
+    "product": 10,
+    "price": "13999.00",
+    "remains": 61
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 16,
+  "fields": {
+    "shop": 41,
+    "product": 11,
+    "price": "11999.00",
+    "remains": 49
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 17,
+  "fields": {
+    "shop": 39,
+    "product": 12,
+    "price": "15999.00",
+    "remains": 22
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 18,
+  "fields": {
+    "shop": 36,
+    "product": 13,
+    "price": "34999.00",
+    "remains": 81
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 19,
+  "fields": {
+    "shop": 36,
+    "product": 14,
+    "price": "31999.00",
+    "remains": 74
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 20,
+  "fields": {
+    "shop": 42,
+    "product": 15,
+    "price": "77999.00",
+    "remains": 74
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 21,
+  "fields": {
+    "shop": 36,
+    "product": 16,
+    "price": "38999.00",
+    "remains": 54
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 22,
+  "fields": {
+    "shop": 43,
+    "product": 17,
+    "price": "24999.00",
+    "remains": 78
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 23,
+  "fields": {
+    "shop": 37,
+    "product": 18,
+    "price": "22999.00",
+    "remains": 43
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 24,
+  "fields": {
+    "shop": 35,
+    "product": 19,
+    "price": "16999.00",
+    "remains": 9
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 25,
+  "fields": {
+    "shop": 38,
+    "product": 20,
+    "price": "6799.00",
+    "remains": 99
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 26,
+  "fields": {
+    "shop": 37,
+    "product": 21,
+    "price": "3499.00",
+    "remains": 84
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 27,
+  "fields": {
+    "shop": 41,
+    "product": 22,
+    "price": "3499.00",
+    "remains": 66
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 28,
+  "fields": {
+    "shop": 41,
+    "product": 23,
+    "price": "3399.00",
+    "remains": 20
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 29,
+  "fields": {
+    "shop": 41,
+    "product": 24,
+    "price": "4499.00",
+    "remains": 96
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 30,
+  "fields": {
+    "shop": 34,
+    "product": 25,
+    "price": "10999.00",
+    "remains": 74
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 31,
+  "fields": {
+    "shop": 39,
+    "product": 26,
+    "price": "22499.00",
+    "remains": 32
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 32,
+  "fields": {
+    "shop": 37,
+    "product": 27,
+    "price": "55599.00",
+    "remains": 61
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 33,
+  "fields": {
+    "shop": 36,
+    "product": 28,
+    "price": "12999.00",
+    "remains": 9
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 34,
+  "fields": {
+    "shop": 38,
+    "product": 29,
+    "price": "9999.00",
+    "remains": 43
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 35,
+  "fields": {
+    "shop": 41,
+    "product": 30,
+    "price": "7799.00",
+    "remains": 26
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 36,
+  "fields": {
+    "shop": 39,
+    "product": 31,
+    "price": "6699.00",
+    "remains": 54
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 37,
+  "fields": {
+    "shop": 38,
+    "product": 32,
+    "price": "15999.00",
+    "remains": 29
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 38,
+  "fields": {
+    "shop": 35,
+    "product": 33,
+    "price": "7799.00",
+    "remains": 36
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 39,
+  "fields": {
+    "shop": 43,
+    "product": 34,
+    "price": "8899.00",
+    "remains": 53
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 40,
+  "fields": {
+    "shop": 39,
+    "product": 35,
+    "price": "55999.00",
+    "remains": 91
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 41,
+  "fields": {
+    "shop": 42,
+    "product": 5,
+    "price": "23499.00",
+    "remains": 40
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 42,
+  "fields": {
+    "shop": 40,
+    "product": 1,
+    "price": "39999.00",
+    "remains": 91
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 43,
+  "fields": {
+    "shop": 37,
+    "product": 1,
+    "price": "33999.00",
+    "remains": 34
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 44,
+  "fields": {
+    "shop": 39,
+    "product": 1,
+    "price": "45699.00",
+    "remains": 54
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 45,
+  "fields": {
+    "shop": 43,
+    "product": 1,
+    "price": "55599.00",
+    "remains": 90
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 46,
+  "fields": {
+    "shop": 40,
+    "product": 2,
+    "price": "24999.00",
+    "remains": 61
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 47,
+  "fields": {
+    "shop": 40,
+    "product": 3,
+    "price": "19999.00",
+    "remains": 30
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 48,
+  "fields": {
+    "shop": 42,
+    "product": 4,
+    "price": "28999.00",
+    "remains": 65
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 49,
+  "fields": {
+    "shop": 38,
+    "product": 6,
+    "price": "15999.00",
+    "remains": 10
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 50,
+  "fields": {
+    "shop": 35,
+    "product": 6,
+    "price": "14999.00",
+    "remains": 38
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 51,
+  "fields": {
+    "shop": 43,
+    "product": 7,
+    "price": "15799.00",
+    "remains": 11
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 52,
+  "fields": {
+    "shop": 38,
+    "product": 8,
+    "price": "25599.00",
+    "remains": 51
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 53,
+  "fields": {
+    "shop": 37,
+    "product": 9,
+    "price": "14699.00",
+    "remains": 73
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 54,
+  "fields": {
+    "shop": 38,
+    "product": 11,
+    "price": "11899.00",
+    "remains": 82
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 55,
+  "fields": {
+    "shop": 35,
+    "product": 11,
+    "price": "12099.00",
+    "remains": 51
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 56,
+  "fields": {
+    "shop": 36,
+    "product": 12,
+    "price": "14999.00",
+    "remains": 10
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 57,
+  "fields": {
+    "shop": 42,
+    "product": 14,
+    "price": "35699.00",
+    "remains": 48
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 58,
+  "fields": {
+    "shop": 36,
+    "product": 15,
+    "price": "55599.00",
+    "remains": 28
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 59,
+  "fields": {
+    "shop": 42,
+    "product": 16,
+    "price": "37599.00",
+    "remains": 46
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 60,
+  "fields": {
+    "shop": 34,
+    "product": 18,
+    "price": "20099.00",
+    "remains": 96
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 61,
+  "fields": {
+    "shop": 34,
+    "product": 19,
+    "price": "19999.00",
+    "remains": 52
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 62,
+  "fields": {
+    "shop": 39,
+    "product": 21,
+    "price": "11999.00",
+    "remains": 11
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 63,
+  "fields": {
+    "shop": 43,
+    "product": 21,
+    "price": "15999.00",
+    "remains": 36
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 64,
+  "fields": {
+    "shop": 34,
+    "product": 21,
+    "price": "16999.00",
+    "remains": 9
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 65,
+  "fields": {
+    "shop": 38,
+    "product": 22,
+    "price": "12299.00",
+    "remains": 91
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 66,
+  "fields": {
+    "shop": 35,
+    "product": 22,
+    "price": "7799.00",
+    "remains": 86
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 67,
+  "fields": {
+    "shop": 37,
+    "product": 22,
+    "price": "6699.00",
+    "remains": 72
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 68,
+  "fields": {
+    "shop": 42,
+    "product": 23,
+    "price": "9999.00",
+    "remains": 22
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 69,
+  "fields": {
+    "shop": 37,
+    "product": 23,
+    "price": "8899.00",
+    "remains": 18
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 70,
+  "fields": {
+    "shop": 38,
+    "product": 23,
+    "price": "7799.00",
+    "remains": 28
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 71,
+  "fields": {
+    "shop": 38,
+    "product": 24,
+    "price": "6599.00",
+    "remains": 12
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 72,
+  "fields": {
+    "shop": 35,
+    "product": 24,
+    "price": "5599.00",
+    "remains": 100
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 73,
+  "fields": {
+    "shop": 42,
+    "product": 28,
+    "price": "16899.00",
+    "remains": 33
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 74,
+  "fields": {
+    "shop": 35,
+    "product": 29,
+    "price": "12799.00",
+    "remains": 38
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 75,
+  "fields": {
+    "shop": 39,
+    "product": 30,
+    "price": "14999.00",
+    "remains": 11
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 76,
+  "fields": {
+    "shop": 38,
+    "product": 30,
+    "price": "16999.00",
+    "remains": 37
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 77,
+  "fields": {
+    "shop": 36,
+    "product": 31,
+    "price": "18499.00",
+    "remains": 3
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 78,
+  "fields": {
+    "shop": 38,
+    "product": 33,
+    "price": "7799.00",
+    "remains": 79
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 79,
+  "fields": {
+    "shop": 41,
+    "product": 33,
+    "price": "6699.00",
+    "remains": 42
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 80,
+  "fields": {
+    "shop": 39,
+    "product": 34,
+    "price": "8899.00",
+    "remains": 41
+  }
+},
+{
+  "model": "shops.offer",
+  "pk": 81,
+  "fields": {
+    "shop": 35,
+    "product": 34,
+    "price": "6799.00",
+    "remains": 15
+  }
+}
+]

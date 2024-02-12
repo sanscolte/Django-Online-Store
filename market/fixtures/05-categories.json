@@ -1,0 +1,134 @@
+[
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name": "Крупная бытовая техника",
+      "description": "Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam viverra neque ac tortor dictum, nec lobortis diam commodo. Nulla et molestie tortor. Phasellus ut tincidunt massa. Phasellus lobortis tincidunt consectetur. Mauris suscipit consequat dignissim. Morbi pellentesque fringilla ante, ac tincidunt justo dapibus eu.",
+      "parent": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name": "Мелкая бытовая техника",
+      "description": "Etiam dignissim rutrum magna at pretium. Integer commodo congue nisi. Cras magna ex, egestas a laoreet ac, dapibus eu nulla. Nam aliquet magna magna, ornare euismod massa porta eu. Ut volutpat mauris sed tempor ullamcorper. Etiam feugiat blandit libero, in blandit enim varius nec. Etiam varius tempus lectus, nec scelerisque mauris commodo nec. Nunc feugiat sed est in rutrum.",
+      "parent": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+      "name": "Холодильники",
+      "description": "Nullam tempus arcu mi, a gravida nisi auctor in.",
+      "parent": 1,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 4,
+    "fields": {
+      "name": "Кухонные плиты",
+      "description": "Quisque laoreet molestie dignissim. Suspendisse potenti. Phasellus nec turpis ac tortor elementum congue. Donec ac turpis tincidunt nibh aliquet rhoncus. Praesent diam mi, laoreet at quam eget, gravida hendrerit dolor. Phasellus cursus nunc non laoreet ornare. Pellentesque ultricies ligula ut ante vestibulum, eget placerat diam tincidunt. Sed ultricies auctor faucibus.",
+      "parent": 1,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 5,
+    "fields": {
+      "name": "Фотоаппараты",
+      "description": "Suspendisse tristique ut tellus nec aliquam. Donec in tortor viverra, suscipit purus quis, congue nisi. Praesent et ullamcorper ex, et rutrum nibh. In faucibus dignissim neque id placerat. Pellentesque pellentesque nulla id magna dignissim porta. Nunc dictum, diam quis egestas faucibus, arcu velit sagittis nisi, eget ullamcorper dolor leo eu neque. Proin vulputate commodo est, id eleifend enim tempor gravida. Suspendisse a blandit justo. Cras ac tristique eros. Vestibulum finibus nunc id lorem imperdiet consequat.",
+      "parent": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 6,
+    "fields": {
+      "name": "Цифровые фотоаппараты",
+      "description": "",
+      "parent": 5,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 7,
+    "fields": {
+      "name": "Зеркальные фотоаппараты",
+      "description": "Nullam eu venenatis dui. Suspendisse ornare a tellus nec tempus. Praesent in libero non lacus iaculis condimentum. Praesent ex tortor, pretium eu venenatis at, facilisis quis diam. Proin vulputate tincidunt quam, eget vehicula felis facilisis sodales. Ut mollis enim sed metus condimentum volutpat. Nulla vitae varius magna. Sed efficitur ut quam non tempus. Fusce suscipit lobortis consectetur. Maecenas justo mauris, porttitor sed semper at, luctus ac tortor. Nunc a vestibulum dui.",
+      "parent": 5,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 8,
+    "fields": {
+      "name": "Видеотехника",
+      "description": "",
+      "parent": null,
+      "is_active": false,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 9,
+    "fields": {
+      "name": "Кофеварки",
+      "description": "Morbi nec augue pellentesque, tincidunt sapien a, faucibus augue. Sed id rutrum sapien, efficitur convallis mi. Proin et metus arcu. Aliquam ullamcorper pellentesque purus, ac lacinia odio tempor a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean id luctus leo, eget pretium sapien. Sed eget libero nec dolor volutpat bibendum. Donec ac luctus erat, et aliquet quam. Nulla pharetra purus id nisi varius interdum.",
+      "parent": 2,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 10,
+    "fields": {
+      "name": "Смартфоны",
+      "description": "Pellentesque vehicula augue laoreet libero porttitor rhoncus.",
+      "parent": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 11,
+    "fields": {
+      "name": "Ноутбуки",
+      "description": "",
+      "parent": null,
+      "is_active": true,
+      "sort_index": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 12,
+    "fields": {
+      "name": "Компьютеры",
+      "description": "Proin quis euismod mi. Proin eu tempus metus, at lobortis quam. Praesent egestas orci in neque tempus rhoncus. Donec odio ante, congue non nisi sit amet, lacinia venenatis orci. Donec urna mi, tincidunt a hendrerit eget, semper et magna. Donec nec elit magna. Curabitur suscipit fermentum ligula. Nam ut enim ornare, imperdiet massa nec, rutrum risus. Suspendisse varius odio vel dolor ornare auctor. Sed congue risus at magna convallis, ut luctus mi iaculis. Suspendisse sit amet purus viverra sapien aliquam consectetur. Nam metus orci, commodo vitae placerat a, consectetur vel nibh. Aenean et ultrices metus, interdum feugiat nisl.",
+      "parent": null,
+      "is_active": false,
+      "sort_index": ""
+    }
+  }
+]

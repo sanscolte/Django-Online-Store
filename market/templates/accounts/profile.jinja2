@@ -1,0 +1,109 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+    <div class="Middle Middle_top">
+        <div class="Section Section_column Section_columnLeft">
+            <div class="wrap">
+                {% include "navigation.jinja2" %}
+                <div class="Section-content">
+                    <div class="Profile">
+                        <form class="form Profile-form" enctype="multipart/form-data" method="post">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors() %}
+                                    <div class="form-error">{{ error|escape }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="row-block">
+                                    <div class="form-group">
+                                        <label class="form-label" for="{{ form.avatar.id_for_avatar }}">{{ _('Аватар') }}
+                                        </label>
+                                        <div class="Profile-avatar Profile-avatar_noimg">
+                                            <div class="Profile-img">
+                                                <img src="{{ static ('static/img/content/home/empty_avatar.jpg') }}"
+                                                     alt="{{ _('аватар') }}"/>
+                                            </div>
+                                            <label class="Profile-fileLabel" for="{{ form.avatar.id_for_avatar }}">{{ _('Выберите
+                                                аватар') }}
+                                            </label>
+                                            <input class="Profile-file form-input" id="{{ form.avatar.id_for_avatar }}"
+                                                   name="avatar" type="file" data-validate="onlyImgAvatar">
+                                            {{ form.avatar }}
+                                            {{ form.avatar.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="{{ form.full_name.id_for_full_name }}">{{ _('ФИО') }}
+                                        </label>
+                                        {{ form.full_name }}
+                                        {% if form.full_name.errors %}
+                                            {% for error in form.full_name.errors %}
+                                                <div class="form-error">{{ error|escape }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row-block">
+                                    <div class="form-group">
+                                        <label class="form-label" for="{{ form.email.id_for_email }}">{{ _('E-mail') }}
+                                        </label>
+                                        {{ form.email }}
+                                        {% if form.email.errors %}
+                                            {% for error in form.email.errors %}
+                                                <div class="form-error">{{ error|escape }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="{{ form.phone_number.id_for_phone_number }}">{{ _('Телефон') }}
+                                        </label>
+                                        {{ form.phone_number }}
+                                        {% if form.phone_number.errors %}
+                                            {% for error in form.phone_number.errors %}
+                                                <div class="form-error">{{ error|escape }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="{{ form.password1.id_for_password1 }}">{{ _('Пароль') }}
+                                        </label>
+                                        {{ form.password1 }}
+                                        {% if form.password1.errors %}
+                                            {% for error in form.password1.errors %}
+                                                <div class="form-error">{{ error|escape }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="{{ form.password2.id_for_password2 }}">{{ _('Подтверждение
+                                            пароля') }}
+                                        </label>
+                                        {{ form.password2 }}
+                                        {% if form.password2.errors %}
+                                            {% for error in form.password2.errors %}
+                                                <div class="form-error">{{ error|escape }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="Profile-btn">
+                                            <button class="btn btn_success" type="submit">{{ _('Сохранить') }}
+                                            </button>
+                                        </div>
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                <div class="Profile-success">{{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

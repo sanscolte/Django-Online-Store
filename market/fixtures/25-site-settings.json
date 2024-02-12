@@ -1,0 +1,19 @@
+[
+  {
+    "model": "settings.sitesetting",
+    "pk": 2,
+    "fields": {
+      "name": "Настройка сайта",
+      "min_order_price_for_free_shipping": "100.00",
+      "standard_order_price": "200.00",
+      "express_order_price": "500.00",
+      "banners_count": 3,
+      "days_offer": true,
+      "top_items_count": 6,
+      "limited_edition_count": 10,
+      "product_cache_time": 1,
+      "banner_cache_time": 600,
+      "product_list_cache_time": 300
+    }
+  }
+]

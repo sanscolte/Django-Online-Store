@@ -1,0 +1,88 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+        <div class="Middle Middle_top">
+            <div class="Section">
+                <div class="wrap">
+                    <div class="Product">
+                        <div class="ProductCard">
+                            <div class="ProductCard-desc">
+                                {% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                                {{ message }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <h3 class="ProductCard-title">{{ _('Настройка сайта') }}:</h3>
+                                <form method="post" action="{{ url('settings:site-settings') }}">
+                                    {% csrf_token %}
+                                    {% for field in settings_form %}
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                        <br>
+                                    {% endfor %}
+                                    <br>
+                                    <input type="hidden" name="submit_settings">
+                                    <button type="submit" class="btn btn_primary">
+                                        {{ _('Сохранить изменения') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="ProductCard">
+                            <div class="ProductCard-desc">
+                                <h3 class="ProductCard-title">{{ _('Сброс кэша сайта') }}:</h3>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="clear_all_cache" value="True">
+                                    <button type="submit" class="btn btn_primary">
+                                        {{ _('Сбросить кэш всего сайта') }}
+                                    </button>
+                                </form>
+                                <br>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="clear_product_detail_cache" value="True">
+                                    <button type="submit" class="btn btn_primary">
+                                        {{ _('Сбросить кэш детальных страниц продуктов') }}
+                                    </button>
+                                </form>
+                                <br>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="clear_product_list_cache" value="True">
+                                    <button type="submit" class="btn btn_primary">
+                                        {{ _('Сбросить кэш страницы списка продуктов') }}
+                                    </button>
+                                </form>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+{#    <script>#}
+{#        document.getElementById('settings-form').addEventListener('submit', function(event) {#}
+{#            // Предотвращаем стандартное поведение отправки формы#}
+{#            event.preventDefault();#}
+{##}
+{#            // Для каждого чекбокса добавляем соответствующее скрытое поле в форму#}
+{#            document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {#}
+{#                var hiddenInput = document.createElement('input');#}
+{#                hiddenInput.type = 'hidden';#}
+{#                hiddenInput.name = checkbox.name;#}
+{#                hiddenInput.value = checkbox.checked ? 'on' : 'off';#}
+{#                document.getElementById('settings-form').appendChild(hiddenInput);#}
+{#            });#}
+{##}
+{#            // Затем отправляем форму#}
+{#            this.submit();#}
+{#        });#}
+{#    </script>#}
+{% endblock %}

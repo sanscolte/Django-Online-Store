@@ -1,0 +1,162 @@
+[
+  {
+    "model": "orders.order",
+    "pk": 5,
+    "fields": {
+      "full_name": "Виктория Александровна Толкач",
+      "email": "tolkach@mail.ru",
+      "phone_number": "+37529568345",
+      "created_at": "2024-01-16T18:52:57.994",
+      "delivery_type": "regular",
+      "address": "Nezavisimosti 22",
+      "city": "Minsk",
+      "payment_type": "card",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 6,
+    "fields": {
+      "full_name": "Виктория Александровна Толкач",
+      "email": "tolkach@mail.ru",
+      "phone_number": "+37529568345",
+      "created_at": "2024-01-16T18:57:05.175",
+      "delivery_type": "express",
+      "address": "Nezavisimosti 22",
+      "city": "Minsk",
+      "payment_type": "random",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 7,
+    "fields": {
+      "full_name": "Максим Владимирович Мельник",
+      "email": "melnik@mail.ru",
+      "phone_number": "+37533879546",
+      "created_at": "2024-01-16T18:59:00.130",
+      "delivery_type": "regular",
+      "address": "Zavodskai 25",
+      "city": "Borisov",
+      "payment_type": "card",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 8,
+    "fields": {
+      "full_name": "Максим Владимирович Мельник",
+      "email": "melnik@mail.ru",
+      "phone_number": "+37533879546",
+      "created_at": "2024-01-16T19:00:03.483",
+      "delivery_type": "express",
+      "address": "Zavodskai 25",
+      "city": "Borisov",
+      "payment_type": "random",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 9,
+    "fields": {
+      "full_name": "Михаил Васильевич Козлов",
+      "email": "kozlov@mail.ru",
+      "phone_number": "+37533987150",
+      "created_at": "2024-01-16T19:02:15.846",
+      "delivery_type": "regular",
+      "address": "Pushkina 38",
+      "city": "Moscow",
+      "payment_type": "card",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 10,
+    "fields": {
+      "full_name": "Михаил Васильевич Козлов",
+      "email": "kozlov@mail.ru",
+      "phone_number": "+37533987150",
+      "created_at": "2024-01-16T19:03:13.248",
+      "delivery_type": "regular",
+      "address": "Pushkina 38",
+      "city": "Moscow",
+      "payment_type": "random",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 11,
+    "fields": {
+      "full_name": "Тихон Витальевич Журавлев",
+      "email": "guravlov@mail.ru",
+      "phone_number": "+37529456801",
+      "created_at": "2024-01-16T19:04:44.013",
+      "delivery_type": "regular",
+      "address": "Nemiga 2",
+      "city": "Smolensk",
+      "payment_type": "card",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 12,
+    "fields": {
+      "full_name": "Тихон Витальевич Журавлев",
+      "email": "guravlov@mail.ru",
+      "phone_number": "+37529456801",
+      "created_at": "2024-01-16T19:06:01.292",
+      "delivery_type": "express",
+      "address": "Nemiga 2",
+      "city": "Smolensk",
+      "payment_type": "random",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 13,
+    "fields": {
+      "full_name": "Дмитрий Максимович Гаража",
+      "email": "garaja@mail.ru",
+      "phone_number": "+37533098125",
+      "created_at": "2024-01-16T19:07:33.178",
+      "delivery_type": "regular",
+      "address": "Levkova",
+      "city": "Minsk",
+      "payment_type": "card",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 14,
+    "fields": {
+      "full_name": "Дмитрий Максимович Гаража",
+      "email": "garaja@mail.ru",
+      "phone_number": "+37533098125",
+      "created_at": "2024-01-16T19:08:25.372",
+      "delivery_type": "express",
+      "address": "Levkova",
+      "city": "Minsk",
+      "payment_type": "random",
+      "status": "created",
+      "total_price": "20344.00"
+    }
+  }
+]

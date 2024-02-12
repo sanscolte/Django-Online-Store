@@ -1,0 +1,11 @@
+<div class="Pagination">
+    <div class="Pagination-ins">
+        {% for p in paginator.page_range %}
+           {% if page_obj.number == p %}
+                <a class="Pagination-element Pagination-element_current" href="#"><span class="Pagination-text">{{ p }}</span></a>
+           {% else %}
+                <a class="Pagination-element" href="?page={{ p }}{% for k, v in query.items() %}&{{ k }}={{ v }}{% endfor %}"><span class="Pagination-text">{{ p }}</span></a>
+           {% endif %}
+        {% endfor %}
+    </div>
+</div>

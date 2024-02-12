@@ -1,0 +1,160 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$AqwOOMCjdcOB7qF6sX2JdO$undjP7sI0ACRCHhh2G5CK4srVsdLYRpO8mGPn5RSssY=",
+      "last_login": "2024-01-17T16:46:51.067",
+      "is_superuser": true,
+      "email": "demon_at@mail.ru",
+      "full_name": "",
+      "avatar": "",
+      "phone_number": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-11-24T16:08:24.546",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
+      "last_login": "2023-11-24T20:36:12",
+      "is_superuser": false,
+      "email": "melnik@mail.ru",
+      "full_name": "Максим Владимирович Мельник",
+      "avatar": "accounts/user_melnik@mail.ru/images.jpg",
+      "phone_number": "+37533879546",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-11-24T20:35:51",
+      "groups": [],
+      "user_permissions": [
+        54
+      ]
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
+      "last_login": "2023-11-24T06:00:00",
+      "is_superuser": false,
+      "email": "tolkach@mail.ru",
+      "full_name": "Виктория Александровна Толкач",
+      "avatar": "accounts/user_tolkach@mail.ru/Без_названия_1.jpg",
+      "phone_number": "+37529568345",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-11-24T20:42:13",
+      "groups": [],
+      "user_permissions": [
+        54
+      ]
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
+      "last_login": "2023-11-06T18:00:00",
+      "is_superuser": false,
+      "email": "garaja@mail.ru",
+      "full_name": "Дмитрий Максимович Гаража",
+      "avatar": "accounts/user_garaja@mail.ru/Без_названия_2.jpg",
+      "phone_number": "+37533098125",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-11-24T20:43:37",
+      "groups": [],
+      "user_permissions": [
+        54
+      ]
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
+      "last_login": "2023-11-12T00:00:00",
+      "is_superuser": false,
+      "email": "guravlov@mail.ru",
+      "full_name": "Тихон Витальевич Журавлев",
+      "avatar": "accounts/user_guravlov@mail.ru/Без_названия_3.jpg",
+      "phone_number": "+37529456801",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-11-24T20:46:06",
+      "groups": [],
+      "user_permissions": [
+        54
+      ]
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$crCpzl8GfzyVapRdz7JJl9$m2poXYkdx6ca39h/U//GWmEkmz55hyq6WY6Jpmu0I4g=",
+      "last_login": "2023-11-24T20:48:28",
+      "is_superuser": false,
+      "email": "kozlov@mail.ru",
+      "full_name": "Михаил Васильевич Козлов",
+      "avatar": "accounts/user_kozlov@mail.ru/Без_названия_4.jpg",
+      "phone_number": "+37533987150",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-11-24T20:48:13",
+      "groups": [],
+      "user_permissions": [
+        54
+      ]
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$V1PFkVfQLag48ejdcPzKw1$ZVT4kTMVtoUNtopNwbn7O+Yl+4SC8dK4PXovdZarMKc=",
+      "last_login": "2024-01-17T16:45:42",
+      "is_superuser": false,
+      "email": "buyer@example.com",
+      "full_name": "Покупатель",
+      "avatar": "",
+      "phone_number": "+1234567899",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-17T16:45:42",
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$rWE7n2Pc44xZVWuZ65X74Z$IGS8/R9Y5WVi+dzbL32MrPOq5IqSSSZzHiTkAbZEDh0=",
+      "last_login": "2024-01-17T16:48:01.236",
+      "is_superuser": false,
+      "email": "salesman@example.com",
+      "full_name": "Продавец",
+      "avatar": "",
+      "phone_number": "+1234567890",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-01-17T16:46:33",
+      "groups": [
+        4
+      ],
+      "user_permissions": []
+    }
+  }
+]

@@ -1,0 +1,71 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <h1 class="Middle-title">{{object.name}}</h1>
+    <div class="Section Section_column Section_columnLeft">
+            <div class="wrap">
+                <div class="Section-column">
+                   <h3>{{object.description}}</h3>
+                </div>
+                <div class="Section-content">
+                    <div class="Profile">
+                        <form class="form Profile-form" action="#" method="post">
+                            <div class="row">
+                                <div class="row-block">
+                                    <div class="form-group">
+                                        {% if object.image %}:
+                                            <div class="Profile-avatar">
+                                                <div class="Profile-img"><img src="{{object.image.url}}" alt="f84fd2ccc3eb706c90486b8fcec56ceb.jpg">
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row-block">
+                                    <div class="form-group">
+                                        <label class="form-label" for="address">{{ _('Адрес') }}
+                                        </label>
+                                        <h3>{{object.address}}</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone">{{ _('Телефон') }}
+                                        <h3>{{object.phone}}</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="mail">{{ _('E-mail') }}
+                                        </label>
+                                         <h3>{{object.email}}</h3>
+                                    {% for product in offers %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="Section-content">
+                    <header class="Section-header">
+                        <h2 class="Section-title">{{ _('Популярные товары') }}
+                        </h2>
+                    </header>
+                    <div class="Cards">
+                    {% for product in offers %}
+                        <div class="Card"><a class="Card-picture" href="#"><img src="{{ product.product.image }}" alt="card.jpg"></a>
+                            <div class="Card-content">
+                                <strong class="Card-title"><a href="product.html">{{ product.product.name }}</a>
+                                </strong>
+                                <div class="Card-description">
+                                    <div class="Card-cost"><span class="Card-price">{{ product.price }}</span>
+                                    </div>
+                                    <div class="Card-category">{{ product.product.category }}
+                                    </div>
+                                    <div class="Card-hover"><a class="Card-btn" href="#"><img src="assets/img/icons/card/cart.svg" alt="cart.svg"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

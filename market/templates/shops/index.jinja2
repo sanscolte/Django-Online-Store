@@ -1,0 +1,143 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    {% include "menu.jinja2" %}
+    <div class="Middle">
+        <div class="Section">
+            <div class="wrap">
+                <div class="BannersHome">
+                    {% for banner in banners %}
+                        <a class="BannersHomeBlock" href="{{ url('products:product-detail', pk=banner.product.pk) }}">
+                            <div class="BannersHomeBlock-row">
+                                <div class="BannersHomeBlock-block">
+                                    <strong class="BannersHomeBlock-title">{{ banner.product.name }}
+                                    </strong>
+                                    <div class="BannersHomeBlock-content">from&#32;<span class="BannersHomeBlock-price">${{ banner.product.min_price[0] }}</span>
+                                    </div>
+                                </div>
+                                <div class="BannersHomeBlock-block">
+                                    <div class="BannersHomeBlock-img"><img src="{{ banner.product.product_images.first().image.url }}" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="Section Section_column Section_columnLeft Section_columnDesktop">
+            <div class="wrap">
+                {% if show_days_offer %}
+                <div class="Section-column">
+                    <div class="Section-columnSection Section-columnSection_mark">
+                      <header class="Section-columnHeader">
+                        <strong class="Section-columnTitle">{{ _('ОГРАНИЧЕННЫЕ ПРЕДЛОЖЕНИЯ') }}
+                        </strong>
+                      </header>
+                      <div class="Card"><a class="Card-picture" href="{{ url('products:product-detail', pk=discount_product.products.all().first().pk) }}"><img src="{{ discount_product.products.all().first().product_images.first().image.url }}" alt="card.jpg"/></a>
+                        <div class="Card-content">
+                          <strong class="Card-title"><a href="{{ url('products:product-detail', pk=discount_product.products.all().first().pk) }}">{{ discount_product.products.all().first().name }}</a>
+                          </strong>
+                          <div class="Card-description">
+                            <div class="Card-cost"><span class="Card-priceOld">${{ discount_product.products.all().first().min_price[0] }}</span><span class="Card-price">${{ discount_product.products.all().first().min_price[0] - (discount_product.products.all().first().min_price[0] * discount_product.percentage // 100) }}</span>
+                            </div>
+                            <div class="Card-category">{{ discount_product.products.all().first().category.name }}
+                            </div>
+                          </div>
+                          <div class="CountDown" data-date="{{ discount_product.end_date.strftime('%d.%m.%Y')}} 00:00">
+                            <div class="CountDown-block">
+                              <div class="CountDown-wrap">
+                                <div class="CountDown-days">
+                                </div><span class="CountDown-label">days</span>
+                              </div>
+                            </div>
+                            <div class="CountDown-block">
+                              <div class="CountDown-wrap">
+                                <div class="CountDown-hours">
+                                </div><span class="CountDown-label">hours</span>
+                              </div>
+                            </div>
+                            <div class="CountDown-block">
+                              <div class="CountDown-wrap">
+                                <div class="CountDown-minutes">
+                                </div><span class="CountDown-label">mins</span>
+                              </div>
+                            </div>
+                            <div class="CountDown-block">
+                              <div class="CountDown-wrap">
+                                <div class="CountDown-secs">
+                                </div><span class="CountDown-label">secs</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="Section-content">
+                    <header class="Section-header">
+                        <h2 class="Section-title">{{ _('Популярные товары') }}
+                        </h2>
+                    </header>
+                    <div class="Cards">
+                        {% set count_top = top_items_count %}
+                        {% for offer in filtered_offers[:count_top] %}
+                            <div class="Card"><a class="Card-picture" href="{{ url('products:product-detail', pk=offer.product.pk) }}"><img src="{{ offer.product.product_images.first().image.url }}" alt="card.jpg" /></a>
+                                <div class="Card-content">
+                                    <strong class="Card-title"><a href="{{ url('products:product-detail', pk=offer.product.pk) }}">{{ offer.product.name }}</a>
+                                    </strong>
+                                    <div class="Card-description">
+                                        <div class="Card-cost"><span class="Card-price">${{ offer.product.min_price[0] }}</span>
+                                        </div>
+                                        <div class="Card-category">{{ offer.product.category.name }}
+                                        </div>
+                                        {% include "shops/cart-service.jinja2" %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Section Section_column Section_columnRight">
+            <div class="wrap">
+                <div class="Section-content">
+                    <div class="Slider Slider_carousel">
+                        <header class="Section-header Section-header_close">
+                            <h2 class="Section-title">{{ _('Ограниченный тираж') }}
+                            </h2>
+                            <div class="Section-control">
+                                <div class="Slider-navigate">
+                                </div>
+                            </div>
+                        </header>
+                        <div class="Slider-box Cards">
+                            {% set count_limited = limited_edition_count %}
+                            {% for offer in filtered_offers[:count_limited] %}
+                                <div class="Slider-item">
+                                    <div class="Slider-content">
+                                        <div class="Card"><a class="Card-picture" href="{{ url('products:product-detail', pk=offer.product.pk) }}"><img src="{{ offer.product.product_images.first().image.url }}" alt="card.jpg" /></a>
+                                            <div class="Card-content">
+                                                <strong class="Card-title"><a href="{{ url('products:product-detail', pk=offer.product.pk) }}">{{ offer.product.name }}</a>
+                                                </strong>
+                                                <div class="Card-description">
+                                                    <div class="Card-cost"><span class="Card-price">${{ offer.product.min_price[0] }}</span>
+                                                    </div>
+                                                    <div class="Card-category">{{ offer.product.category.name }}
+                                                    </div>
+                                                    {% include "shops/cart-service.jinja2" %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

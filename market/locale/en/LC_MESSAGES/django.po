@@ -1,0 +1,835 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-29 22:48+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\accounts\forms.py:112
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: .\accounts\models.py:14 .\products\models.py:167 .\products\models.py:184
+msgid "Пользователь"
+msgstr "User"
+
+#: .\accounts\models.py:15
+msgid "Пользователи"
+msgstr "Users"
+
+#: .\accounts\models.py:17
+msgid "Email адрес"
+msgstr "Email address"
+
+#: .\accounts\models.py:18
+msgid "Полное имя"
+msgstr "Full name"
+
+#: .\accounts\models.py:19 .\templates\accounts\profile.jinja2:20
+msgid "Аватар"
+msgstr "Avatar"
+
+#: .\accounts\models.py:20 .\templates\accounts\profile.jinja2:59
+#: .\templates\footer.jinja2:24 .\templates\orders\order_detail.jinja2:36
+#: .\templates\orders\order_step_1.jinja2:34
+#: .\templates\orders\order_step_4.jinja2:26
+#: .\templates\shops\shops_detail.jinja2:31
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\accounts\models.py:24
+msgid "Дата регистрации"
+msgstr "Date of registration"
+
+#: .\config\settings.py:165
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:166
+msgid "Russian"
+msgstr "Russian"
+
+#: .\discounts\models.py:13
+msgid "наименование события"
+msgstr "event name"
+
+#: .\discounts\models.py:14
+msgid "процент скидки"
+msgstr "discount percentage"
+
+#: .\discounts\models.py:15
+msgid "начало действия"
+msgstr "start of action"
+
+#: .\discounts\models.py:16
+msgid "окончание действия"
+msgstr "end of action"
+
+#: .\discounts\models.py:35
+msgid "Скидка для продукта"
+msgstr "Discount for product"
+
+#: .\discounts\models.py:36
+msgid "Скидки для продуктов"
+msgstr "Discounts for products"
+
+#: .\discounts\models.py:46 .\discounts\models.py:61
+msgid "вес скидки"
+msgstr "weight of discount"
+
+#: .\discounts\models.py:51
+msgid "Скидка для набора"
+msgstr "Discount for set"
+
+#: .\discounts\models.py:52
+msgid "Скидки на наборов"
+msgstr "Discounts for sets"
+
+#: .\discounts\models.py:64
+msgid "диапазон цены от"
+msgstr "price range from"
+
+#: .\discounts\models.py:65
+msgid "диапазон цены до"
+msgstr "price range to"
+
+#: .\discounts\models.py:68
+msgid "Скидка для корзины"
+msgstr "Discount for cart"
+
+#: .\discounts\models.py:69
+msgid "Скидки для корзины"
+msgstr "Discounts for cart"
+
+#: .\orders\models.py:34 .\templates\orders\history_order.jinja2:34
+#: .\templates\orders\order_detail.jinja2:8
+msgid "Заказ"
+msgstr "Order"
+
+#: .\orders\models.py:35
+msgid "Заказы"
+msgstr "Orders"
+
+#: .\orders\models.py:37
+msgid "полное имя"
+msgstr "full name"
+
+#: .\orders\models.py:38 .\shops\models.py:27
+msgid "email"
+msgstr "email"
+
+#: .\orders\models.py:39 .\shops\models.py:25
+msgid "телефон"
+msgstr "phone"
+
+#: .\orders\models.py:40
+msgid "создан"
+msgstr "created"
+
+#: .\orders\models.py:44
+msgid "доставка"
+msgstr "delivery"
+
+#: .\orders\models.py:48 .\shops\models.py:26
+msgid "адрес"
+msgstr "adderss"
+
+#: .\orders\models.py:49
+msgid "город"
+msgstr "city"
+
+#: .\orders\models.py:55
+msgid "оплата"
+msgstr "payment"
+
+#: .\orders\models.py:58
+msgid "статус"
+msgstr "status"
+
+#: .\orders\models.py:60
+msgid "итоговая цена"
+msgstr "total price"
+
+#: .\orders\models.py:67 .\orders\models.py:68
+msgid "Продукты в Заказе"
+msgstr "Products in Order"
+
+#: .\orders\models.py:70
+msgid "заказ"
+msgstr "order"
+
+#: .\orders\models.py:72
+msgid "предложение"
+msgstr "offer"
+
+#: .\orders\models.py:74 .\shops\models.py:41
+msgid "цена"
+msgstr "price"
+
+#: .\orders\models.py:75
+msgid "количество"
+msgstr "quantity"
+
+#: .\products\models.py:30
+msgid "Категория"
+msgstr "Category"
+
+#: .\products\models.py:31 .\templates\discounts\discount-sets.jinja2:37
+msgid "Категории"
+msgstr "Categories"
+
+#: .\products\models.py:33 .\products\models.py:56 .\products\models.py:97
+msgid "наименование"
+msgstr "name"
+
+#: .\products\models.py:34 .\products\models.py:57 .\shops\models.py:21
+msgid "описание"
+msgstr "description"
+
+#: .\products\models.py:37
+msgid "индекс сортировки"
+msgstr "sort index"
+
+#: .\products\models.py:53 .\products\models.py:166 .\products\models.py:187
+#: .\templates\discounts\discount-product.jinja2:38
+msgid "Продукт"
+msgstr "Product"
+
+#: .\products\models.py:54
+msgid "Продукты"
+msgstr "Products"
+
+#: .\products\models.py:60
+msgid "характеристики"
+msgstr "characteristics"
+
+#: .\products\models.py:107
+msgid "характеристика"
+msgstr "characteristic"
+
+#: .\products\models.py:108
+msgid "значение"
+msgstr "value"
+
+#: .\products\models.py:127
+msgid "Фтография продукта"
+msgstr "Image product"
+
+#: .\products\models.py:128
+msgid "Фотографии продуктов"
+msgstr "Images product"
+
+#: .\products\models.py:131 .\products\models.py:151
+msgid "изображение"
+msgstr "image"
+
+#: .\products\models.py:147
+msgid "Баннер"
+msgstr "Banner"
+
+#: .\products\models.py:148
+msgid "Баннеры"
+msgstr "Banners"
+
+#: .\products\models.py:160 .\products\models.py:168
+msgid "Отзыв"
+msgstr "Review"
+
+#: .\products\models.py:161 .\templates\products\product-details.jinja2:44
+msgid "Отзывы"
+msgstr "Reviews"
+
+#: .\settings\models.py:48
+msgid "Настройки сайта"
+msgstr "Site settings"
+
+#: .\settings\models.py:51
+msgid "настройки"
+msgstr "settings"
+
+#: .\settings\models.py:52
+msgid "настройка"
+msgstr "setting"
+
+#: .\shops\models.py:11 .\templates\products\offers.jinja2:7
+msgid "Магазин"
+msgstr "Shop"
+
+#: .\shops\models.py:12
+msgid "Магазины"
+msgstr "Shops"
+
+#: .\shops\models.py:14
+msgid "название"
+msgstr "name"
+
+#: .\shops\models.py:19
+msgid "товары в магазине"
+msgstr "product in shop"
+
+#: .\shops\models.py:23
+msgid "изображение товара"
+msgstr "image product"
+
+#: .\shops\models.py:42
+msgid "остатки"
+msgstr "leftovers"
+
+#: .\shops\models.py:46
+msgid "Предложение магазина"
+msgstr "Offer"
+
+#: .\shops\models.py:47
+msgid "Предложения магазина"
+msgstr "Offers"
+
+#: .\templates\accounts\login.jinja2:7
+#: .\templates\accounts\password_reset_form.jinja2:36
+#: .\templates\accounts\registration.jinja2:68 .\templates\header.jinja2:27
+msgid "Вход"
+msgstr "Enter"
+
+#: .\templates\accounts\login.jinja2:21
+#: .\templates\accounts\password_reset_form.jinja2:20
+#: .\templates\accounts\profile.jinja2:49
+#: .\templates\orders\order_detail.jinja2:42
+#: .\templates\orders\order_step_1.jinja2:42
+#: .\templates\orders\order_step_4.jinja2:30
+#: .\templates\shops\shops_detail.jinja2:35
+msgid "E-mail"
+msgstr "E-mail"
+
+#: .\templates\accounts\login.jinja2:31
+#: .\templates\accounts\password_reset_confirm.jinja2:27
+#: .\templates\accounts\profile.jinja2:69
+#: .\templates\orders\order_step_1.jinja2:53
+#: .\templates\orders\order_step_1.jinja2:69
+msgid "Пароль"
+msgstr "Password"
+
+#: .\templates\accounts\login.jinja2:44
+msgid "Войти"
+msgstr "Login"
+
+#: .\templates\accounts\login.jinja2:47
+msgid "Забыли пароль?"
+msgstr "Forgot your password"
+
+#: .\templates\accounts\login.jinja2:49
+#: .\templates\accounts\registration.jinja2:7 .\templates\header.jinja2:29
+msgid "Регистрация"
+msgstr "Registration"
+
+#: .\templates\accounts\password_reset_complete.jinja2:7
+msgid "Восстановление пароля "
+msgstr "Password recovery"
+
+#: .\templates\accounts\password_reset_complete.jinja2:17
+msgid "Пароль был изменен!"
+msgstr "The password has been changed!"
+
+#: .\templates\accounts\password_reset_confirm.jinja2:7
+msgid "Восстановление пароля"
+msgstr "Password recovery"
+
+#: .\templates\accounts\password_reset_confirm.jinja2:16
+msgid "Пожалуйста введите (и подтвердите) ваш новый пароль."
+msgstr "Please enter (and confirm) your new password."
+
+#: .\templates\accounts\password_reset_confirm.jinja2:49
+#: .\templates\accounts\profile.jinja2:91
+msgid "Сохранить"
+msgstr "Save"
+
+#: .\templates\accounts\password_reset_confirm.jinja2:59
+msgid "Сброс пароля не удался"
+msgstr "Password reset failed"
+
+#: .\templates\accounts\password_reset_done.jinja2:7
+msgid "Восстановление пароля (2/2)"
+msgstr "Password recovery (2/2)"
+
+#: .\templates\accounts\password_reset_form.jinja2:7
+msgid "Восстановление пароля (1/2)"
+msgstr "Password recovery (1/2)"
+
+#: .\templates\accounts\password_reset_form.jinja2:8
+msgid "Для восстановления пароля введите адрес электронной почты, на которую зарегистрирована учетная запись"
+msgstr "To recover your password, enter the email address you registered your account with"
+
+#: .\templates\accounts\password_reset_form.jinja2:31
+msgid "Сбросить"
+msgstr "Reset"
+
+#: .\templates\accounts\profile.jinja2:25
+msgid "аватар"
+msgstr "avatar"
+
+#: .\templates\accounts\profile.jinja2:37
+#: .\templates\orders\order_detail.jinja2:30
+#: .\templates\orders\order_step_1.jinja2:26
+#: .\templates\orders\order_step_4.jinja2:22
+msgid "ФИО"
+msgstr "SNS"
+
+#: .\templates\accounts\registration.jinja2:67
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+#: .\templates\base.jinja2:5
+msgid "Описание страницы"
+msgstr "Description of the page"
+
+#: .\templates\cart\details.jinja2:4 .\templates\cart\details.jinja2:12
+msgid "Корзина"
+msgstr "Cart"
+
+#: .\templates\cart\details.jinja2:29
+#: .\templates\orders\order_detail.jinja2:122
+#: .\templates\orders\order_step_4.jinja2:79
+msgid "Итого"
+msgstr "Total"
+
+#: .\templates\cart\details.jinja2:36
+msgid "Оформить заказ"
+msgstr "Checkout"
+
+#: .\templates\cart\details.jinja2:40
+msgid "Ваша корзина пуста. Перейдите в"
+msgstr "Your cart is empty. Go to"
+
+#: .\templates\cart\details.jinja2:41
+msgid "каталог"
+msgstr "catalog"
+
+#: .\templates\cart\details.jinja2:42
+msgid "чтобы совершить покупки"
+msgstr "to make purchases"
+
+#: .\templates\discounts\discount-cart.jinja2:25
+#: .\templates\discounts\discount-product.jinja2:25
+#: .\templates\discounts\discount-sets.jinja2:25
+#: .\templates\products\product-details.jinja2:18
+msgid "Изображение товара"
+msgstr "Image product"
+
+#: .\templates\discounts\discount-cart.jinja2:30
+#: .\templates\discounts\discount-product.jinja2:30
+#: .\templates\discounts\discount-sets.jinja2:30
+#: .\templates\products\product-details.jinja2:35
+msgid "Описание"
+msgstr "Description"
+
+#: .\templates\discounts\discount-cart.jinja2:35
+#: .\templates\discounts\discount-product.jinja2:35
+#: .\templates\discounts\discount-sets.jinja2:35
+msgid "Событие"
+msgstr "Event"
+
+#: .\templates\discounts\discount-cart.jinja2:36
+#: .\templates\discounts\discount-product.jinja2:36
+#: .\templates\discounts\discount-sets.jinja2:36
+msgid "Процент скидки"
+msgstr "Discount percentage"
+
+#: .\templates\discounts\discounts_list.jinja2:10 .\templates\footer.jinja2:10
+#: .\templates\header.jinja2:43
+msgid "Главная"
+msgstr "Main"
+
+#: .\templates\discounts\discounts_list.jinja2:12
+msgid "Блог"
+msgstr "Blog"
+
+#: .\templates\footer.jinja2:7 .\templates\navigation.jinja2:4
+#: .\templates\orders\history_order.jinja2:10
+msgid "Навигация"
+msgstr "Navigation"
+
+#: .\templates\footer.jinja2:12 .\templates\header.jinja2:45
+msgid "Каталог"
+msgstr "Catalog"
+
+#: .\templates\footer.jinja2:14 .\templates\header.jinja2:47
+msgid "Сравнение"
+msgstr "Comparison"
+
+#: .\templates\footer.jinja2:16 .\templates\navigation.jinja2:12
+#: .\templates\orders\history_order.jinja2:18
+msgid "Профиль"
+msgstr "Profile"
+
+#: .\templates\footer.jinja2:22
+msgid "Контакты"
+msgstr "Contacts"
+
+#: .\templates\header.jinja2:25 .\templates\header.jinja2:60
+msgid "Выход"
+msgstr "Exit"
+
+#: .\templates\header.jinja2:45 .\templates\products\product-details.jinja2:79
+msgid "Скидки"
+msgstr "Discounts"
+
+#: .\templates\header.jinja2:58 .\templates\navigation.jinja2:10
+#: .\templates\orders\history_order.jinja2:16
+msgid "Личный кабинет"
+msgstr "Account"
+
+#: .\templates\header.jinja2:59
+msgid "Административный раздел"
+msgstr "Administrative section"
+
+#: .\templates\header.jinja2:69
+msgid "Показать навигацию"
+msgstr "Show navigation"
+
+#: .\templates\header.jinja2:81
+msgid "Все категории"
+msgstr "All categories"
+
+#: .\templates\header.jinja2:88
+msgid "Имя"
+msgstr "Name"
+
+#: .\templates\header.jinja2:100
+msgid "Поиск"
+msgstr "Search"
+
+#: .\templates\navigation.jinja2:14 .\templates\orders\history_order.jinja2:20
+msgid "История заказов"
+msgstr "History of orders"
+
+#: .\templates\navigation.jinja2:16
+msgid "История просмотров"
+msgstr "Browsing history"
+
+#: .\templates\orders\history_order.jinja2:34
+msgid "от"
+msgstr "from"
+
+#: .\templates\orders\history_order.jinja2:38
+#: .\templates\orders\order_detail.jinja2:50
+#: .\templates\orders\order_step_4.jinja2:36
+
+msgid "Тип доставки"
+msgstr "Delivery type"
+
+#: .\templates\orders\history_order.jinja2:44
+#: .\templates\orders\order_detail.jinja2:68
+#: .\templates\orders\order_step_4.jinja2:49
+msgid "Оплата"
+msgstr "Payment"
+
+#: .\templates\orders\history_order.jinja2:50
+msgid "Общая стоимость"
+msgstr "Total price"
+
+#: .\templates\orders\history_order.jinja2:57
+#: .\templates\orders\history_order.jinja2:64
+#: .\templates\orders\order_detail.jinja2:75
+#: .\templates\orders\order_detail.jinja2:82
+msgid "Статус"
+msgstr "Status"
+
+#: .\templates\orders\history_order.jinja2:70
+#: .\templates\orders\order_detail.jinja2:88
+msgid "Оплата не прошла"
+msgstr "Payment failed"
+
+#: .\templates\orders\history_order.jinja2:72
+#: .\templates\orders\order_detail.jinja2:90
+msgid "Оплата не выполнена"
+msgstr "Payment failed"
+
+#: .\templates\orders\order.jinja2:4 .\templates\orders\order.jinja2:14
+msgid "Оформление заказа"
+msgstr "Placing an order"
+
+#: .\templates\orders\order.jinja2:24
+msgid "Прогресс заполнения"
+msgstr "Filling progress"
+
+#: .\templates\orders\order_detail.jinja2:24
+msgid "Дата заказа"
+msgstr "Date of order"
+
+#: .\templates\orders\order_detail.jinja2:56
+#: .\templates\orders\order_step_2.jinja2:28
+#: .\templates\orders\order_step_4.jinja2:41
+msgid "Город"
+msgstr "City"
+
+#: .\templates\orders\order_detail.jinja2:62
+#: .\templates\orders\order_step_2.jinja2:33
+#: .\templates\orders\order_step_4.jinja2:45
+#: .\templates\shops\shops_detail.jinja2:26
+msgid "Адрес"
+msgstr "Adderss"
+
+#: .\templates\orders\order_detail.jinja2:125
+#: .\templates\orders\order_step_4.jinja2:84
+msgid "Оплатить"
+msgstr "Pay"
+
+#: .\templates\orders\order_step_1.jinja2:4
+#: .\templates\orders\order_step_1.jinja2:21
+#: .\templates\orders\order_step_2.jinja2:4
+#: .\templates\orders\order_step_3.jinja2:4
+#: .\templates\orders\order_step_4.jinja2:4
+msgid "Шаг 1. Параметры пользователя"
+msgstr "Step 1: User Settings"
+
+#: .\templates\orders\order_step_1.jinja2:7
+#: .\templates\orders\order_step_2.jinja2:7
+#: .\templates\orders\order_step_2.jinja2:21
+#: .\templates\orders\order_step_3.jinja2:7
+#: .\templates\orders\order_step_4.jinja2:7
+msgid "Шаг 2. Способ доставки"
+msgstr "Step 2. Delivery type"
+
+#: .\templates\orders\order_step_1.jinja2:10
+#: .\templates\orders\order_step_2.jinja2:10
+#: .\templates\orders\order_step_3.jinja2:10
+#: .\templates\orders\order_step_3.jinja2:21
+#: .\templates\orders\order_step_4.jinja2:10
+msgid "Шаг 3. Способ оплаты"
+msgstr "Step 3. Payment type"
+
+#: .\templates\orders\order_step_1.jinja2:13
+#: .\templates\orders\order_step_2.jinja2:13
+#: .\templates\orders\order_step_3.jinja2:13
+#: .\templates\orders\order_step_4.jinja2:13
+msgid "Шаг 4. Подтверждение заказа"
+msgstr "Step 4. Order confirmation"
+
+#: .\templates\orders\order_step_1.jinja2:55
+msgid "Тут можно изменить пароль"
+msgstr "You can change your password here"
+
+#: .\templates\orders\order_step_1.jinja2:59
+#: .\templates\orders\order_step_1.jinja2:75
+msgid "Подтверждение пароля"
+msgstr "Password confirmation"
+
+#: .\templates\orders\order_step_1.jinja2:61
+#: .\templates\orders\order_step_1.jinja2:76
+msgid "Введите пароль повторно"
+msgstr "Re-enter your password"
+
+#: .\templates\orders\order_step_1.jinja2:65
+#: .\templates\orders\order_step_1.jinja2:81
+msgid "Я уже зарегистрирован"
+msgstr "I'm already registered"
+
+#: .\templates\orders\order_step_1.jinja2:70
+msgid "Введите пароль"
+msgstr "enter password"
+
+#: .\templates\orders\order_step_1.jinja2:87
+#: .\templates\orders\order_step_2.jinja2:38
+#: .\templates\orders\order_step_3.jinja2:28
+msgid "Дальше"
+msgstr "Next"
+
+#: .\templates\products\add-to-list.jinja2:10
+msgid "добавлен в список сравнения"
+msgstr "added to comparison list"
+
+#: .\templates\products\add-to-list.jinja2:12
+msgid "не добавлен в список сравнения"
+msgstr "not added to comparison list"
+
+#: .\templates\products\add-to-list.jinja2:13
+msgid "Достигнуто максимальное число товаров в списке сравнения"
+msgstr "The maximum number of products in the comparison list has been reached"
+
+#: .\templates\products\add-to-list.jinja2:16
+#: .\templates\products\remove-from-list.jinja2:11
+msgid "Назад к товару"
+msgstr "Return to product"
+
+#: .\templates\products\catalog.jinja2:10
+#: .\templates\products\catalog.jinja2:44
+msgid "Фильтр"
+msgstr "Filter"
+
+#: .\templates\products\catalog.jinja2:26
+msgid "Название"
+msgstr "Name"
+
+#: .\templates\products\catalog.jinja2:34
+msgid "Только товары в наличии"
+msgstr "Only products in shop"
+
+#: .\templates\products\catalog.jinja2:40
+msgid "С бесплатной доставкой"
+msgstr "free delivery"
+
+#: .\templates\products\catalog.jinja2:52
+msgid "Популярные тэги"
+msgstr "Popular tags"
+
+#: .\templates\products\catalog.jinja2:56
+#: .\templates\products\catalog.jinja2:61
+msgid "Видео"
+msgstr "Video"
+
+#: .\templates\products\catalog.jinja2:57
+#: .\templates\products\catalog.jinja2:60
+msgid "Разработка"
+msgstr "Develop"
+
+#: .\templates\products\catalog.jinja2:58
+msgid "Игры"
+msgstr "Games"
+
+#: .\templates\products\catalog.jinja2:68
+msgid "Сортировать по"
+msgstr "Sort by"
+
+#: .\templates\products\catalog.jinja2:71
+msgid "Популярности"
+msgstr "Popularity"
+
+#: .\templates\products\catalog.jinja2:72
+msgid "Цене"
+msgstr "Price"
+
+#: .\templates\products\catalog.jinja2:73
+msgid "Отзывам"
+msgstr "Review"
+
+#: .\templates\products\catalog.jinja2:74
+msgid "Новизне"
+msgstr "Novelty"
+
+#: .\templates\products\comparison-products.jinja2:36
+msgid "В списке сравнения нет ни одного товара! Добавьте свой первый товар из"
+msgstr "There are no products in the comparison list! Add your first product from"
+
+#: .\templates\products\comparison-products.jinja2:36
+msgid "каталога"
+msgstr "catalog"
+
+#: .\templates\products\details.jinja2:11
+msgid "У товара пока не занесены характеристики"
+msgstr "The product has no specifications yet"
+
+#: .\templates\products\offers.jinja2:6
+msgid "Изображение магазина"
+msgstr "Shop image"
+
+#: .\templates\products\offers.jinja2:8
+msgid "Цена"
+msgstr "Price"
+
+#: .\templates\products\offers.jinja2:9
+msgid "Товаров осталось"
+msgstr "Products left"
+
+#: .\templates\products\offers.jinja2:20
+msgid "В корзину"
+msgstr "Add to cart"
+
+#: .\templates\products\offers.jinja2:26
+msgid "Пока нет предложений от продавцов"
+msgstr "There are no offers from sellers yet"
+
+#: .\templates\products\product-details.jinja2:28
+msgid "У товара пока нет фотографий"
+msgstr "There are no photos of the product yet"
+
+#: .\templates\products\product-details.jinja2:38
+msgid "Предложения"
+msgstr "Offers"
+
+#: .\templates\products\product-details.jinja2:41
+msgid "Характеристики"
+msgstr "Characteristics"
+
+#: .\templates\products\product-details.jinja2:62
+msgid "Удалить из списка сравнения"
+msgstr "Remove from comparison list"
+
+#: .\templates\products\product-details.jinja2:70
+#: .\templates\products\product-details.jinja2:73
+msgid "Добавить в список сравнения"
+msgstr "Add from comparison list"
+
+#: .\templates\products\product-details.jinja2:72
+msgid "В списке сравнения максимальное количество товаров"
+msgstr "There is a maximum number of products in the comparison list"
+
+#: .\templates\products\remove-from-list.jinja2:9
+msgid "удалён из списка сравнения"
+msgstr "removed from comparison list"
+
+#: .\templates\products\reviews.jinja2:4
+msgid "отзыв"
+msgstr "review"
+
+#: .\templates\products\reviews.jinja2:30
+msgid "Показать еще"
+msgstr "Show more"
+
+#: .\templates\products\reviews.jinja2:36
+msgid "Добавить отзыв"
+msgstr "Add review"
+
+#: .\templates\products\reviews.jinja2:49
+msgid "Отправить отзыв"
+msgstr "Post a review"
+
+#: .\templates\products\seen-products.jinja2:2
+msgid "Ранее просмотренные товары"
+msgstr "Previously viewed products"
+
+#: .\templates\products\seen-products.jinja2:12
+msgid "Пока у вас нет просмотренных товаров"
+msgstr "You have no viewed products yet"
+
+#: .\templates\settings\settings.jinja2:6
+msgid "Настройка сайта"
+msgstr "Site setup"
+
+#: .\templates\settings\settings.jinja2:27
+msgid "Сохранить изменения"
+msgstr "Save changes"
+
+#: .\templates\settings\settings.jinja2:34
+msgid "Сбросить кэш всего сайта"
+msgstr "Reset entire site cache"
+
+#: .\templates\settings\settings.jinja2:39
+msgid "Сбросить кэш детальных страниц продуктов"
+msgstr "Reset product detail page cache"
+
+#: .\templates\settings\settings.jinja2:44
+msgid "Сбросить кэш страницы списка продуктов"
+msgstr "Reset product list page cache"
+
+#: .\templates\shops\index.jinja2:33
+msgid "ОГРАНИЧЕННЫЕ ПРЕДЛОЖЕНИЯ"
+msgstr "LIMITED OFFERS"
+
+#: .\templates\shops\index.jinja2:78 .\templates\shops\shops_detail.jinja2:46
+msgid "Популярные товары"
+msgstr "Popular products"
+
+#: .\templates\shops\index.jinja2:121
+msgid "Ограниченный тираж"
+msgstr "Limited edition"

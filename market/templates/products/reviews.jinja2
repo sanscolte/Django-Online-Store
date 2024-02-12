@@ -1,0 +1,54 @@
+<div class="Tabs-block" id="reviews">
+    {% if reviews %}
+    <header class="Section-header">
+        <h3 class="Section-title">{{ reviews|length }} {{ _('отзыв') }}
+        </h3>
+    </header>
+    {% for review in reviews %}
+        <div class="Comments">
+            <div class="Comment">
+                <div class="Comment-column Comment-column_pict">
+                    <div class="Comment-avatar">
+                    </div>
+                </div>
+                <div class="Comment-column">
+                    <header class="Comment-header">
+                        <div>
+                            <strong class="Comment-title">{{ review.user }}
+                            </strong><span class="Comment-date">Декабрь 25&#32;&#32;/&#32;&#32;2017&#32;&#32;/&#32;&#32;22:50</span>
+                        </div>
+                    </header>
+                    <div class="Comment-content">{{ review.text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if has_next %}
+        <div class="pagination">
+            <a href="?page={{ next_page }}">{{ _('Показать еще') }}</a>
+        </div>
+    {% endif %}
+
+    {% endif %}
+    <header class="Section-header Section-header_product">
+        <h3 class="Section-title">{{ _('Добавить отзыв') }}
+        </h3>
+    </header>
+    <div class="Tabs-addComment">
+        <form class="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input type="hidden" name="action" value="add_review">
+                {{ review_form }}
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn_muted" type="submit" name="btnform2">{{ _('Отправить отзыв') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

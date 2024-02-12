@@ -1,0 +1,120 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+        <div class="Middle Middle_top">
+            <div class="Section">
+                <div class="wrap">
+                    <div class="Product">
+                        <div class="ProductCard">
+                            {% if images %}
+                                <div class="ProductCard-look">
+                                    <div class="ProductCard-photo">
+                                        <img src="{{ images[0].image.url }}" alt="{{ _('Изображение товара') }}">
+                                    </div>
+                                    <div class="ProductCard-picts">
+                                        {% for image in images %}
+                                            <a class="ProductCard-pict" href="{{ image.image.url }}">
+                                                <img src="{{ image.image.url }}" alt="{{ _('Изображение товара') }}">
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <h3>{{ _('У товара пока нет фотографий') }}!</h3>
+                            {% endif %}
+                            <div class="ProductCard-desc">
+                                <div class="ProductCard-header">
+                                    <h2 class="ProductCard-title">{{ product.name }}</h2>
+                                    <div class="ProductCard-info">
+                                        <div class="ProductCard-cost">
+                                            {% if offers %}
+                                                {% set min_price = offers|map(attribute='price')|min %}
+                                                <div class="ProductCard-price">
+                                                    от {{ min_price }}₽
+                                                </div>
+                                            {% else %}
+                                                <div class="ProductCard-price">
+                                                    {{ _('Пока нет предложений от продавцов') }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ProductCard-text comparison-block">
+                                    {% if is_product_in_comparison %}
+                                        <form method="post" action="{{ url('products:remove-from-list', pk=product.pk) }}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="remove_from_comparison">
+                                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+                                            <button type="submit" class="btn btn_primary">
+                                                {{ _('Удалить из списка сравнения') }}
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <form method="post" action="{{ url('products:add-to-list', pk=product.pk) }}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="add_to_comparison">
+                                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+                                            {% if comparison_count is not boolean %}
+                                                <button type="submit" class="btn btn_primary">
+                                                    {{ _('Добавить в список сравнения') }}
+                                                </button>
+                                            {% else %}
+                                                <b>{{ _('В списке сравнения максимальное количество товаров') }}!</b>
+                                            {% endif %}
+                                        </form>
+                                    {% endif %}
+                                </div>
+                                <div class="ProductCard-cart">
+                                    <form class="ProductCard-cart" method="post">
+                                        {% csrf_token %}
+                                        <div class="ProductCard-cartElement ProductCard-cartElement_amount">
+                                            <div class="Amount Amount_product">
+                                                <button class="Amount-remove" type="button"></button>
+                                                {{ cart_form.quantity }}
+                                                <button class="Amount-add" type="button"></button>
+                                                <input type="hidden" class="shop_name" id="shop_name" name="shop_name">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="action" value="add_to_cart">
+                                        <div class="ProductCard-cartElement">
+                                            <button class="btn btn_primary" type="submit" name="btnform1" href="#modal_open">
+                                                <img class="btn-icon" src="{{ static('img/icons/card/cart_white.svg')}}" alt="cart_white.svg"/>
+                                                <span class="btn-content">{{ _('В корзину') }}</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Tabs Tabs_default">
+                            <div class="Tabs-links">
+                                <a class="Tabs-link" href="#description">
+                                    <span>{{ _('Описание') }}</span>
+                                </a>
+                                <a class="Tabs-link" href="#offers">
+                                    <span>{{ _('Предложения') }}</span>
+                                </a>
+                                <a class="Tabs-link" href="#details">
+                                    <span>{{ _('Характеристики') }}</span>
+                                </a>
+                                <a class="Tabs-link" href="#reviews">
+                                    <span>{{ _('Отзывы') }} ({{ reviews_count }})</span>
+                                </a>
+                            </div>
+                            <div class="Tabs-wrap">
+                                <div class="Tabs-block" id="description" style>
+                                    {{ product.description }}
+                                </div>
+                                {% include "products/offers.jinja2" %}
+                                {% include "products/details.jinja2" %}
+                                {% include "products/reviews.jinja2" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    {{ _('Оформление заказа') }}
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="Middle Middle_top">
+    <div class="Middle-top">
+      <div class="wrap">
+        <div class="Middle-header">
+          <h1 class="Middle-title">{{ _('Оформление заказа' ) }}
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div class="Section Section_column Section_columnRight Section_columnWide Order">
+      <div class="wrap">
+        <div class="Section-column">
+          <div class="Section-columnSection">
+            <header class="Section-header">
+              <strong class="Section-title">{{ _('Прогресс заполнения') }}
+              </strong>
+            </header>
+            <div class="Section-columnContent">
+              <ul class="menu menu_vt Order-navigate">
+                {% block step_list %}{% endblock %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="Section-content">
+          {% block step_form %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

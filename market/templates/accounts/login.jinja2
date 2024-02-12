@@ -1,0 +1,56 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <div class="wrap">
+        <div class="wrapper">
+            <div class="header">
+                <h3 class="sign-in">{{ _('Вход') }}</h3>
+            </div>
+            <div class="clear"></div>
+            <form class="form Profile-form" action="#" method="post">
+                <div class="row">
+                    <div class="row-block">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors() %}
+                                    <div class="form-error">{{ error|escape }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="form-group">
+                                <label class="form-label" for="{{ form.username.id_for_username }}">{{ _('E-mail') }}
+                                </label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    {% for error in form.username.errors %}
+                                        <div class="form-error">{{ error|escape }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="{{ form.password.id_for_password }}">{{ _('Пароль') }}
+                                </label>
+                                {{ form.password }}
+                                {% if form.password.errors %}
+                                    {% for error in form.password.errors %}
+                                        <div class="form-error">{{ error|escape }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            {% if request.GET.next %}
+                                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                            {% endif %}
+                            <div>
+                                <input type="submit" value="{{ _('Войти') }}">
+                            </div>
+                        </form>
+                        <a class="forgot-label" href="{{ url('accounts:password_reset') }}">{{ _('Забыли пароль?') }}</a>
+                        <a class="registr" href="{{ url('accounts:registration') }}">
+                            {{ _('Регистрация') }}
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

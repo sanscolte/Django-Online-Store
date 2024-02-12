@@ -1,0 +1,163 @@
+[
+  {
+    "model": "products.detail",
+    "pk": 1,
+    "fields": {
+      "name": "Оперативная память"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 2,
+    "fields": {
+      "name": "Физическая память"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 3,
+    "fields": {
+      "name": "Ёмкость аккумулятора"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 4,
+    "fields": {
+      "name": "Экран"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 5,
+    "fields": {
+      "name": "Основная камера"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 6,
+    "fields": {
+      "name": "Дополнительная камера"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 7,
+    "fields": {
+      "name": "Размеры"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 8,
+    "fields": {
+      "name": "Вес"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 9,
+    "fields": {
+      "name": "Материалы корпуса"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 10,
+    "fields": {
+      "name": "Цвет корпуса"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 11,
+    "fields": {
+      "name": "Процессор"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 12,
+    "fields": {
+      "name": "Разрешение экрана"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 13,
+    "fields": {
+      "name": "Видеокарта"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 14,
+    "fields": {
+      "name": "Объём"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 15,
+    "fields": {
+      "name": "Класс энергопотребления"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 16,
+    "fields": {
+      "name": "Компрессор"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 17,
+    "fields": {
+      "name": "Система размораживания"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 18,
+    "fields": {
+      "name": "Режимы нагрева"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 19,
+    "fields": {
+      "name": "Количество ядер процессора"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 20,
+    "fields": {
+      "name": "Размер матрицы"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 21,
+    "fields": {
+      "name": "ISO"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 22,
+    "fields": {
+      "name": "Тип кофеварки"
+    }
+  },
+  {
+    "model": "products.detail",
+    "pk": 23,
+    "fields": {
+      "name": "Гарантия"
+    }
+  }
+]

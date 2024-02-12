@@ -1,0 +1,132 @@
+[
+  {
+    "model": "discounts.discountcart",
+    "pk": 1,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 10,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.11",
+      "price_from": "5000.00",
+      "price_to": "9000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 2,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 15,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.14",
+      "price_from": "9001.00",
+      "price_to": "11000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 3,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 20,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.21",
+      "price_from": "11001.00",
+      "price_to": "15000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 4,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 25,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.24",
+      "price_from": "15001.00",
+      "price_to": "20000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 5,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 30,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.31",
+      "price_from": "20001.00",
+      "price_to": "30001.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 6,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 35,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.33",
+      "price_from": "30002.00",
+      "price_to": "40000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 7,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 40,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.39",
+      "price_from": "40001.00",
+      "price_to": "50000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 8,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 45,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.44",
+      "price_from": "50001.00",
+      "price_to": "60000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 9,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 50,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.51",
+      "price_from": "60001.00",
+      "price_to": "70000.00"
+    }
+  },
+  {
+    "model": "discounts.discountcart",
+    "pk": 10,
+    "fields": {
+      "name": "Весь год",
+      "percentage": 60,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "weight": "0.61",
+      "price_from": "70001.00",
+      "price_to": "100000.00"
+    }
+  }
+]

@@ -1,0 +1,21 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+    <div class="Middle Middle_top">
+        <div class="Section">
+            <div class="wrap">
+                <div class="Product">
+                    {% if get_comparison_count %}
+                        <p>{{ product.name }} {{ _('добавлен в список сравнения') }}!</p>
+                    {% else %}
+                        <p>{{ product.name }} {{ _('не добавлен в список сравнения') }}!</p>
+                        <p>{{ _('Достигнуто максимальное число товаров в списке сравнения') }}</p>
+                    {% endif %}
+                </div>
+            <button href="{{ product.get_absolute_url() }}">{{ _('Назад к товару') }}</button>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

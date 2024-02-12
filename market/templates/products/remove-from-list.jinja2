@@ -1,0 +1,16 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <body class="Site">
+    <div class="Middle Middle_top">
+        <div class="Section">
+            <div class="wrap">
+                <div class="Product">
+                    <p>{{ product.name }} {{ _('удалён из списка сравнения') }}!</p>
+                </div>
+                <button href="{{ product.get_absolute_url() }}">{{ _('Назад к товару') }}</button>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}
