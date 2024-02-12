@@ -10,6 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from payment.forms import PaymentForm
 from payment.models import BankTransaction
 from payment.serializers import BankTransactionSerializer
+from cart.services import CartServices
 
 
 class BankTransactionViewSet(ModelViewSet):
@@ -31,6 +32,7 @@ class PaymentWithCardView(TemplateView):
             card_number: str = form.cleaned_data["card_number"]
             total_price: Decimal = Decimal(request.GET.get("total_price"))
             rounded_total_price: Decimal = total_price.quantize(Decimal("0.00"), rounding=ROUND_DOWN)
+            cart = CartServices(request)
 
             data: Dict[str, Union[str, int, Decimal]] = {
                 "order": order,
@@ -41,6 +43,7 @@ class PaymentWithCardView(TemplateView):
             serializer: BankTransactionSerializer = BankTransactionSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
+                cart.clear()
             else:
                 print(serializer.errors)
 

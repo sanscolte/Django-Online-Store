@@ -124,9 +124,8 @@ class CartServices:
                 shops_in_cart.append(item.shop)
         return shops_in_cart
 
-    @classmethod
-    def clear(cls) -> None:
+    def clear(self) -> None:
         """Очистка корзины."""
 
-        del cls.session[settings.CART_SESSION_ID]
-        cls.save()
+        self.cart = {}
+        self.save()
