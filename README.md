@@ -93,7 +93,3 @@ password: 61903991shalaikodima
 ## Логин и пароль для продавца
 login: salesman@example.com
 password: 61903991shalaikodima
-
-# Цели проекта
-
-Код написан в учебных целях — это курс по Джанго на сайте [Skillbox](https://go.skillbox.ru/education/course/django-framework).
